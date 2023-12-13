@@ -1,13 +1,25 @@
 #include <iostream>
 #include <raylib.h>
 
-const int WIDTH = 240, HEIGHT = 240;
+const int SCREEN_WIDTH = 240, SCREEN_HEIGHT = 240;
+
+void toggle_full_screen_window(int window_width, int window_height) {
+  if(!IsWindowFullscreen()) {
+    int monitor = GetCurrentMonitor();
+    SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
+    ToggleFullscreen();
+  }
+  else {
+    ToggleFullscreen();
+    SetWindowSize(window_width, window_height);
+  }
+}
 
 int main() {
-  InitWindow(WIDTH, HEIGHT, "Test");
+  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Test");
   SetTargetFPS(60);
 
-  Texture2D sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame_sitting.png");
+  Texture2D sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame_test.png");
 
   float frame_width = (float)(sesame.width / 6);
   int max_frames = (int)(sesame.width / (int)frame_width);
@@ -16,6 +28,10 @@ int main() {
   int frame = 0;
 
   while(!WindowShouldClose()) {
+    if(IsKeyPressed(KEY_SPACE)) {
+      toggle_full_screen_window(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    
     BeginDrawing();
     ClearBackground(PINK);
 
