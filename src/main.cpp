@@ -19,9 +19,9 @@ int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Test");
   SetTargetFPS(60);
 
-  Texture2D sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame_grooming.png");
+  Texture2D sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame_walking.png");
 
-  float frame_width = (float)(sesame.width / 12);
+  float frame_width = (float)(sesame.width / 16);
   int max_frames = (int)(sesame.width / (int)frame_width);
 
   float timer = 0.0f;
