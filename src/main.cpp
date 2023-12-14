@@ -1,7 +1,7 @@
 #include <iostream>
 #include <raylib.h>
 
-const int SCREEN_WIDTH = 240, SCREEN_HEIGHT = 240;
+const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1030;
 
 void toggle_full_screen_window(int window_width, int window_height) {
   if(!IsWindowFullscreen()) {
@@ -16,10 +16,11 @@ void toggle_full_screen_window(int window_width, int window_height) {
 }
 
 int main() {
-  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Test");
+  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sesame's Quest");
   SetTargetFPS(60);
 
   Texture2D sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_walking.png");
+  Texture2D background = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/test_background.png");
 
   float frame_width = (float)(sesame.width / 16);
   int max_frames = (int)(sesame.width / (int)frame_width);
@@ -45,7 +46,7 @@ int main() {
     frame = frame % max_frames;
 
     // Draw the entire Sesame png file
-    //DrawTexture(sesame, 0, 0, WHITE);
+    DrawTexture(background, 0, 0, WHITE);
 
     DrawTextureRec(
             sesame,
