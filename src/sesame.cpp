@@ -18,15 +18,15 @@ Sesame::~Sesame() {
   UnloadTexture(sesame_grooming);
 }
 
-float Sesame::get_sesame_walking_frame_width() {
+float Sesame::get_sesame_walking_frame_width() const {
   return sesame_walking_frame_width;
 }
 
-float Sesame::get_sesame_walking_frame_height() {
+float Sesame::get_sesame_walking_frame_height() const {
   return sesame_walking_frame_height;
 }
 
-int Sesame::get_sesame_walking_current_frame() {
+int Sesame::get_sesame_walking_current_frame() const {
   return sesame_walking_current_frame;
 }
 
@@ -36,11 +36,11 @@ void Sesame::iterate_sesame_walking_current_frame() {
   sesame_walking_current_frame = sesame_walking_current_frame % sesame_walking_max_frames;
 }
 
-float Sesame::get_sesame_walking_position_x() {
+float Sesame::get_sesame_walking_position_x() const {
   return sesame_walking_position_x;
 }
 
-float Sesame::get_sesame_walking_position_y() {
+float Sesame::get_sesame_walking_position_y() const {
   return sesame_walking_position_y;
 }
 
