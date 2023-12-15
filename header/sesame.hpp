@@ -6,7 +6,18 @@ class Sesame {
     int sesame_walking_max_frames;
     float sesame_walking_frame_width;
     float sesame_walking_frame_height;
-    int sesame_walking_current_frame;
+    int sesame_walking_left_start_frame_index;
+    int sesame_walking_left_end_frame_index;
+    int sesame_walking_left_current_frame;
+    int sesame_walking_down_start_frame_index;
+    int sesame_walking_down_end_frame_index;
+    int sesame_walking_down_current_frame;
+    int sesame_walking_right_start_frame_index;
+    int sesame_walking_right_end_frame_index;
+    int sesame_walking_right_current_frame;
+    int sesame_walking_up_start_frame_index;
+    int sesame_walking_up_end_frame_index;
+    int sesame_walking_up_current_frame;
     int sesame_walking_position_x;
     int sesame_walking_position_y;
 
@@ -23,21 +34,22 @@ class Sesame {
     Sesame();
     ~Sesame();
 
+    void iterate_sesame_frames();
+
     float get_sesame_walking_frame_width() const;
     float get_sesame_walking_frame_height() const;
-    int get_sesame_walking_current_frame() const;
-    void iterate_sesame_walking_current_frame();
     float get_sesame_walking_position_x() const;
     float get_sesame_walking_position_y() const;
-    void set_sesame_walking_position_x();
-    void set_sesame_walking_position_y();
+    void walk_left();
+    void walk_right();
+    void walk_up();
+    void walk_down();
 
     float get_sesame_grooming_frame_width() const;
     float get_sesame_grooming_frame_height() const;
     int get_sesame_grooming_current_frame() const;
-    void iterate_sesame_grooming_current_frame();
     float get_sesame_grooming_position_x() const;
     float get_sesame_grooming_position_y() const;
-    void set_sesame_grooming_position_x();
-    void set_sesame_grooming_position_y();
+
+    void waiting();
 };

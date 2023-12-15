@@ -24,6 +24,7 @@ int main() {
   enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
 
   // Create game objects
+  Game game;
   Sesame sesame;
   GameScreen current_screen = gameplay;
 
@@ -43,8 +44,8 @@ int main() {
           toggle_full_screen_window(SCREEN_WIDTH, SCREEN_HEIGHT);
         }
 
-        sesame.iterate_sesame_walking_current_frame();
-        sesame.iterate_sesame_grooming_current_frame();
+        // Iterate the frame counters for each Sesame action
+        sesame.iterate_sesame_frames();
       } break;
       case ending_success: {
         
@@ -69,19 +70,8 @@ int main() {
       case gameplay: {
         BeginDrawing();
         ClearBackground(WHITE);
-    
-        // Draw Sesame walking
-        DrawTextureRec(
-          sesame.sesame_walking,
-          Rectangle{
-            sesame.get_sesame_walking_frame_width() * sesame.get_sesame_walking_current_frame(),
-            0,
-            sesame.get_sesame_walking_frame_width(),
-            sesame.get_sesame_walking_frame_height()},
-          Vector2{
-            sesame.get_sesame_walking_position_x(),
-            sesame.get_sesame_walking_position_y()},
-          WHITE);
+
+        sesame.walk_right();
         
         // Draw Sesame grooming
         DrawTextureRec(
