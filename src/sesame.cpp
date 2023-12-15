@@ -21,13 +21,24 @@ Sesame::Sesame() {
   sesame_walking_down_end_frame_index = sesame_walking_right_start_frame_index;
   sesame_walking_right_end_frame_index = sesame_walking_up_start_frame_index;
   sesame_walking_up_end_frame_index = sesame_walking_max_frames;
-  sesame_walking_stride = 15;  // Stride length while walking
+  sesame_walking_stride = 15;  // Stride length in pixels while walking
   
   sesame_grooming = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_grooming.png");
   sesame_grooming_max_frames = 12;  //  Number of frames in the original png file
   sesame_grooming_frame_width = (float)(sesame_grooming.width / sesame_grooming_max_frames);   // Calculate the width of each frame in image
   sesame_grooming_frame_height = sesame_grooming.height;
   sesame_grooming_current_frame = 0;  // Frame counter to keep track of current frame
+
+  sesame_sitting_meowing = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sitting_meowing.png");
+  sesame_sitting_meowing_max_frames = 12;
+  sesame_sitting_meowing_frame_width = (float)(sesame_sitting_meowing.width / sesame_sitting_meowing_max_frames);   // Calculate the width of each frame in image
+  sesame_sitting_meowing_frame_height = sesame_sitting_meowing.height;
+  sesame_sitting_start_frame_index = 0;
+  sesame_meowing_start_frame_index = 6;
+  sesame_sitting_current_frame = sesame_sitting_start_frame_index;
+  sesame_meowing_current_frame = sesame_meowing_start_frame_index;
+  sesame_sitting_end_frame_index = sesame_meowing_start_frame_index;
+  sesame_meowing_end_frame_index = sesame_sitting_meowing_max_frames;
 }
 
 Sesame::~Sesame() {
@@ -44,14 +55,6 @@ float Sesame::get_sesame_position_y() const {
 }
 
 // Walking
-float Sesame::get_sesame_walking_frame_width() const {
-  return sesame_walking_frame_width;
-}
-
-float Sesame::get_sesame_walking_frame_height() const {
-  return sesame_walking_frame_height;
-}
-
 void Sesame::walk_left() {
   sesame_walking_left_current_frame += 1;
   sesame_walking_left_current_frame = sesame_walking_left_current_frame % sesame_walking_left_end_frame_index;
@@ -61,10 +64,10 @@ void Sesame::walk_left() {
   DrawTextureRec(
     sesame_walking,
     Rectangle{
-      get_sesame_walking_frame_width() * sesame_walking_left_current_frame,
+      sesame_walking_frame_width * sesame_walking_left_current_frame,
       0,
-      get_sesame_walking_frame_width(),
-      get_sesame_walking_frame_height()},
+      sesame_walking_frame_width,
+      sesame_walking_frame_height},
     Vector2{
       get_sesame_position_x(),
       get_sesame_position_y()},
@@ -84,10 +87,10 @@ void Sesame::walk_down() {
   DrawTextureRec(
     sesame_walking,
     Rectangle{
-      get_sesame_walking_frame_width() * sesame_walking_down_current_frame,
+      sesame_walking_frame_width * sesame_walking_down_current_frame,
       0,
-      get_sesame_walking_frame_width(),
-      get_sesame_walking_frame_height()},
+      sesame_walking_frame_width,
+      sesame_walking_frame_height},
     Vector2{
       get_sesame_position_x(),
       get_sesame_position_y()},
@@ -107,10 +110,10 @@ void Sesame::walk_right() {
   DrawTextureRec(
     sesame_walking,
     Rectangle{
-      get_sesame_walking_frame_width() * sesame_walking_right_current_frame,
+      sesame_walking_frame_width * sesame_walking_right_current_frame,
       0,
-      get_sesame_walking_frame_width(),
-      get_sesame_walking_frame_height()},
+      sesame_walking_frame_width,
+      sesame_walking_frame_height},
     Vector2{
       get_sesame_position_x(),
       get_sesame_position_y()},
@@ -130,10 +133,10 @@ void Sesame::walk_up() {
   DrawTextureRec(
     sesame_walking,
     Rectangle{
-      get_sesame_walking_frame_width() * sesame_walking_up_current_frame,
+      sesame_walking_frame_width * sesame_walking_up_current_frame,
       0,
-      get_sesame_walking_frame_width(),
-      get_sesame_walking_frame_height()},
+      sesame_walking_frame_width,
+      sesame_walking_frame_height},
     Vector2{
       get_sesame_position_x(),
       get_sesame_position_y()},
@@ -141,18 +144,6 @@ void Sesame::walk_up() {
 }
 
 // Grooming
-float Sesame::get_sesame_grooming_frame_width() const {
-  return sesame_grooming_frame_width;
-}
-
-float Sesame::get_sesame_grooming_frame_height() const {
-  return sesame_grooming_frame_height;
-}
-
-int Sesame::get_sesame_grooming_current_frame() const {
-  return sesame_grooming_current_frame;
-}
-
 void Sesame::groom() {
   sesame_grooming_current_frame += 1;
   sesame_grooming_current_frame = sesame_grooming_current_frame % sesame_grooming_max_frames;
@@ -160,12 +151,32 @@ void Sesame::groom() {
   DrawTextureRec(
     sesame_grooming,
     Rectangle{
-      get_sesame_grooming_frame_width() * get_sesame_grooming_current_frame(),
+      sesame_grooming_frame_width * sesame_grooming_current_frame,
       0,
-      get_sesame_grooming_frame_width(),
-      get_sesame_grooming_frame_height()},
+      sesame_grooming_frame_width,
+      sesame_grooming_frame_height},
     Vector2{
       get_sesame_position_x(),
       get_sesame_position_y()},
     WHITE);
 }
+
+// Sitting
+void Sesame::sitting() {
+  sesame_sitting_current_frame += 1;
+  sesame_sitting_current_frame = sesame_sitting_current_frame % sesame_sitting_end_frame_index;
+
+  DrawTextureRec(
+    sesame_sitting_meowing,
+    Rectangle{
+      sesame_sitting_meowing_frame_width * sesame_sitting_current_frame,
+      0,
+      sesame_sitting_meowing_frame_width,
+      sesame_sitting_meowing_frame_height},
+    Vector2{
+      get_sesame_position_x(),
+      get_sesame_position_y()},
+    WHITE);
+}
+
+// Meowing

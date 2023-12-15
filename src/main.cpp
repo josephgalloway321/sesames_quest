@@ -69,7 +69,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        sesame.groom();
+        sesame.sitting();
     
         EndDrawing();
         
