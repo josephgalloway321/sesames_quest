@@ -69,7 +69,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        sesame.sitting();
+        //sesame.meowing();
     
         EndDrawing();
         

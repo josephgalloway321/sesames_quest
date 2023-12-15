@@ -180,3 +180,19 @@ void Sesame::sitting() {
 }
 
 // Meowing
+void Sesame::meowing() {
+  sesame_meowing_current_frame += 1;
+  sesame_meowing_current_frame = sesame_meowing_current_frame % sesame_meowing_end_frame_index;
+
+  DrawTextureRec(
+    sesame_sitting_meowing,
+    Rectangle{
+      sesame_sitting_meowing_frame_width * sesame_meowing_current_frame,
+      0,
+      sesame_sitting_meowing_frame_width,
+      sesame_sitting_meowing_frame_height},
+    Vector2{
+      get_sesame_position_x(),
+      get_sesame_position_y()},
+    WHITE);
+}
