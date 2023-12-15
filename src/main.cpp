@@ -3,26 +3,16 @@
 #include "../header/timers.hpp"  // Erase after moving control to game
 #include "../header/game.hpp"
 
-void toggle_full_screen_window(int window_width, int window_height) {
-  if(!IsWindowFullscreen()) {
-    int monitor = GetCurrentMonitor();
-    SetWindowSize(GetMonitorWidth(monitor), GetMonitorHeight(monitor));
-    ToggleFullscreen();
-  }
-  else {
-    ToggleFullscreen();
-    SetWindowSize(window_width, window_height);
-  }
-}
+const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
 
 int main() {
+  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sesame's Quest");
+  SetTargetFPS(4);
+
   // Create game objects
-  Game game;
+  Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
   enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
   GameScreen current_screen = gameplay;
-
-  InitWindow(game.get_screen_width(), game.get_screen_height(), "Sesame's Quest");
-  SetTargetFPS(4);
   
   while(!WindowShouldClose()) {
     /*
@@ -36,9 +26,7 @@ int main() {
         
       } break;
       case gameplay: {
-        if(IsKeyPressed(KEY_SPACE)) {
-          toggle_full_screen_window(game.get_screen_width(), game.get_screen_height());
-        }
+        game.handle_keyboard_input();
 
       } break;
       case ending_success: {
@@ -64,8 +52,6 @@ int main() {
       case gameplay: {
         BeginDrawing();
         ClearBackground(WHITE);
-
-        //sesame.sitting();
     
         EndDrawing();
         

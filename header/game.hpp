@@ -3,14 +3,13 @@
 
 class Game {
   private:
-    int screen_width;
-    int screen_height;
-
+    Sesame sesame;
+    int SCREEN_WIDTH, SCREEN_HEIGHT;
+    
   public:
-    Game();
+    Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
-    //Sesame sesame;
-    int get_screen_width() const;
-    int get_screen_height() const;
     void handle_keyboard_input();
+    void toggle_full_screen_window(int window_width, int window_height);
+
 };
