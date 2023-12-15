@@ -71,7 +71,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        sesame.walk_up();
+        sesame.walk_down();
         
         // Draw Sesame grooming
         DrawTextureRec(
