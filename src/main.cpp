@@ -1,10 +1,9 @@
 #include <iostream>
 #include <raylib.h>
-#include "../header/timer.hpp"
+#include "../header/timers.hpp"
 #include "../header/sesame.hpp"
-#include "../header/game.hpp"
 
-//const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
+const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
 
 void toggle_full_screen_window(int window_width, int window_height) {
   if(!IsWindowFullscreen()) {
@@ -19,17 +18,14 @@ void toggle_full_screen_window(int window_width, int window_height) {
 }
 
 int main() {
-  // Name each screen
+  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sesame's Quest");
+  SetTargetFPS(4);
   enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
 
   // Create game objects
-  Game game;
   Sesame sesame;
   GameScreen current_screen = gameplay;
 
-  InitWindow(game.get_screen_width(), game.get_screen_height(), "Sesame's Quest");
-  SetTargetFPS(4);  // Game is set at 4 frames per second
-  
   while(!WindowShouldClose()) {
     /*
     * UPDATE
@@ -43,11 +39,10 @@ int main() {
       } break;
       case gameplay: {
         if(IsKeyPressed(KEY_SPACE)) {
-          toggle_full_screen_window(game.get_screen_width(), game.get_screen_height());
+          toggle_full_screen_window(SCREEN_WIDTH, SCREEN_HEIGHT);
         }
-        
-        sesame.iterate_sesame_walking_current_frame();
 
+        sesame.iterate_sesame_walking_current_frame();
       } break;
       case ending_success: {
         
@@ -70,7 +65,6 @@ int main() {
         
       } break;
       case gameplay: {
-    
         BeginDrawing();
         ClearBackground(WHITE);
     
@@ -82,9 +76,9 @@ int main() {
             0,
             sesame.get_sesame_walking_frame_width(),
             sesame.get_sesame_walking_frame_height()},
-          Vector2{  // {x, y} position
+          Vector2{
             sesame.get_sesame_walking_position_x(),
-            sesame.get_sesame_walking_position_y()},  
+            sesame.get_sesame_walking_position_y()},
           WHITE);
     
         EndDrawing();

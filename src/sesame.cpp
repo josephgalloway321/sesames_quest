@@ -51,5 +51,3 @@ void Sesame::set_sesame_walking_position_x() {
 void Sesame::set_sesame_walking_position_y() {
   sesame_walking_position_y = 0;
 }
-
-
