@@ -72,19 +72,6 @@ int main() {
         ClearBackground(WHITE);
 
         sesame.walk_down();
-        
-        // Draw Sesame grooming
-        DrawTextureRec(
-          sesame.sesame_grooming,
-          Rectangle{
-            sesame.get_sesame_grooming_frame_width() * sesame.get_sesame_grooming_current_frame(),
-            0,
-            sesame.get_sesame_grooming_frame_width(),
-            sesame.get_sesame_grooming_frame_height()},
-          Vector2{
-            sesame.get_sesame_grooming_position_x(),
-            sesame.get_sesame_grooming_position_y()},
-          WHITE);
     
         EndDrawing();
         

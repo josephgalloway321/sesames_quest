@@ -3,6 +3,9 @@
 
 class Sesame {
   private:
+    int sesame_position_x;
+    int sesame_position_y;
+
     int sesame_walking_max_frames;
     float sesame_walking_frame_width;
     float sesame_walking_frame_height;
@@ -18,16 +21,12 @@ class Sesame {
     int sesame_walking_up_start_frame_index;
     int sesame_walking_up_end_frame_index;
     int sesame_walking_up_current_frame;
-    int sesame_walking_position_x;
-    int sesame_walking_position_y;
     int sesame_walking_stride;
 
     int sesame_grooming_max_frames;
     float sesame_grooming_frame_width;
     float sesame_grooming_frame_height; 
-    int sesame_grooming_current_frame;
-    int sesame_grooming_position_x; 
-    int sesame_grooming_position_y;     
+    int sesame_grooming_current_frame;    
 
   public:
     Texture2D sesame_walking;
@@ -37,10 +36,11 @@ class Sesame {
 
     void iterate_sesame_frames();
 
+    float get_sesame_position_x() const;
+    float get_sesame_position_y() const;
+
     float get_sesame_walking_frame_width() const;
     float get_sesame_walking_frame_height() const;
-    float get_sesame_walking_position_x() const;
-    float get_sesame_walking_position_y() const;
     void walk_left();
     void walk_right();
     void walk_up();
