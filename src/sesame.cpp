@@ -44,6 +44,7 @@ Sesame::Sesame() {
 Sesame::~Sesame() {
   UnloadTexture(sesame_walking);
   UnloadTexture(sesame_grooming);
+  UnloadTexture(sesame_sitting_meowing);
 }
 
 float Sesame::get_sesame_position_x() const {
