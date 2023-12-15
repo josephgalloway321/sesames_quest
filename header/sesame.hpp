@@ -20,6 +20,7 @@ class Sesame {
     int sesame_walking_up_current_frame;
     int sesame_walking_position_x;
     int sesame_walking_position_y;
+    int sesame_walking_stride;
 
     int sesame_grooming_max_frames;
     float sesame_grooming_frame_width;
