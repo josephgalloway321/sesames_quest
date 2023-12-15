@@ -1,10 +1,8 @@
 #include <iostream>
 #include <raylib.h>
-#include "../header/timers.hpp"
+#include "../header/timers.hpp"  // Erase after moving control to game
 #include "../header/sesame.hpp"  // Erase after moving control to game
 #include "../header/game.hpp"
-
-const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
 
 void toggle_full_screen_window(int window_width, int window_height) {
   if(!IsWindowFullscreen()) {
@@ -19,12 +17,13 @@ void toggle_full_screen_window(int window_width, int window_height) {
 }
 
 int main() {
-  InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sesame's Quest");
+  Game game;
+  InitWindow(game.get_screen_width(), game.get_screen_height(), "Sesame's Quest");
   SetTargetFPS(4);
   enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
 
   // Create game objects
-  Game game;
+  
   Sesame sesame;
   GameScreen current_screen = gameplay;
 
@@ -41,7 +40,7 @@ int main() {
       } break;
       case gameplay: {
         if(IsKeyPressed(KEY_SPACE)) {
-          toggle_full_screen_window(SCREEN_WIDTH, SCREEN_HEIGHT);
+          toggle_full_screen_window(game.get_screen_width(), game.get_screen_height());
         }
 
       } break;
@@ -69,7 +68,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        //sesame.meowing();
+        sesame.sitting();
     
         EndDrawing();
         
