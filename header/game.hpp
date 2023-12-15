@@ -1,5 +1,6 @@
 #pragma once
 #include "../header/sesame.hpp"
+#include "../header/timers.hpp"
 
 class Game {
   private:

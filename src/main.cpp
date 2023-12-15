@@ -1,6 +1,5 @@
 #include <iostream>
 #include <raylib.h>
-#include "../header/timers.hpp"  // Erase after moving control to game
 #include "../header/game.hpp"
 
 const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
