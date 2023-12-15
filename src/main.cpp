@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include "../header/timers.hpp"
 #include "../header/sesame.hpp"
+#include "../header/game.hpp"
 
 const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
 
@@ -43,6 +44,7 @@ int main() {
         }
 
         sesame.iterate_sesame_walking_current_frame();
+        sesame.iterate_sesame_grooming_current_frame();
       } break;
       case ending_success: {
         
@@ -79,6 +81,19 @@ int main() {
           Vector2{
             sesame.get_sesame_walking_position_x(),
             sesame.get_sesame_walking_position_y()},
+          WHITE);
+        
+        // Draw Sesame grooming
+        DrawTextureRec(
+          sesame.sesame_grooming,
+          Rectangle{
+            sesame.get_sesame_grooming_frame_width() * sesame.get_sesame_grooming_current_frame(),
+            0,
+            sesame.get_sesame_grooming_frame_width(),
+            sesame.get_sesame_grooming_frame_height()},
+          Vector2{
+            sesame.get_sesame_grooming_position_x(),
+            sesame.get_sesame_grooming_position_y()},
           WHITE);
     
         EndDrawing();
