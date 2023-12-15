@@ -1,4 +1,5 @@
 #pragma once
+#include "../header/sesame.hpp"
 
 class Game {
   private:
@@ -8,6 +9,8 @@ class Game {
   public:
     Game();
     ~Game();
-    int get_screen_width();
-    int get_screen_height();
+    //Sesame sesame;
+    int get_screen_width() const;
+    int get_screen_height() const;
+    void handle_keyboard_input();
 };
