@@ -35,12 +35,6 @@ Sesame::~Sesame() {
   UnloadTexture(sesame_grooming);
 }
 
-// TODO: Only call this method when no input from user
-void Sesame::iterate_sesame_frames() {
-  sesame_grooming_current_frame += 1;
-  sesame_grooming_current_frame = sesame_grooming_current_frame % sesame_grooming_max_frames;
-}
-
 float Sesame::get_sesame_position_x() const {
   return sesame_position_x;
 }
@@ -159,16 +153,19 @@ int Sesame::get_sesame_grooming_current_frame() const {
   return sesame_grooming_current_frame;
 }
 
-/*
-DrawTextureRec(
-  sesame.sesame_grooming,
-  Rectangle{
-    sesame.get_sesame_grooming_frame_width() * sesame.get_sesame_grooming_current_frame(),
-    0,
-    sesame.get_sesame_grooming_frame_width(),
-    sesame.get_sesame_grooming_frame_height()},
-  Vector2{
-    sesame.get_sesame_grooming_position_x(),
-    sesame.get_sesame_grooming_position_y()},
-  WHITE);
-*/
+void Sesame::groom() {
+  sesame_grooming_current_frame += 1;
+  sesame_grooming_current_frame = sesame_grooming_current_frame % sesame_grooming_max_frames;
+
+  DrawTextureRec(
+    sesame_grooming,
+    Rectangle{
+      get_sesame_grooming_frame_width() * get_sesame_grooming_current_frame(),
+      0,
+      get_sesame_grooming_frame_width(),
+      get_sesame_grooming_frame_height()},
+    Vector2{
+      get_sesame_position_x(),
+      get_sesame_position_y()},
+    WHITE);
+}

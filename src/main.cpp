@@ -1,7 +1,7 @@
 #include <iostream>
 #include <raylib.h>
 #include "../header/timers.hpp"
-#include "../header/sesame.hpp"
+#include "../header/sesame.hpp"  // Erase after moving control to game
 #include "../header/game.hpp"
 
 const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
@@ -44,8 +44,6 @@ int main() {
           toggle_full_screen_window(SCREEN_WIDTH, SCREEN_HEIGHT);
         }
 
-        // Iterate the frame counters for each Sesame action
-        sesame.iterate_sesame_frames();
       } break;
       case ending_success: {
         
@@ -71,7 +69,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        sesame.walk_down();
+        sesame.groom();
     
         EndDrawing();
         

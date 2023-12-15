@@ -49,8 +49,7 @@ class Sesame {
     float get_sesame_grooming_frame_width() const;
     float get_sesame_grooming_frame_height() const;
     int get_sesame_grooming_current_frame() const;
-    float get_sesame_grooming_position_x() const;
-    float get_sesame_grooming_position_y() const;
+    void groom();
 
     void waiting();
 };
