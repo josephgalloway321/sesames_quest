@@ -13,6 +13,7 @@ int main() {
   enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
   GameScreen current_screen = gameplay;
   
+  
   while(!WindowShouldClose()) {
     /*
     * UPDATE

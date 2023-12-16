@@ -5,10 +5,10 @@
 Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   this -> SCREEN_WIDTH = SCREEN_WIDTH;
   this -> SCREEN_HEIGHT = SCREEN_HEIGHT;
+  is_time_example = false; 
 }
 
 Game::~Game() {
-  
 }
 
 void Game::handle_keyboard_input() {
@@ -26,8 +26,45 @@ void Game::handle_keyboard_input() {
     sesame.walk_up();
   }
   else {
-    // No keys held down
+    if(is_time_example == false && timer_example.is_time_for_event(5.0)) {
+      is_time_example = true;
+      timer_draw_rect.reset_timer();
+    }
+    else if(is_time_example && timer_draw_rect.is_time_for_event(5.0)) {
+      is_time_example = false;
+      timer_example.reset_timer();
+    }
+
+    // When it's time to draw rect, draw it for 3 seconds
+    if(is_time_example) {
+      DrawRectangle(50, 50, 100, 100, RED);
+    }
+    else {
+      DrawRectangle(50, 50, 100, 100, WHITE);
+    }
+
     sesame.sitting();
+    // No keys held down
+    // After 5 seconds of sitting, meow once
+    /*
+    if(timer_to_start_meow(5.0).is_time_for_event()) {
+      //is_time_to_meow = true;
+      sesame.meowing();
+      //timer_meow_duration(2.0);  // Begin timer for meow duration
+    }
+    else {
+      sesame.sitting();
+    }
+    */
+
+    /*
+    if(is_time_to_meow) {
+      sesame.meowing();
+    }
+    else {
+      sesame.sitting();
+    }
+    */
   }
 
   // Handle keys pressed
