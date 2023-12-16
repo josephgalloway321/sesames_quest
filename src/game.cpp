@@ -13,30 +13,32 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
 Game::~Game() {
 }
 
-bool Game::is_sesame_outside_screen() {
-  if(sesame.get_sesame_position_x() < 0 || sesame.get_sesame_position_x() > SCREEN_WIDTH ||
-     sesame.get_sesame_position_y() < 0 || sesame.get_sesame_position_y() > SCREEN_HEIGHT) {
+bool Game::is_sesame_inside_screen() {
+  if(sesame.get_sesame_position_x() > 0 || sesame.get_sesame_position_x() < SCREEN_WIDTH ||
+     sesame.get_sesame_position_y() > 0 || sesame.get_sesame_position_y() < SCREEN_HEIGHT) {
     return true;
   }
   return false;
 }
 
 void Game::handle_keyboard_input() {
-  // Handle keys held down
-  
-  if(IsKeyDown(KEY_LEFT) && !is_sesame_outside_screen()) {
+  // Handle keys held down and check if Sesame is outside screen
+  if(!is_sesame_inside_screen()) {
+    DrawRectangle(300, 300, 200, 200, RED);
+  }
+  if(IsKeyDown(KEY_LEFT) && is_sesame_inside_screen()) {
     timer_until_meow.reset_timer();
     sesame.walk_left();
   }
-  else if(IsKeyDown(KEY_DOWN) && !is_sesame_outside_screen()) {
+  else if(IsKeyDown(KEY_DOWN) && is_sesame_inside_screen()) {
     timer_until_meow.reset_timer();
     sesame.walk_down();
   }
-  else if(IsKeyDown(KEY_RIGHT) && !is_sesame_outside_screen()) {
+  else if(IsKeyDown(KEY_RIGHT) && is_sesame_inside_screen()) {
     timer_until_meow.reset_timer();
     sesame.walk_right();
   }
-  else if(IsKeyDown(KEY_UP) && !is_sesame_outside_screen()) {
+  else if(IsKeyDown(KEY_UP) && is_sesame_inside_screen()) {
     timer_until_meow.reset_timer();
     sesame.walk_up();
   }
