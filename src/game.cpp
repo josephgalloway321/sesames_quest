@@ -5,7 +5,9 @@
 Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   this -> SCREEN_WIDTH = SCREEN_WIDTH;
   this -> SCREEN_HEIGHT = SCREEN_HEIGHT;
-  is_time_example = false; 
+  is_time_to_meow = false; 
+  seconds_until_meow = 8;
+  seconds_meow_duration = 4;
 }
 
 Game::~Game() {
@@ -14,57 +16,40 @@ Game::~Game() {
 void Game::handle_keyboard_input() {
   // Handle keys held down
   if(IsKeyDown(KEY_LEFT)) {
+    timer_until_meow.reset_timer();
     sesame.walk_left();
   }
   else if(IsKeyDown(KEY_DOWN)) {
+    timer_until_meow.reset_timer();
     sesame.walk_down();
   }
   else if(IsKeyDown(KEY_RIGHT)) {
+    timer_until_meow.reset_timer();
     sesame.walk_right();
   }
   else if(IsKeyDown(KEY_UP)) {
+    timer_until_meow.reset_timer();
     sesame.walk_up();
   }
   else {
-    if(is_time_example == false && timer_example.is_time_for_event(5.0)) {
-      is_time_example = true;
-      timer_draw_rect.reset_timer();
-    }
-    else if(is_time_example && timer_draw_rect.is_time_for_event(5.0)) {
-      is_time_example = false;
-      timer_example.reset_timer();
-    }
-
-    // When it's time to draw rect, draw it for 3 seconds
-    if(is_time_example) {
-      DrawRectangle(50, 50, 100, 100, RED);
-    }
-    else {
-      DrawRectangle(50, 50, 100, 100, WHITE);
-    }
-
-    sesame.sitting();
     // No keys held down
     // After 5 seconds of sitting, meow once
-    /*
-    if(timer_to_start_meow(5.0).is_time_for_event()) {
-      //is_time_to_meow = true;
-      sesame.meowing();
-      //timer_meow_duration(2.0);  // Begin timer for meow duration
+    if(is_time_to_meow == false && timer_until_meow.is_time_for_event(seconds_until_meow)) {
+      is_time_to_meow = true;
+      timer_meow_duration.reset_timer();  // Start meow duration timer to hold meow
     }
-    else {
-      sesame.sitting();
+    else if(is_time_to_meow && timer_meow_duration.is_time_for_event(seconds_meow_duration)) {
+      is_time_to_meow = false;
+      timer_until_meow.reset_timer();
     }
-    */
 
-    /*
+    // When it's time to meow, meow for seconds_meow_duration
     if(is_time_to_meow) {
       sesame.meowing();
     }
     else {
       sesame.sitting();
-    }
-    */
+    }    
   }
 
   // Handle keys pressed

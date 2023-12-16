@@ -18,16 +18,6 @@ bool Timer::is_time_for_event(double time_until_event) {
   return false;
 }
 
-/*
-bool Timer::is_time_for_event(double time_until_event) {
-  if(elapsed() > time_until_event) {
-    reset_timer();
-    return true;
-  }
-  return false;
-}
-*/
-
 // After elapsed time has surpassed interval set in game, reset the timer
 void Timer::reset_timer()  {
   begin_timer = GetTime();

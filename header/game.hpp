@@ -5,10 +5,12 @@
 class Game {
   private:
     Sesame sesame;
-    Timer timer_example;
-    Timer timer_draw_rect;
+    Timer timer_until_meow;
+    Timer timer_meow_duration;
     int SCREEN_WIDTH, SCREEN_HEIGHT;
-    bool is_time_example;
+    bool is_time_to_meow;
+    int seconds_until_meow;
+    int seconds_meow_duration;
     
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
