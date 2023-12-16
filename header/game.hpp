@@ -11,10 +11,11 @@ class Game {
     bool is_time_to_meow;
     int seconds_until_meow;
     int seconds_meow_duration;
+    bool is_sesame_outside_screen();
+    void toggle_full_screen_window(int window_width, int window_height);
     
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
     void handle_keyboard_input();
-    void toggle_full_screen_window(int window_width, int window_height);
 };
