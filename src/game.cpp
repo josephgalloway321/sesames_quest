@@ -6,7 +6,7 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   this -> SCREEN_WIDTH = SCREEN_WIDTH;
   this -> SCREEN_HEIGHT = SCREEN_HEIGHT;
   is_time_to_meow = false; 
-  seconds_until_meow = 8;
+  seconds_until_meow = 12;
   seconds_meow_duration = 4;
 }
 
