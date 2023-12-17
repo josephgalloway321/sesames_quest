@@ -53,7 +53,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        game.test();
+        game.debug_show_sesame_frame_coordinates();
 
         EndDrawing();
         

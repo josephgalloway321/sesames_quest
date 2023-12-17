@@ -19,5 +19,5 @@ class Game {
     ~Game();
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
-    void test();
+    void debug_show_sesame_frame_coordinates();
 };

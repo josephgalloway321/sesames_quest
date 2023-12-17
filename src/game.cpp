@@ -14,16 +14,10 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
 Game::~Game() {
 }
 
-void Game::test() {
-  int position_x_sesame = sesame.get_sesame_position_x();
-  int position_y_sesame = sesame.get_sesame_position_y();
-  DrawCircle(position_x_sesame, position_y_sesame, 5.0, GREEN);
-}
-
 void Game::check_if_sesame_inside_screen() {
-  int position_x = sesame.get_sesame_position_x();
-  int position_y = sesame.get_sesame_position_y();
-  if(position_x > 0 && position_x < SCREEN_WIDTH && position_y > 0 && position_y < SCREEN_HEIGHT) {
+  int position_top_left_x = sesame.get_sesame_position_top_left_x();
+  int position_top_left_y = sesame.get_sesame_position_top_left_y();
+  if(position_top_left_x > 0 && position_top_left_x < SCREEN_WIDTH && position_top_left_y > 0 && position_top_left_y < SCREEN_HEIGHT) {
     is_sesame_inside_screen = true;
   }
   else{
@@ -92,4 +86,11 @@ void Game::toggle_full_screen_window(int window_width, int window_height) {
     ToggleFullscreen();
     SetWindowSize(window_width, window_height);
   }
+}
+
+void Game::debug_show_sesame_frame_coordinates() {
+  //int position_top_left_x = sesame.get_sesame_position_top_left_x();
+  //int position_top_left_y = sesame.get_sesame_position_top_left_y();
+  float position_top_left_x = sesame.get_sesame_frame_coordinates()[0][0];
+  DrawCircle(position_top_left_x, position_top_left_y, 5.0, GREEN);
 }

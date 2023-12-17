@@ -1,5 +1,6 @@
 #pragma once
 #include <raylib.h>
+#include <vector>
 
 class Sesame {
   private:
@@ -7,8 +8,15 @@ class Sesame {
     Texture2D sesame_grooming;
     Texture2D sesame_sitting_meowing;
 
-    int sesame_position_x;
-    int sesame_position_y;
+    int sesame_position_top_left_x;
+    int sesame_position_top_left_y;
+    int sesame_position_top_right_x;
+    int sesame_position_top_right_y;
+    int sesame_position_bottom_right_x;
+    int sesame_position_bottom_right_y;
+    int sesame_position_bottom_left_x;
+    int sesame_position_bottom_left_y;
+    vector<float> sesame_frame_coordinates;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
 
@@ -47,8 +55,9 @@ class Sesame {
   public:
     Sesame();
     ~Sesame();
-    float get_sesame_position_x() const;
-    float get_sesame_position_y() const;
+    float get_sesame_position_top_left_x() const;
+    float get_sesame_position_top_left_y() const;
+    float get_sesame_frame_coordinates() const;
 
     void walk_left();
     void walk_right();
