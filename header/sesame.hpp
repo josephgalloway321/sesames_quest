@@ -10,6 +10,8 @@ class Sesame {
     int sesame_position_x;
     int sesame_position_y;
 
+    int SCREEN_WIDTH, SCREEN_HEIGHT;
+
     int sesame_walking_max_frames;
     float sesame_walking_frame_width;
     float sesame_walking_frame_height;

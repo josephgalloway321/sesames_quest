@@ -27,7 +27,7 @@ int main() {
       } break;
       case gameplay: {
         game.handle_keyboard_input();
-
+        game.check_if_sesame_inside_screen();
       } break;
       case ending_success: {
         
@@ -52,7 +52,9 @@ int main() {
       case gameplay: {
         BeginDrawing();
         ClearBackground(WHITE);
-    
+
+        game.test();
+
         EndDrawing();
         
       } break;
