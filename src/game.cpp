@@ -8,7 +8,6 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   is_time_to_meow = false; 
   seconds_until_meow = 12;
   seconds_meow_duration = 4;
-  is_sesame_inside_screen = true;
 }
 
 Game::~Game() {
@@ -25,50 +24,47 @@ void Game::check_if_sesame_inside_screen() {
   // If Sesame went out of bounds, track direction
   if(position_top_left_x <= 0) {
     // Moved too far left
-    is_sesame_inside_screen = false;
     sesame.reverse_walk_left();
   }
   else if(position_top_left_y <= 0) {
     // Moved too far up
-    is_sesame_inside_screen = false;
     sesame.reverse_walk_up();
   }
   else if(position_bottom_right_x >= SCREEN_WIDTH) {
     // Moved too far right
-    is_sesame_inside_screen = false;
     sesame.reverse_walk_right();
   }
   else if(position_bottom_right_y >= SCREEN_HEIGHT) {
     // Moved too far down
-    is_sesame_inside_screen = false;
     sesame.reverse_walk_down();
-  }
-  else {
-    is_sesame_inside_screen = true;
   }
 }
 
 void Game::handle_keyboard_input() {
   // Handle keys held down and check if Sesame is inside screen
-  if(IsKeyDown(KEY_LEFT) && is_sesame_inside_screen) {
+  if(IsKeyDown(KEY_LEFT)) {
     timer_until_meow.reset_timer();
     sesame.walk_left();
   }
-  else if(IsKeyDown(KEY_DOWN) && is_sesame_inside_screen) {
+  else if(IsKeyDown(KEY_DOWN)) {
     timer_until_meow.reset_timer();
     sesame.walk_down();
   }
-  else if(IsKeyDown(KEY_RIGHT) && is_sesame_inside_screen) {
+  else if(IsKeyDown(KEY_RIGHT)) {
     timer_until_meow.reset_timer();
     sesame.walk_right();
   }
-  else if(IsKeyDown(KEY_UP) && is_sesame_inside_screen) {
+  else if(IsKeyDown(KEY_UP)) {
     timer_until_meow.reset_timer();
     sesame.walk_up();
   }
+  else if(IsKeyDown(KEY_P)) {
+    timer_until_meow.reset_timer();
+    //sesame.walk_up();
+  }
   else {
     // No keys held down
-    // After 5 seconds of sitting, meow once
+    // After sitting w/o user input, meow once
     if(is_time_to_meow == false && timer_until_meow.is_time_for_event(seconds_until_meow)) {
       is_time_to_meow = true;
       timer_meow_duration.reset_timer();  // Start meow duration timer to hold meow

@@ -74,4 +74,7 @@ class Sesame {
     void groom();
     void sitting();
     void meowing();
+    void eating();
+    void dancing();
+    void scared();
 };

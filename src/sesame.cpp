@@ -244,7 +244,16 @@ void Sesame::meowing() {
 }
 
 // Eating
+void Sesame::eating() {
+
+}
 
 // Dancing
+void Sesame::dancing() {
+
+}
 
 // Scared
+void Sesame::scared() {
+  
+}
