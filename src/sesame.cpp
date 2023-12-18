@@ -3,8 +3,7 @@
 Sesame::Sesame() {
   sesame_walking = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_walking.png");
   
-  // Walking = 0, Grooming = 1, Sitting & Meowing = 2
-  // ... add more actions  
+  // Walking = 0, Grooming = 1, Sitting & Meowing = 2, Eating = 3, Dancing = 4, Scared = 5
   sesame_current_action = 0;  
 
   sesame_position_top_left_x = 250.0;  // Position x at the start of the game
@@ -243,3 +242,9 @@ void Sesame::meowing() {
       sesame_position_top_left_y},
       WHITE);
 }
+
+// Eating
+
+// Dancing
+
+// Scared

@@ -51,6 +51,12 @@ class Sesame {
     int sesame_sitting_end_frame_index;
     int sesame_meowing_end_frame_index;
 
+    // Eating
+
+    // Dancing
+
+    // Scared
+
   public:
     Sesame();
     ~Sesame();
