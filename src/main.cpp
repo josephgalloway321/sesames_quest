@@ -13,7 +13,6 @@ int main() {
   enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
   GameScreen current_screen = gameplay;
   
-  
   while(!WindowShouldClose()) {
     /*
     * UPDATE
@@ -53,7 +52,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        //game.debug_show_sesame_frame_coordinates();
+        
 
         EndDrawing();
         

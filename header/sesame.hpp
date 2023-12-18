@@ -8,6 +8,9 @@ class Sesame {
     Texture2D sesame_walking;
     Texture2D sesame_grooming;
     Texture2D sesame_sitting_meowing;
+    Texture2D sesame_eating;
+    Texture2D sesame_dancing;
+    Texture2D sesame_scared;
 
     int sesame_current_action;
 
@@ -51,11 +54,20 @@ class Sesame {
     int sesame_sitting_end_frame_index;
     int sesame_meowing_end_frame_index;
 
-    // Eating
+    int sesame_eating_max_frames;
+    float sesame_eating_frame_width;
+    float sesame_eating_frame_height; 
+    int sesame_eating_current_frame; 
 
-    // Dancing
+    int sesame_dancing_max_frames;
+    float sesame_dancing_frame_width;
+    float sesame_dancing_frame_height; 
+    int sesame_dancing_current_frame;
 
-    // Scared
+    int sesame_scared_max_frames;
+    float sesame_scared_frame_width;
+    float sesame_scared_frame_height; 
+    int sesame_scared_current_frame;
 
   public:
     Sesame();
@@ -71,7 +83,7 @@ class Sesame {
     void reverse_walk_right();
     void reverse_walk_up();
 
-    void groom();
+    void grooming();
     void sitting();
     void meowing();
     void eating();
