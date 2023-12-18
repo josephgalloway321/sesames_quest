@@ -1,6 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include <vector>
+#include <string>
 
 class Sesame {
   private:
@@ -8,15 +9,13 @@ class Sesame {
     Texture2D sesame_grooming;
     Texture2D sesame_sitting_meowing;
 
-    int sesame_position_top_left_x;
-    int sesame_position_top_left_y;
-    int sesame_position_top_right_x;
-    int sesame_position_top_right_y;
-    int sesame_position_bottom_right_x;
-    int sesame_position_bottom_right_y;
-    int sesame_position_bottom_left_x;
-    int sesame_position_bottom_left_y;
-    vector<float> sesame_frame_coordinates;
+    int sesame_current_action;
+
+    float sesame_position_top_left_x;
+    float sesame_position_top_left_y;
+    float sesame_position_bottom_right_x;
+    float sesame_position_bottom_right_y;
+    std::vector<std::vector<float>> sesame_frame_coordinates;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
 
@@ -55,14 +54,16 @@ class Sesame {
   public:
     Sesame();
     ~Sesame();
-    float get_sesame_position_top_left_x() const;
-    float get_sesame_position_top_left_y() const;
-    float get_sesame_frame_coordinates() const;
+    std::vector<std::vector<float>> get_sesame_frame_coordinates();
 
     void walk_left();
+    void walk_down();
     void walk_right();
     void walk_up();
-    void walk_down();
+    void reverse_walk_left();
+    void reverse_walk_down();
+    void reverse_walk_right();
+    void reverse_walk_up();
 
     void groom();
     void sitting();

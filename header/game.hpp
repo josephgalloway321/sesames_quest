@@ -1,6 +1,7 @@
 #pragma once
 #include "../header/sesame.hpp"
 #include "../header/timers.hpp"
+#include <vector>
 
 class Game {
   private:
@@ -19,5 +20,4 @@ class Game {
     ~Game();
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
-    void debug_show_sesame_frame_coordinates();
 };

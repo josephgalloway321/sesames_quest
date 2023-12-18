@@ -3,18 +3,14 @@
 Sesame::Sesame() {
   sesame_walking = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_walking.png");
   
-  sesame_position_top_left_x = 250;  // Position x at the start of the game
-  sesame_position_top_left_y = 250;  // Position y at the start of the game
-  // The following coordinates depend on which frame currently viewing
-  // TODO: Create a function that accepts width & height from current frame viewing
-  /*
-  sesame_position_top_right_x;
-  sesame_position_top_right_y;
-  sesame_position_bottom_right_x;
-  sesame_position_bottom_right_y;
-  sesame_position_bottom_left_x;
-  sesame_position_bottom_left_y;
-  */
+  // Walking = 0, Grooming = 1, Sitting & Meowing = 2
+  // ... add more actions  
+  sesame_current_action = 0;  
+
+  sesame_position_top_left_x = 250.0;  // Position x at the start of the game
+  sesame_position_top_left_y = 250.0;  // Position y at the start of the game
+  sesame_position_bottom_right_x = 0.0;  // Initialize
+  sesame_position_bottom_right_y = 0.0;  // Initialize
   
   sesame_walking_max_frames = 16;  //  Number of frames in the original png file
   sesame_walking_frame_width = (float)(sesame_walking.width / sesame_walking_max_frames);   // Calculate the width of each frame in image
@@ -31,7 +27,7 @@ Sesame::Sesame() {
   sesame_walking_down_end_frame_index = sesame_walking_right_start_frame_index;
   sesame_walking_right_end_frame_index = sesame_walking_up_start_frame_index;
   sesame_walking_up_end_frame_index = sesame_walking_max_frames;
-  sesame_walking_stride = 15;  // Stride length in pixels while walking
+  sesame_walking_stride = 18;  // Stride length in pixels while walking
   
   sesame_grooming = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_grooming.png");
   sesame_grooming_max_frames = 12;  //  Number of frames in the original png file
@@ -57,26 +53,34 @@ Sesame::~Sesame() {
   UnloadTexture(sesame_sitting_meowing);
 }
 
-float Sesame::get_sesame_position_top_left_x() const {
-  return sesame_position_top_left_x;
-}
+std::vector<std::vector<float>> Sesame::get_sesame_frame_coordinates() {
+  switch(sesame_current_action) {
+    case 0: {
+      // Walking
+      sesame_position_bottom_right_x = sesame_position_top_left_x + sesame_walking_frame_width;
+      sesame_position_bottom_right_y = sesame_position_top_left_y + sesame_walking_frame_height;
+    } break;
+    case 1: {
+      // Grooming
+      sesame_position_bottom_right_x = sesame_position_top_left_x + sesame_grooming_frame_width;
+      sesame_position_bottom_right_y = sesame_position_top_left_y + sesame_grooming_frame_height;
+    } break;
+    case 2: {
+      // Sitting & Meowing
+      sesame_position_bottom_right_x = sesame_position_top_left_x + sesame_sitting_meowing_frame_width;
+      sesame_position_bottom_right_y = sesame_position_top_left_y + sesame_sitting_meowing_frame_height;
+    } break;
+    default:
+      break;
+  }
 
-float Sesame::get_sesame_position_top_left_y() const {
-  return sesame_position_top_left_y;
-}
-
-float Sesame::get_sesame_frame_coordinates() const {
-  sesame_frame_coordinates = {
-    {sesame_position_top_left_x, sesame_position_top_left_y},
-    {sesame_position_top_right_x, sesame_position_top_right_y},
-    {sesame_position_bottom_right_x, sesame_position_bottom_right_y},
-    {sesame_position_bottom_left_x, sesame_position_bottom_left_y}
-  };
+  sesame_frame_coordinates = {{sesame_position_top_left_x, sesame_position_top_left_y}, {sesame_position_bottom_right_x, sesame_position_bottom_right_y}};
   return sesame_frame_coordinates;
 }
 
 // Walking
 void Sesame::walk_left() {
+  sesame_current_action = 0;
   sesame_walking_left_current_frame += 1;
   sesame_walking_left_current_frame = sesame_walking_left_current_frame % sesame_walking_left_end_frame_index;
 
@@ -90,12 +94,13 @@ void Sesame::walk_left() {
       sesame_walking_frame_width,
       sesame_walking_frame_height},
     Vector2{
-      get_sesame_position_top_left_x(),
-      get_sesame_position_top_left_y()},
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
       WHITE);
 }
 
 void Sesame::walk_down() {
+  sesame_current_action = 0;
   sesame_walking_down_current_frame += 1;
   sesame_walking_down_current_frame = sesame_walking_down_current_frame % sesame_walking_down_end_frame_index;
 
@@ -113,12 +118,13 @@ void Sesame::walk_down() {
       sesame_walking_frame_width,
       sesame_walking_frame_height},
     Vector2{
-      get_sesame_position_top_left_x(),
-      get_sesame_position_top_left_y()},
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
       WHITE);
 }
 
 void Sesame::walk_right() {
+  sesame_current_action = 0;
   sesame_walking_right_current_frame += 1;
   sesame_walking_right_current_frame = sesame_walking_right_current_frame % sesame_walking_right_end_frame_index;
 
@@ -136,12 +142,13 @@ void Sesame::walk_right() {
       sesame_walking_frame_width,
       sesame_walking_frame_height},
     Vector2{
-      get_sesame_position_top_left_x(),
-      get_sesame_position_top_left_y()},
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
       WHITE);
 }
 
 void Sesame::walk_up() {
+  sesame_current_action = 0;
   sesame_walking_up_current_frame += 1;
   sesame_walking_up_current_frame = sesame_walking_up_current_frame % sesame_walking_up_end_frame_index;
 
@@ -159,13 +166,30 @@ void Sesame::walk_up() {
       sesame_walking_frame_width,
       sesame_walking_frame_height},
     Vector2{
-      get_sesame_position_top_left_x(),
-      get_sesame_position_top_left_y()},
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
       WHITE);
+}
+
+void Sesame::reverse_walk_left() {
+  sesame_position_top_left_x += sesame_walking_stride;
+}
+
+void Sesame::reverse_walk_down() {
+  sesame_position_top_left_y -= sesame_walking_stride;
+}
+
+void Sesame::reverse_walk_right() {
+  sesame_position_top_left_x -= sesame_walking_stride;
+}
+
+void Sesame::reverse_walk_up() {
+  sesame_position_top_left_y += sesame_walking_stride;
 }
 
 // Grooming
 void Sesame::groom() {
+  sesame_current_action = 1;
   sesame_grooming_current_frame += 1;
   sesame_grooming_current_frame = sesame_grooming_current_frame % sesame_grooming_max_frames;
 
@@ -177,13 +201,14 @@ void Sesame::groom() {
       sesame_grooming_frame_width,
       sesame_grooming_frame_height},
     Vector2{
-      get_sesame_position_top_left_x(),
-      get_sesame_position_top_left_y()},
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
       WHITE);
 }
 
 // Sitting
 void Sesame::sitting() {
+  sesame_current_action = 2;
   sesame_sitting_current_frame += 1;
   sesame_sitting_current_frame = sesame_sitting_current_frame % sesame_sitting_end_frame_index;
 
@@ -195,13 +220,14 @@ void Sesame::sitting() {
       sesame_sitting_meowing_frame_width,
       sesame_sitting_meowing_frame_height},
     Vector2{
-      get_sesame_position_top_left_x(),
-      get_sesame_position_top_left_y()},
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
       WHITE);
 }
 
 // Meowing
 void Sesame::meowing() {
+  sesame_current_action = 2;
   sesame_meowing_current_frame += 1;
   sesame_meowing_current_frame = sesame_meowing_current_frame % sesame_meowing_end_frame_index;
 
@@ -213,7 +239,7 @@ void Sesame::meowing() {
       sesame_sitting_meowing_frame_width,
       sesame_sitting_meowing_frame_height},
     Vector2{
-      get_sesame_position_top_left_x(),
-      get_sesame_position_top_left_y()},
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
       WHITE);
 }
