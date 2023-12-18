@@ -8,11 +8,11 @@
 class Game {
   private:
     Sesame sesame;
-    Timer timer_until_meow_groom;
+    Timer timer_until_meow_or_groom;
     Timer timer_meow_duration;
     Timer timer_groom_duration;
     int SCREEN_WIDTH, SCREEN_HEIGHT;
-    bool is_time_to_meow_groom;
+    bool is_time_to_meow_or_groom;
     bool meow;
     bool groom;
     int seconds_until_meow_groom;
