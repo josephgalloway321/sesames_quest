@@ -23,6 +23,8 @@ class Game {
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
+    Font font;
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
+    void display_sesame_coordinates();
 };

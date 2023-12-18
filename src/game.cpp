@@ -10,10 +10,12 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   seconds_until_meow_groom = 12;
   seconds_meow_duration = 5;
   seconds_groom_duration = 6;
+  font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
   srand(time(NULL));
 }
 
 Game::~Game() {
+  UnloadFont(font);
 }
 
 void Game::check_if_sesame_inside_screen() {
@@ -126,4 +128,11 @@ void Game::toggle_full_screen_window(int window_width, int window_height) {
   }
 }
 
-
+void Game::display_sesame_coordinates() {
+  DrawTextEx(font, "Sesame coordinates", {300, 300}, 20, 2, BLACK);
+  int x = 45;
+  int y = 54;
+  char pos_x[3];
+  sprintf(pos_x, "%d", x);
+  DrawTextEx(font, pos_x, {320, 320}, 12, 2, BLACK);
+}

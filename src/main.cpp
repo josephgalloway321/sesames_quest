@@ -52,7 +52,7 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
-        
+        game.display_sesame_coordinates();
 
         EndDrawing();
         
