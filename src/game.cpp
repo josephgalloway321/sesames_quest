@@ -67,7 +67,11 @@ void Game::handle_keyboard_input() {
   }
   else if(IsKeyDown(KEY_P)) {
     timer_until_meow_or_groom.reset_timer();
-    //sesame.grooming();
+    sesame.sleeping();
+  }
+  else if(IsKeyDown(KEY_O)) {
+    timer_until_meow_or_groom.reset_timer();
+    sesame.woken();
   }
   else {
     // No keys held down

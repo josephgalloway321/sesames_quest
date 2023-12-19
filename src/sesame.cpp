@@ -2,6 +2,7 @@
 
 Sesame::Sesame() {
   // Walking = 0, Grooming = 1, Sitting & Meowing = 2, Eating = 3, Dancing = 4, Scared = 5
+  // Sleeping & Woken = 6
   sesame_current_action = 0;  
 
   sesame_position_top_left_x = 250.0;  // Position x at the start of the game
@@ -61,6 +62,17 @@ Sesame::Sesame() {
   sesame_scared_frame_width = (float)(sesame_scared.width / sesame_scared_max_frames);
   sesame_scared_frame_height = sesame_scared.height; 
   sesame_scared_current_frame = 0; 
+
+  sesame_sleeping_woken = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sleeping_woken.png");
+  sesame_sleeping_woken_max_frames = 3;
+  sesame_sleeping_woken_frame_width = (float)(sesame_sleeping_woken.width / sesame_sleeping_woken_max_frames);;
+  sesame_sleeping_woken_frame_height = sesame_sleeping_woken.height;
+  sesame_sleeping_start_frame_index = 0;
+  sesame_woken_start_frame_index = 2;
+  sesame_sleeping_current_frame = sesame_sleeping_start_frame_index;
+  sesame_woken_current_frame = sesame_woken_start_frame_index;
+  sesame_sleeping_end_frame_index = sesame_woken_start_frame_index;
+  sesame_woken_end_frame_index = sesame_sleeping_woken_max_frames;
 }
 
 Sesame::~Sesame() {
@@ -70,6 +82,7 @@ Sesame::~Sesame() {
   UnloadTexture(sesame_eating);
   UnloadTexture(sesame_dancing);
   UnloadTexture(sesame_scared);
+  UnloadTexture(sesame_sleeping_woken);
 }
 
 std::vector<std::vector<float>> Sesame::get_sesame_frame_coordinates() {
@@ -103,6 +116,11 @@ std::vector<std::vector<float>> Sesame::get_sesame_frame_coordinates() {
       // Scared
       sesame_position_bottom_right_x = sesame_position_top_left_x + sesame_scared_frame_width;
       sesame_position_bottom_right_y = sesame_position_top_left_y + sesame_scared_frame_height;
+    } break;
+    case 6: {
+      // Sleeping & Woken
+      sesame_position_bottom_right_x = sesame_position_top_left_x + sesame_sleeping_woken_frame_width;
+      sesame_position_bottom_right_y = sesame_position_top_left_y + sesame_sleeping_woken_frame_height;
     } break;
     default:
       break;
@@ -325,6 +343,42 @@ void Sesame::scared() {
       0,
       sesame_scared_frame_width,
       sesame_scared_frame_height},
+    Vector2{
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
+      WHITE);
+}
+
+void Sesame::sleeping() {
+  sesame_current_action = 6;
+  sesame_sleeping_current_frame += 1;
+  sesame_sleeping_current_frame = sesame_sleeping_current_frame % sesame_sleeping_end_frame_index;
+
+  DrawTextureRec(
+    sesame_sleeping_woken,
+    Rectangle{
+      sesame_sleeping_woken_frame_width * sesame_sleeping_current_frame,
+      0,
+      sesame_sleeping_woken_frame_width,
+      sesame_sleeping_woken_frame_height},
+    Vector2{
+      sesame_position_top_left_x,
+      sesame_position_top_left_y},
+      WHITE);
+}
+
+void Sesame::woken() {
+  sesame_current_action = 6;
+  sesame_woken_current_frame += 1;
+  sesame_woken_current_frame = sesame_woken_current_frame % sesame_sleeping_woken_max_frames;
+
+  DrawTextureRec(
+    sesame_sleeping_woken,
+    Rectangle{
+      sesame_sleeping_woken_frame_width * sesame_woken_current_frame,
+      0,
+      sesame_sleeping_woken_frame_width,
+      sesame_sleeping_woken_frame_height},
     Vector2{
       sesame_position_top_left_x,
       sesame_position_top_left_y},

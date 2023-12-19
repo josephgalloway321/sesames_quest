@@ -11,6 +11,7 @@ class Sesame {
     Texture2D sesame_eating;
     Texture2D sesame_dancing;
     Texture2D sesame_scared;
+    Texture2D sesame_sleeping_woken;
 
     int sesame_current_action;
 
@@ -69,6 +70,16 @@ class Sesame {
     float sesame_scared_frame_height; 
     int sesame_scared_current_frame;
 
+    int sesame_sleeping_woken_max_frames;
+    float sesame_sleeping_woken_frame_width;
+    float sesame_sleeping_woken_frame_height;
+    int sesame_sleeping_start_frame_index;
+    int sesame_woken_start_frame_index;
+    int sesame_sleeping_current_frame;
+    int sesame_woken_current_frame;
+    int sesame_sleeping_end_frame_index;
+    int sesame_woken_end_frame_index;
+
   public:
     Sesame();
     ~Sesame();
@@ -89,4 +100,6 @@ class Sesame {
     void eating();
     void dancing();
     void scared();
+    void sleeping();
+    void woken();
 };
