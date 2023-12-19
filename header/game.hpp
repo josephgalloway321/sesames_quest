@@ -7,6 +7,8 @@
 
 class Game {
   private:
+    
+
     Sesame sesame;
     Timer timer_until_meow_or_groom;
     Timer timer_meow_duration;
@@ -24,6 +26,7 @@ class Game {
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
+    Texture2D apartment;
     Font font;
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();

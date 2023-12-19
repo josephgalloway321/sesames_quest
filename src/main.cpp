@@ -2,7 +2,8 @@
 #include <raylib.h>
 #include "../header/game.hpp"
 
-const int SCREEN_WIDTH = 1800, SCREEN_HEIGHT = 1012;
+// 16:9 aspect ratio
+const int SCREEN_WIDTH = 1820, SCREEN_HEIGHT = 1024;
 
 int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sesame's Quest");
@@ -52,6 +53,8 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
 
+        DrawTexture(game.apartment, 0, 0, WHITE);
+        
         game.display_sesame_coordinates();
 
         EndDrawing();

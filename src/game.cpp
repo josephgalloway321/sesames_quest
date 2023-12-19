@@ -4,13 +4,17 @@
 Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   this -> SCREEN_WIDTH = SCREEN_WIDTH;
   this -> SCREEN_HEIGHT = SCREEN_HEIGHT;
+
+  font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
+
+  apartment = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/apartment.png");
+
   is_time_to_meow_or_groom = false; 
   meow = false;
   groom = false;
   seconds_until_meow_or_groom = 4;
   seconds_meow_duration = 5;
   seconds_groom_duration = 6;
-  font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
   srand(time(NULL));
 }
 
