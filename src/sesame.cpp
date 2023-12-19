@@ -1,8 +1,6 @@
 #include "../header/sesame.hpp"
 
 Sesame::Sesame() {
-  sesame_walking = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_walking.png");
-  
   // Walking = 0, Grooming = 1, Sitting & Meowing = 2, Eating = 3, Dancing = 4, Scared = 5
   sesame_current_action = 0;  
 
@@ -10,7 +8,8 @@ Sesame::Sesame() {
   sesame_position_top_left_y = 250.0;  // Position y at the start of the game
   sesame_position_bottom_right_x = 0.0;  // Initialize
   sesame_position_bottom_right_y = 0.0;  // Initialize
-  
+
+  sesame_walking = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_walking.png");  
   sesame_walking_max_frames = 16;  //  Number of frames in the original png file
   sesame_walking_frame_width = (float)(sesame_walking.width / sesame_walking_max_frames);   // Calculate the width of each frame in image
   sesame_walking_frame_height = sesame_walking.height;

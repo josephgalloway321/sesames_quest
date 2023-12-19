@@ -7,7 +7,7 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   is_time_to_meow_or_groom = false; 
   meow = false;
   groom = false;
-  seconds_until_meow_groom = 12;
+  seconds_until_meow_or_groom = 4;
   seconds_meow_duration = 5;
   seconds_groom_duration = 6;
   font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
@@ -70,7 +70,7 @@ void Game::handle_keyboard_input() {
   else {
     // No keys held down
     // After sitting w/o user input, meow or groom
-    if(is_time_to_meow_or_groom == false && timer_until_meow_or_groom.is_time_for_event(seconds_until_meow_groom)) {
+    if(is_time_to_meow_or_groom == false && timer_until_meow_or_groom.is_time_for_event(seconds_until_meow_or_groom)) {
       is_time_to_meow_or_groom = true;
       // Decide to meow or groom
       int random_number = rand() % 2; // 0 = meow, 1 = groom
