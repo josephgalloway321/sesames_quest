@@ -70,39 +70,7 @@ void Game::handle_keyboard_input() {
   else {
     // No keys held down
     // After sitting w/o user input, meow or groom
-    if(is_time_to_meow_or_groom == false && timer_until_meow_or_groom.is_time_for_event(seconds_until_meow_or_groom)) {
-      is_time_to_meow_or_groom = true;
-      // Decide to meow or groom
-      int random_number = rand() % 2; // 0 = meow, 1 = groom
-      if(random_number == 0) {
-        meow = true;
-        timer_meow_duration.reset_timer();  // Start meow duration timer to hold meow
-      }  
-      else {
-        groom = true;
-        timer_groom_duration.reset_timer();  // Start groom duration timer to hold groom
-      }
-    }
-    else if(meow && timer_meow_duration.is_time_for_event(seconds_meow_duration)) {
-      is_time_to_meow_or_groom = false;
-      meow = false;
-      timer_until_meow_or_groom.reset_timer();
-    }
-    else if(groom && timer_groom_duration.is_time_for_event(seconds_groom_duration)) {
-      is_time_to_meow_or_groom = false;
-      groom = false;
-      timer_until_meow_or_groom.reset_timer();
-    }
-
-    if(meow) {
-      sesame.meowing();
-    }
-    else if(groom) {
-      sesame.grooming();
-    }
-    else {
-      sesame.sitting();
-    }    
+    handle_meow_or_groom();
   }
 
   // Handle keys pressed
@@ -114,6 +82,42 @@ void Game::handle_keyboard_input() {
     default:
       break;
   }
+}
+
+void Game::handle_meow_or_groom() {
+  if(is_time_to_meow_or_groom == false && timer_until_meow_or_groom.is_time_for_event(seconds_until_meow_or_groom)) {
+    is_time_to_meow_or_groom = true;
+    // Decide to meow or groom
+    int random_number = rand() % 2; // 0 = meow, 1 = groom
+    if(random_number == 0) {
+      meow = true;
+      timer_meow_duration.reset_timer();  // Start meow duration timer to hold meow
+    }  
+    else {
+      groom = true;
+      timer_groom_duration.reset_timer();  // Start groom duration timer to hold groom
+    }
+  }
+  else if(meow && timer_meow_duration.is_time_for_event(seconds_meow_duration)) {
+    is_time_to_meow_or_groom = false;
+    meow = false;
+    timer_until_meow_or_groom.reset_timer();
+  }
+  else if(groom && timer_groom_duration.is_time_for_event(seconds_groom_duration)) {
+    is_time_to_meow_or_groom = false;
+    groom = false;
+    timer_until_meow_or_groom.reset_timer();
+  }
+
+  if(meow) {
+    sesame.meowing();
+  }
+  else if(groom) {
+    sesame.grooming();
+  }
+  else {
+    sesame.sitting();
+  }    
 }
 
 void Game::toggle_full_screen_window(int window_width, int window_height) {

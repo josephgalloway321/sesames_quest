@@ -70,7 +70,6 @@ Sesame::~Sesame() {
   UnloadTexture(sesame_eating);
   UnloadTexture(sesame_dancing);
   UnloadTexture(sesame_scared);
-
 }
 
 std::vector<std::vector<float>> Sesame::get_sesame_frame_coordinates() {
