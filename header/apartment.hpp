@@ -7,16 +7,28 @@ class Apartment {
 
     float apartment_laundry_kitchen_top_left_x;
     float apartment_laundry_kitchen_top_left_y;
+    float apartment_living_room_top_left_x;
+    float apartment_living_room_top_left_y;
+    float apartment_bathroom_closets_top_left_x;
+    float apartment_bathroom_closets_top_left_y;
+    float apartment_bedroom_top_left_x;
+    float apartment_bedroom_top_left_y;
 
     int apartment_max_frames;
     float apartment_frame_width;
     float apartment_frame_height;
-    //int apartment_start_frame_index;
-    //int apartment_end_frame_index;
-    int apartment_current_frame_index;
+    //int apartment_laundry_kitchen_start_frame_index;
+    //int apartment_laundry_kitchen_end_frame_index;
+    int apartment_laundry_kitchen_current_frame_index;
+    int apartment_living_room_current_frame_index;
+    int apartment_bathroom_closets_current_frame_index;
+    int apartment_bedroom_current_frame_index;
 
   public:
     Apartment();
     ~Apartment();
-    void show_apartment();
+    void show_laundry_kitchen_rooms();
+    void show_living_room();
+    void show_bathroom_closets();
+    void show_bedroom();
 };

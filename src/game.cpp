@@ -14,8 +14,6 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   seconds_meow_duration = 5;
   seconds_groom_duration = 6;
   srand(time(NULL));
-
-  apartment.show_apartment();
 }
 
 Game::~Game() {
@@ -175,4 +173,14 @@ void Game::display_sesame_coordinates() {
   DrawTextEx(font, pos_x, {first_score_top_left_position_x, first_score_top_left_position_y}, 20, 2, BLACK);
   DrawTextEx(font, "Sesame y coordinate: ", {second_text_top_left_position_x, second_text_top_left_position_y}, 20, 2, BLACK);
   DrawTextEx(font, pos_y, {second_score_top_left_position_x, second_score_top_left_position_y}, 20, 2, BLACK);
+}
+
+void Game::show_apartment() {
+  // Write logic determining which frame of apartment to show based on 
+  // Sesame interacting with opening/closing doors
+
+  apartment.show_laundry_kitchen_rooms();
+  apartment.show_living_room();
+  apartment.show_bathroom_closets();
+  apartment.show_bedroom();
 }

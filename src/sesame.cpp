@@ -25,7 +25,7 @@ Sesame::Sesame() {
   sesame_walking_down_end_frame_index = sesame_walking_right_start_frame_index;
   sesame_walking_right_end_frame_index = sesame_walking_up_start_frame_index;
   sesame_walking_up_end_frame_index = sesame_walking_max_frames;
-  sesame_walking_stride = 22;  // Stride length in pixels while walking
+  sesame_walking_stride = 30;  // Stride length in pixels while walking
   
   sesame_grooming = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_grooming.png");
   sesame_grooming_max_frames = 12;  //  Number of frames in the original png file

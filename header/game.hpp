@@ -8,11 +8,11 @@
 
 class Game {
   private:
+    Apartment apartment;
     Sesame sesame;
     Timer timer_until_meow_or_groom;
     Timer timer_meow_duration;
     Timer timer_groom_duration;
-    Apartment apartment;
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     bool is_time_to_meow_or_groom;
     bool meow;
@@ -30,4 +30,5 @@ class Game {
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
     void display_sesame_coordinates();
+    void show_apartment();
 };
