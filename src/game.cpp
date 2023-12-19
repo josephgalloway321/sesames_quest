@@ -7,8 +7,6 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
 
   font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
 
-  apartment = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/apartment.png");
-
   is_time_to_meow_or_groom = false; 
   meow = false;
   groom = false;
@@ -16,6 +14,8 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   seconds_meow_duration = 5;
   seconds_groom_duration = 6;
   srand(time(NULL));
+
+  apartment.show_apartment();
 }
 
 Game::~Game() {
