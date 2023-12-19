@@ -138,26 +138,33 @@ void Game::display_sesame_coordinates() {
   sprintf(pos_x, "%d", position_top_left_x);
   sprintf(pos_y, "%d", position_top_left_y);
 
-  float background_width = 350;
-  float background_height = 75;
+  float background_width = 290;
+  float background_height = 60;
   int margin = 10;
   float background_top_left_position_x = SCREEN_WIDTH - background_width - margin;
   float background_top_left_position_y = SCREEN_HEIGHT - background_height - margin;
   
-  int padding = 10;
-  float first_text_top_left_position_x = background_top_left_position_x + padding;
-  float first_text_top_left_position_y = background_top_left_position_y + padding;
+  int padding_top_left = 8;
+  float first_text_top_left_position_x = background_top_left_position_x + padding_top_left;
+  float first_text_top_left_position_y = background_top_left_position_y + padding_top_left;
+
+  int padding_between_first_and_second_text = 35;
+  float second_text_top_left_position_x = background_top_left_position_x + padding_top_left;
+  float second_text_top_left_position_y = background_top_left_position_y + padding_between_first_and_second_text;
+
+  int padding_horizontal_between_text_score = 235;
+  float first_score_top_left_position_x = first_text_top_left_position_x + padding_horizontal_between_text_score;
+  float first_score_top_left_position_y = first_text_top_left_position_y;
+  float second_score_top_left_position_x = second_text_top_left_position_x + padding_horizontal_between_text_score;
+  float second_score_top_left_position_y = second_text_top_left_position_y;
 
   DrawRectangleRounded({
     background_top_left_position_x,
     background_top_left_position_y, 
     background_width, background_height},
     0.3, 6, ORANGE);
-  DrawTextEx(font, "Sesame x coordinate: ", {
-                                             first_text_top_left_position_x, 
-                                             first_text_top_left_position_y},
-                                             20, 2, BLACK);
-  DrawTextEx(font, pos_x, {750, 515}, 25, 2, BLACK);
-  DrawTextEx(font, "Sesame y coordinate: ", {515, 545}, 20, 2, BLACK);
-  DrawTextEx(font, pos_y, {750, 545}, 25, 2, BLACK);
+  DrawTextEx(font, "Sesame x coordinate: ", {first_text_top_left_position_x, first_text_top_left_position_y}, 20, 2, BLACK);
+  DrawTextEx(font, pos_x, {first_score_top_left_position_x, first_score_top_left_position_y}, 20, 2, BLACK);
+  DrawTextEx(font, "Sesame y coordinate: ", {second_text_top_left_position_x, second_text_top_left_position_y}, 20, 2, BLACK);
+  DrawTextEx(font, pos_y, {second_score_top_left_position_x, second_score_top_left_position_y}, 20, 2, BLACK);
 }
