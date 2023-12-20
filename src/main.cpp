@@ -59,6 +59,7 @@ int main() {
         game.show_apartment();
         //DrawTexture(test, 250, 300, WHITE);  // TEST
         game.display_sesame_coordinates();
+        game.display_game_information();
         game.handle_keyboard_input();
         game.check_if_sesame_inside_screen();
 

@@ -5,8 +5,10 @@ Sesame::Sesame() {
   // Sleeping & Woken = 6
   sesame_current_action = 0;  
 
-  sesame_position_top_left_x = 250.0;  // Position x at the start of the game
-  sesame_position_top_left_y = 250.0;  // Position y at the start of the game
+  sesame_start_position_top_left_x = 250.0;  // Position x at the start of the game
+  sesame_start_position_top_left_y = 250.0;  // Position y at the start of the game
+  sesame_position_top_left_x = sesame_start_position_top_left_x;  
+  sesame_position_top_left_y = sesame_start_position_top_left_y;  
   sesame_position_bottom_right_x = 0.0;  // Initialize
   sesame_position_bottom_right_y = 0.0;  // Initialize
 
@@ -399,4 +401,9 @@ int Sesame::get_sesame_grooming_current_frame() const {
 
 int Sesame::get_sesame_meowing_current_frame() const {
   return sesame_meowing_current_frame;
+}
+
+void Sesame::reset_sesame_position() {
+  sesame_position_top_left_x = sesame_start_position_top_left_x;
+  sesame_position_top_left_y = sesame_start_position_top_left_y;
 }

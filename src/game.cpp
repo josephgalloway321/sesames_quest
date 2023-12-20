@@ -12,6 +12,8 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   groom = false;
   seconds_until_meow_or_groom = 12;
   srand(time(NULL));
+
+  current_time = 0;
 }
 
 Game::~Game() {
@@ -169,10 +171,28 @@ void Game::display_sesame_coordinates() {
     background_top_left_position_y, 
     background_width, background_height},
     0.3, 6, ORANGE);
-  DrawTextEx(font, "Sesame x coordinate: ", {first_text_top_left_position_x, first_text_top_left_position_y}, 20, 2, BLACK);
-  DrawTextEx(font, pos_x, {first_score_top_left_position_x, first_score_top_left_position_y}, 20, 2, BLACK);
-  DrawTextEx(font, "Sesame y coordinate: ", {second_text_top_left_position_x, second_text_top_left_position_y}, 20, 2, BLACK);
-  DrawTextEx(font, pos_y, {second_score_top_left_position_x, second_score_top_left_position_y}, 20, 2, BLACK);
+  DrawTextEx(font, "Sesame x coordinate (px): ", {first_text_top_left_position_x, first_text_top_left_position_y}, 15, 2, BLACK);
+  DrawTextEx(font, pos_x, {first_score_top_left_position_x, first_score_top_left_position_y}, 15, 2, BLACK);
+  DrawTextEx(font, "Sesame y coordinate (px): ", {second_text_top_left_position_x, second_text_top_left_position_y}, 15, 2, BLACK);
+  DrawTextEx(font, pos_y, {second_score_top_left_position_x, second_score_top_left_position_y}, 15, 2, BLACK);
+}
+
+void Game::display_game_information() {
+  // Draw title
+  //DrawRectangleRounded({1525, 10, 285, 145}, 0.3, 6, PINK);
+  DrawTextEx(font, "Sesame's", {1550, 10}, 60, 2, WHITE);
+  DrawTextEx(font, "Quest", {1600, 75}, 60, 2, WHITE);
+
+  // Draw best time
+  DrawTextEx(font, "Best Time", {1575, 200}, 40, 2, WHITE);
+  DrawRectangleRounded({1525, 250, 285, 70}, 0.3, 6, PINK);
+
+  // Draw current time
+  DrawTextEx(font, "Current Time", {1540, 400}, 40, 2, WHITE);
+  DrawRectangleRounded({1525, 450, 285, 70}, 0.3, 6, PINK);
+
+  // Draw text for player
+  DrawRectangleRounded({1525, 600, 285, 250}, 0.3, 6, PINK);
 }
 
 void Game::show_apartment() {
@@ -183,4 +203,9 @@ void Game::show_apartment() {
   apartment.show_living_room();
   apartment.show_bathroom_closets();
   apartment.show_bedroom();
+}
+
+void Game::reset_game() {
+  current_time = 0;
+  sesame.reset_sesame_position();
 }

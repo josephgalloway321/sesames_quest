@@ -15,6 +15,8 @@ class Sesame {
 
     int sesame_current_action;
 
+    float sesame_start_position_top_left_x;
+    float sesame_start_position_top_left_y;
     float sesame_position_top_left_x;
     float sesame_position_top_left_y;
     float sesame_position_bottom_right_x;
@@ -105,4 +107,6 @@ class Sesame {
 
     int get_sesame_grooming_current_frame() const;
     int get_sesame_meowing_current_frame() const;
+
+    void reset_sesame_position(); 
 };

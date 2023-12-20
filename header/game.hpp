@@ -16,6 +16,8 @@ class Game {
     bool meow;
     bool groom;
     int seconds_until_meow_or_groom;
+    int best_time;
+    int current_time;
     void toggle_full_screen_window(int window_width, int window_height);
     void handle_meow_or_groom();
 
@@ -26,5 +28,7 @@ class Game {
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
     void display_sesame_coordinates();
+    void display_game_information();
     void show_apartment();
+    void reset_game();
 };
