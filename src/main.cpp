@@ -58,8 +58,8 @@ int main() {
         // The order matters; first is lowest layer & last is highest layer
         game.show_apartment();
         //DrawTexture(test, 250, 300, WHITE);  // TEST
-        game.display_sesame_coordinates();
         game.display_game_information();
+        //game.display_sesame_coordinates();
         game.handle_keyboard_input();
         game.check_if_sesame_inside_screen();
 

@@ -146,9 +146,13 @@ void Game::display_sesame_coordinates() {
   sprintf(pos_x, "%d", position_top_left_x);
   sprintf(pos_y, "%d", position_top_left_y);
 
-  float background_width = 290;
-  float background_height = 60;
+  // TODO: Pass this variable from display_game_information as an argument
+  int game_information_width = SCREEN_WIDTH - 1525;
+  
   int margin = 10;
+  float background_width = game_information_width - margin;
+  float background_height = 60;
+  
   float background_top_left_position_x = SCREEN_WIDTH - background_width - margin;
   float background_top_left_position_y = SCREEN_HEIGHT - background_height - margin;
   
@@ -177,7 +181,10 @@ void Game::display_sesame_coordinates() {
   DrawTextEx(font, pos_y, {second_score_top_left_position_x, second_score_top_left_position_y}, 15, 2, BLACK);
 }
 
+
 void Game::display_game_information() {
+  //int game_information_width = SCREEN_WIDTH - 1525;
+
   // Draw title
   //DrawRectangleRounded({1525, 10, 285, 145}, 0.3, 6, PINK);
   DrawTextEx(font, "Sesame's", {1550, 10}, 60, 2, WHITE);
@@ -193,6 +200,9 @@ void Game::display_game_information() {
 
   // Draw text for player
   DrawRectangleRounded({1525, 600, 285, 250}, 0.3, 6, PINK);
+
+  // Draw Sesame's coordinates
+  display_sesame_coordinates();
 }
 
 void Game::show_apartment() {
