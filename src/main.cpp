@@ -13,6 +13,10 @@ int main() {
   Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
   enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
   GameScreen current_screen = gameplay;
+
+  // TEST
+  Texture2D test;
+  test = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/sign.png");
   
   while(!WindowShouldClose()) {
     /*
@@ -53,9 +57,12 @@ int main() {
       case gameplay: {
         // The order matters; first is lowest layer & last is highest layer
         game.show_apartment();
+        DrawTexture(test, 160, 10, WHITE);  // TEST
         game.display_sesame_coordinates();
         game.handle_keyboard_input();
         game.check_if_sesame_inside_screen();
+
+        
         
       } break;
       case ending_success: {
