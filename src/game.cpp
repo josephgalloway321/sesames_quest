@@ -136,7 +136,7 @@ void Game::toggle_full_screen_window(int window_width, int window_height) {
   }
 }
 
-void Game::display_sesame_coordinates(int game_information_width, int game_information_height) {
+void Game::draw_sesame_coordinates(int game_information_width, int game_information_start_x) {
   std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
   int position_top_left_x = (int)coordinates[0][0];
   int position_top_left_y = (int)coordinates[0][1];
@@ -147,10 +147,10 @@ void Game::display_sesame_coordinates(int game_information_width, int game_infor
   sprintf(pos_y, "%d", position_top_left_y);
   
   int margin = 10;
-  float background_width = game_information_width - margin;
+  float background_width = game_information_width - 20;
   float background_height = 60;
   
-  float background_top_left_position_x = SCREEN_WIDTH - background_width - margin;
+  float background_top_left_position_x = game_information_start_x + margin;
   float background_top_left_position_y = SCREEN_HEIGHT - background_height - margin;
   
   int padding_horizontal_vertical_between_border_text = 8;
@@ -179,28 +179,116 @@ void Game::display_sesame_coordinates(int game_information_width, int game_infor
 }
 
 
+void Game::draw_title(int game_information_width, int game_information_start_x) {
+  int title_font_size = 60;
+
+  int margin_horizontal_title = 25;
+  int margin_vertical_title = 10;
+  float title_top_left_position_x = game_information_start_x + margin_horizontal_title;
+  float title_top_left_position_y = margin_vertical_title;
+  int margin_horizontal_second_title = 75;
+  int margin_vertical_between_titles = 65;
+  float second_title_top_left_position_x = game_information_start_x + margin_horizontal_second_title;
+  float second_title_top_left_position_y = title_top_left_position_y + margin_vertical_between_titles;
+
+  DrawTextEx(font, "Sesame's", {title_top_left_position_x, title_top_left_position_y}, title_font_size, 2, WHITE);
+  DrawTextEx(font, "Quest", {
+    second_title_top_left_position_x, 
+    second_title_top_left_position_y}, 
+    title_font_size, 2, WHITE);
+}
+
+void Game::draw_best_time(int game_information_width, int game_information_start_x) {
+  int best_time_font_size = 40;
+
+  int margin_horizontal_best_time_text = 60;
+  int margin_vertical_best_time_text = 200;
+  float best_time_text_top_left_position_x = game_information_start_x + margin_horizontal_best_time_text;
+  float best_time_text_top_left_position_y = margin_vertical_best_time_text;
+  
+  int margin_horizontal_background_best_time = 10;
+  int margin_vertical_between_background_best_time_text = 50;
+  float background_best_time_top_left_position_x = game_information_start_x + margin_horizontal_background_best_time;
+  float background_best_time_top_left_position_y = best_time_text_top_left_position_y + margin_vertical_between_background_best_time_text;
+  float background_best_time_width = 285;
+  float background_best_time_height = 70;
+
+  DrawTextEx(
+    font, 
+    "Best Time", 
+    {best_time_text_top_left_position_x, best_time_text_top_left_position_y}, 
+    best_time_font_size, 2, WHITE);
+  DrawRectangleRounded({
+    background_best_time_top_left_position_x, 
+    background_best_time_top_left_position_y, 
+    background_best_time_width, 
+    background_best_time_height}, 
+    0.3, 6, PINK);
+}
+
+void Game::draw_current_time(int game_information_width, int game_information_start_x) {
+  int current_time_font_size = 40;
+
+  int margin_horizontal_current_time_text = 25;
+  int margin_vertical_current_time_text = 400;
+  float best_time_text_top_left_position_x = game_information_start_x + margin_horizontal_current_time_text;
+  float best_time_text_top_left_position_y = margin_vertical_current_time_text;
+  
+  int margin_horizontal_background_best_time = 10;
+  int margin_vertical_between_background_current_time_text = 50;
+  float background_best_time_top_left_position_x = game_information_start_x + margin_horizontal_background_best_time;
+  float background_best_time_top_left_position_y = best_time_text_top_left_position_y + margin_vertical_between_background_current_time_text;
+  float background_best_time_width = 285;
+  float background_best_time_height = 70;
+
+  DrawTextEx(font, 
+  "Current Time", 
+  {best_time_text_top_left_position_x, best_time_text_top_left_position_y}, 
+  current_time_font_size, 2, WHITE);
+  DrawRectangleRounded({
+    background_best_time_top_left_position_x, 
+    background_best_time_top_left_position_y, 
+    background_best_time_width, 
+    background_best_time_height}, 
+    0.3, 6, PINK);
+}
+
+void Game::draw_message(int game_information_width, int game_information_start_x) {
+  //int message_font_size = 30;
+
+  int margin_horizontal_background_message = 10;
+  int margin_vertical_background_message = 600;
+  float background_message_top_left_position_x = game_information_start_x + margin_horizontal_background_message;
+  float background_message_top_left_position_y = margin_vertical_background_message;
+  float background_message_width = 285;
+  float background_message_height = 250;
+
+  DrawRectangleRounded(
+    {background_message_top_left_position_x, 
+    background_message_top_left_position_y, 
+    background_message_width, 
+    background_message_height},
+    0.3, 6, PINK);
+}
+
 void Game::display_game_information() {
-  int game_information_width = SCREEN_WIDTH - 1525;
-  int game_information_height = SCREEN_HEIGHT;
+  int game_information_start_x = 1515;
+  int game_information_width = SCREEN_WIDTH - game_information_start_x;
 
   // Draw title
-  //DrawRectangleRounded({1525, 10, 285, 145}, 0.3, 6, PINK);
-  DrawTextEx(font, "Sesame's", {1550, 10}, 60, 2, WHITE);
-  DrawTextEx(font, "Quest", {1600, 75}, 60, 2, WHITE);
+  draw_title(game_information_width, game_information_start_x);
 
   // Draw best time
-  DrawTextEx(font, "Best Time", {1575, 200}, 40, 2, WHITE);
-  DrawRectangleRounded({1525, 250, 285, 70}, 0.3, 6, PINK);
+  draw_best_time(game_information_width, game_information_start_x);
 
   // Draw current time
-  DrawTextEx(font, "Current Time", {1540, 400}, 40, 2, WHITE);
-  DrawRectangleRounded({1525, 450, 285, 70}, 0.3, 6, PINK);
+  draw_current_time(game_information_width, game_information_start_x);
 
-  // Draw text for player
-  DrawRectangleRounded({1525, 600, 285, 250}, 0.3, 6, PINK);
+  // Draw draw message
+  draw_message(game_information_width, game_information_start_x);
 
   // Draw Sesame's coordinates
-  display_sesame_coordinates(game_information_width, game_information_height);
+  draw_sesame_coordinates(game_information_width, game_information_start_x);
 }
 
 void Game::show_apartment() {

@@ -27,7 +27,11 @@ class Game {
     Font font;
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
-    void display_sesame_coordinates(int game_information_width, int game_information_height);
+    void draw_sesame_coordinates(int game_information_width, int game_information_start_x);
+    void draw_title(int game_information_width, int game_information_start_x);
+    void draw_best_time(int game_information_width, int game_information_start_x);
+    void draw_current_time(int game_information_width, int game_information_start_x);
+    void draw_message(int game_information_width, int game_information_start_x);
     void display_game_information();
     void show_apartment();
     void reset_game();
