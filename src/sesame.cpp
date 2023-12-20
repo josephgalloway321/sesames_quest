@@ -64,11 +64,11 @@ Sesame::Sesame() {
   sesame_scared_current_frame = 0; 
 
   sesame_sleeping_woken = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sleeping_woken.png");
-  sesame_sleeping_woken_max_frames = 3;
-  sesame_sleeping_woken_frame_width = (float)(sesame_sleeping_woken.width / sesame_sleeping_woken_max_frames);;
+  sesame_sleeping_woken_max_frames = 6;
+  sesame_sleeping_woken_frame_width = (float)(sesame_sleeping_woken.width / sesame_sleeping_woken_max_frames);
   sesame_sleeping_woken_frame_height = sesame_sleeping_woken.height;
   sesame_sleeping_start_frame_index = 0;
-  sesame_woken_start_frame_index = 2;
+  sesame_woken_start_frame_index = 4;
   sesame_sleeping_current_frame = sesame_sleeping_start_frame_index;
   sesame_woken_current_frame = sesame_woken_start_frame_index;
   sesame_sleeping_end_frame_index = sesame_woken_start_frame_index;
@@ -282,6 +282,10 @@ void Sesame::meowing() {
   sesame_meowing_current_frame += 1;
   sesame_meowing_current_frame = sesame_meowing_current_frame % sesame_meowing_end_frame_index;
 
+  if(sesame_meowing_current_frame == 0) {
+    sesame_meowing_current_frame = sesame_meowing_start_frame_index;
+  }
+
   DrawTextureRec(
     sesame_sitting_meowing,
     Rectangle{
@@ -370,7 +374,11 @@ void Sesame::sleeping() {
 void Sesame::woken() {
   sesame_current_action = 6;
   sesame_woken_current_frame += 1;
-  sesame_woken_current_frame = sesame_woken_current_frame % sesame_sleeping_woken_max_frames;
+  sesame_woken_current_frame = sesame_woken_current_frame % sesame_woken_end_frame_index;
+
+  if(sesame_woken_current_frame == 0) {
+    sesame_woken_current_frame = sesame_woken_start_frame_index;
+  }
 
   DrawTextureRec(
     sesame_sleeping_woken,
