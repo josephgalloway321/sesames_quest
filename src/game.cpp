@@ -13,7 +13,7 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   seconds_until_meow_or_groom = 12;
   srand(time(NULL));
   best_time = 0;
-  start_time = 12;
+  start_time = 120;
   current_time = start_time;
   is_game_over = false;
   is_successful = false;

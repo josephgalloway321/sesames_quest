@@ -22,24 +22,29 @@ int main() {
       case title: {
 
       } break;
+      
       case cut_scene: {
         
       } break;
+
       case gameplay: {
         BeginDrawing();
         ClearBackground(BLACK);
         EndDrawing();
       } break;
+
       case ending_success: {
         BeginDrawing();
         ClearBackground(PINK);
         EndDrawing();
       } break;
+
       case ending_failure: {
         BeginDrawing();
         ClearBackground(BLUE);
         EndDrawing();
       } break;
+
       default:
         break;
     }
@@ -51,9 +56,11 @@ int main() {
       case title: {
 
       } break;
+
       case cut_scene: {
         
       } break;
+
       case gameplay: {
         // The order matters; first is lowest layer & last is highest layer
         game.show_apartment();
@@ -69,12 +76,15 @@ int main() {
           current_screen = ending_failure;
         }
       } break;
+
       case ending_success: {
         game.reset_game();
       } break;
+
       case ending_failure: {
         game.reset_game();
       } break;
+
       default:
         break;
     }
