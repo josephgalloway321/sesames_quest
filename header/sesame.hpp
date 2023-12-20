@@ -102,4 +102,7 @@ class Sesame {
     void scared();
     void sleeping();
     void woken();
+
+    int get_sesame_grooming_current_frame() const;
+    int get_sesame_meowing_current_frame() const;
 };

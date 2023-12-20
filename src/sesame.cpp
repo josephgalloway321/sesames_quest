@@ -392,3 +392,11 @@ void Sesame::woken() {
       sesame_position_top_left_y},
       WHITE);
 }
+
+int Sesame::get_sesame_grooming_current_frame() const {
+  return sesame_grooming_current_frame;
+}
+
+int Sesame::get_sesame_meowing_current_frame() const {
+  return sesame_meowing_current_frame;
+}

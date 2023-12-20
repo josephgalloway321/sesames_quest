@@ -11,8 +11,6 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   meow = false;
   groom = false;
   seconds_until_meow_or_groom = 4;
-  seconds_meow_duration = 5;
-  seconds_groom_duration = 6;
   srand(time(NULL));
 }
 
@@ -97,19 +95,17 @@ void Game::handle_meow_or_groom() {
     int random_number = rand() % 2; // 0 = meow, 1 = groom
     if(random_number == 0) {
       meow = true;
-      timer_meow_duration.reset_timer();  // Start meow duration timer to hold meow
     }  
     else {
       groom = true;
-      timer_groom_duration.reset_timer();  // Start groom duration timer to hold groom
     }
   }
-  else if(meow && timer_meow_duration.is_time_for_event(seconds_meow_duration)) {
+  else if(meow && sesame.get_sesame_meowing_current_frame() == 11) {
     is_time_to_meow_or_groom = false;
     meow = false;
     timer_until_meow_or_groom.reset_timer();
   }
-  else if(groom && timer_groom_duration.is_time_for_event(seconds_groom_duration)) {
+  else if(groom && sesame.get_sesame_grooming_current_frame() == 0) {
     is_time_to_meow_or_groom = false;
     groom = false;
     timer_until_meow_or_groom.reset_timer();

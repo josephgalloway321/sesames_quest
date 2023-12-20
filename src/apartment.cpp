@@ -2,14 +2,14 @@
 
 Apartment::Apartment() {
   apartment = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/apartment.png");
-  apartment_max_frames = 12;
+  apartment_max_frames = 13;
   apartment_frame_width = (float)(apartment.width / apartment_max_frames);
   apartment_frame_height = apartment.height;
 
   apartment_laundry_kitchen_current_frame_index = 0;
   apartment_living_room_current_frame_index = 7;
   apartment_bathroom_closets_current_frame_index = 8;
-  apartment_bedroom_current_frame_index = 10;
+  apartment_bedroom_current_frame_index = 11;
 
   apartment_laundry_kitchen_top_left_x = 0;
   apartment_laundry_kitchen_top_left_y = 0;
