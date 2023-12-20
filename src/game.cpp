@@ -10,7 +10,7 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   is_time_to_meow_or_groom = false; 
   meow = false;
   groom = false;
-  seconds_until_meow_or_groom = 4;
+  seconds_until_meow_or_groom = 12;
   srand(time(NULL));
 }
 
