@@ -31,10 +31,14 @@ int main() {
         EndDrawing();
       } break;
       case ending_success: {
-        
+        BeginDrawing();
+        ClearBackground(PINK);
+        EndDrawing();
       } break;
       case ending_failure: {
-        
+        BeginDrawing();
+        ClearBackground(BLUE);
+        EndDrawing();
       } break;
       default:
         break;
@@ -57,12 +61,19 @@ int main() {
         game.handle_keyboard_input();
         game.check_if_sesame_inside_screen();
 
+        game.countdown_timer();
+        if(game.check_game_over() && game.check_is_successful()) {
+          current_screen = ending_success;
+        }
+        else if(game.check_game_over()) {
+          current_screen = ending_failure;
+        }
       } break;
       case ending_success: {
-        
+        game.reset_game();
       } break;
       case ending_failure: {
-        
+        game.reset_game();
       } break;
       default:
         break;

@@ -12,8 +12,11 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   groom = false;
   seconds_until_meow_or_groom = 12;
   srand(time(NULL));
-
-  current_time = 0;
+  best_time = 0;
+  start_time = 12;
+  current_time = start_time;
+  is_game_over = false;
+  is_successful = false;
 }
 
 Game::~Game() {
@@ -178,7 +181,6 @@ void Game::draw_sesame_coordinates(int game_information_width, int game_informat
   DrawTextEx(font, pos_y, {second_score_top_left_position_x, second_score_top_left_position_y}, 15, 2, BLACK);
 }
 
-
 void Game::draw_title(int game_information_width, int game_information_start_x) {
   int title_font_size = 60;
 
@@ -231,26 +233,65 @@ void Game::draw_current_time(int game_information_width, int game_information_st
 
   int margin_horizontal_current_time_text = 25;
   int margin_vertical_current_time_text = 400;
-  float best_time_text_top_left_position_x = game_information_start_x + margin_horizontal_current_time_text;
-  float best_time_text_top_left_position_y = margin_vertical_current_time_text;
+  float current_time_text_top_left_position_x = game_information_start_x + margin_horizontal_current_time_text;
+  float current_time_text_top_left_position_y = margin_vertical_current_time_text;
   
-  int margin_horizontal_background_best_time = 10;
+  int margin_horizontal_background_current_time = 10;
   int margin_vertical_between_background_current_time_text = 50;
-  float background_best_time_top_left_position_x = game_information_start_x + margin_horizontal_background_best_time;
-  float background_best_time_top_left_position_y = best_time_text_top_left_position_y + margin_vertical_between_background_current_time_text;
-  float background_best_time_width = 285;
-  float background_best_time_height = 70;
+  float background_current_time_top_left_position_x = game_information_start_x + margin_horizontal_background_current_time;
+  float background_current_time_top_left_position_y = current_time_text_top_left_position_y + margin_vertical_between_background_current_time_text;
+  float background_current_time_width = 285;
+  float background_current_time_height = 70;
 
-  DrawTextEx(font, 
-  "Current Time", 
-  {best_time_text_top_left_position_x, best_time_text_top_left_position_y}, 
-  current_time_font_size, 2, WHITE);
+  char current_time_int_to_text[10];
+  sprintf(current_time_int_to_text, "%d", current_time);
+  Vector2 current_time_int_to_text_size = MeasureTextEx(font, current_time_int_to_text, current_time_font_size, 2);
+
+  // Adjust horizontal padding for current time to stay centered as it decreases
+  int padding_horizontal_current_time = 0;
+  if(current_time > 99) {
+    padding_horizontal_current_time = 30;
+  }
+  else if(current_time <= 99 && current_time > 9) {
+    padding_horizontal_current_time = 45;
+  }
+  else {
+    padding_horizontal_current_time = 60;
+  }
+  
+  int padding_vertical_current_time = 10;
+  float current_time_top_left_position_x = background_current_time_top_left_position_x + padding_horizontal_current_time;
+  float current_time_top_left_position_y = background_current_time_top_left_position_y + padding_vertical_current_time;
+
+  int padding_horizontal_current_time_text_seconds = 20;
+  float current_time_text_seconds_top_left_position_x = current_time_top_left_position_x + current_time_int_to_text_size.x + padding_horizontal_current_time_text_seconds;
+  float current_time_text_seconds_top_left_position_y = current_time_top_left_position_y;
+
+
+  DrawTextEx(
+    font, 
+    "Current Time", 
+    {current_time_text_top_left_position_x, current_time_text_top_left_position_y}, 
+    current_time_font_size, 2, WHITE);
+
   DrawRectangleRounded({
-    background_best_time_top_left_position_x, 
-    background_best_time_top_left_position_y, 
-    background_best_time_width, 
-    background_best_time_height}, 
+    background_current_time_top_left_position_x, 
+    background_current_time_top_left_position_y, 
+    background_current_time_width, 
+    background_current_time_height}, 
     0.3, 6, PINK);
+
+  DrawTextEx(
+    font, 
+    current_time_int_to_text, 
+    {current_time_top_left_position_x, current_time_top_left_position_y}, 
+    current_time_font_size, 2, WHITE);
+
+  DrawTextEx(
+    font, 
+    "seconds", 
+    {current_time_text_seconds_top_left_position_x, current_time_text_seconds_top_left_position_y}, 
+    current_time_font_size, 2, WHITE);
 }
 
 void Game::draw_message(int game_information_width, int game_information_start_x) {
@@ -301,7 +342,25 @@ void Game::show_apartment() {
   apartment.show_bedroom();
 }
 
+void Game::countdown_timer() {
+  if(timer_countdown.is_time_for_event(1.0) && current_time > 0) {
+    current_time -= 1;
+    timer_countdown.reset_timer();
+  }
+}
+
+bool Game::check_game_over() {
+  if(current_time == 0) {
+    is_game_over = true;
+  }
+  return is_game_over;
+}
+
+bool Game::check_is_successful() const {
+  return is_successful;
+}
+
 void Game::reset_game() {
-  current_time = 0;
+  current_time = start_time;
   sesame.reset_sesame_position();
 }

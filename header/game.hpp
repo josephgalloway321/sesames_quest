@@ -11,13 +11,17 @@ class Game {
     Apartment apartment;
     Sesame sesame;
     Timer timer_until_meow_or_groom;
+    Timer timer_countdown;
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     bool is_time_to_meow_or_groom;
     bool meow;
     bool groom;
     int seconds_until_meow_or_groom;
-    int best_time;
-    int current_time;
+    int best_time;  // seconds
+    int start_time; // seconds
+    int current_time;  // seconds
+    bool is_game_over;
+    bool is_successful;
     void toggle_full_screen_window(int window_width, int window_height);
     void handle_meow_or_groom();
 
@@ -34,5 +38,8 @@ class Game {
     void draw_message(int game_information_width, int game_information_start_x);
     void display_game_information();
     void show_apartment();
+    void countdown_timer();
+    bool check_game_over();
+    bool check_is_successful() const;
     void reset_game();
 };
