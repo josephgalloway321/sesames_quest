@@ -136,7 +136,7 @@ void Game::toggle_full_screen_window(int window_width, int window_height) {
   }
 }
 
-void Game::display_sesame_coordinates() {
+void Game::display_sesame_coordinates(int game_information_width, int game_information_height) {
   std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
   int position_top_left_x = (int)coordinates[0][0];
   int position_top_left_y = (int)coordinates[0][1];
@@ -145,9 +145,6 @@ void Game::display_sesame_coordinates() {
   char pos_y[50];
   sprintf(pos_x, "%d", position_top_left_x);
   sprintf(pos_y, "%d", position_top_left_y);
-
-  // TODO: Pass this variable from display_game_information as an argument
-  int game_information_width = SCREEN_WIDTH - 1525;
   
   int margin = 10;
   float background_width = game_information_width - margin;
@@ -156,13 +153,13 @@ void Game::display_sesame_coordinates() {
   float background_top_left_position_x = SCREEN_WIDTH - background_width - margin;
   float background_top_left_position_y = SCREEN_HEIGHT - background_height - margin;
   
-  int padding_top_left = 8;
-  float first_text_top_left_position_x = background_top_left_position_x + padding_top_left;
-  float first_text_top_left_position_y = background_top_left_position_y + padding_top_left;
+  int padding_horizontal_vertical_between_border_text = 8;
+  float first_text_top_left_position_x = background_top_left_position_x + padding_horizontal_vertical_between_border_text;
+  float first_text_top_left_position_y = background_top_left_position_y + padding_horizontal_vertical_between_border_text;
 
-  int padding_between_first_and_second_text = 35;
-  float second_text_top_left_position_x = background_top_left_position_x + padding_top_left;
-  float second_text_top_left_position_y = background_top_left_position_y + padding_between_first_and_second_text;
+  int padding_vertical_between_first_and_second_text = 35;
+  float second_text_top_left_position_x = background_top_left_position_x + padding_horizontal_vertical_between_border_text;
+  float second_text_top_left_position_y = background_top_left_position_y + padding_vertical_between_first_and_second_text;
 
   int padding_horizontal_between_text_score = 235;
   float first_score_top_left_position_x = first_text_top_left_position_x + padding_horizontal_between_text_score;
@@ -183,7 +180,8 @@ void Game::display_sesame_coordinates() {
 
 
 void Game::display_game_information() {
-  //int game_information_width = SCREEN_WIDTH - 1525;
+  int game_information_width = SCREEN_WIDTH - 1525;
+  int game_information_height = SCREEN_HEIGHT;
 
   // Draw title
   //DrawRectangleRounded({1525, 10, 285, 145}, 0.3, 6, PINK);
@@ -202,7 +200,7 @@ void Game::display_game_information() {
   DrawRectangleRounded({1525, 600, 285, 250}, 0.3, 6, PINK);
 
   // Draw Sesame's coordinates
-  display_sesame_coordinates();
+  display_sesame_coordinates(game_information_width, game_information_height);
 }
 
 void Game::show_apartment() {

@@ -14,10 +14,6 @@ int main() {
   enum GameScreen {title, cut_scene, gameplay, duck_closeup, ending_success, ending_failure};
   GameScreen current_screen = gameplay;
 
-  // TEST
-  //Texture2D test;
-  //test = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/cow.png");
-  
   while(!WindowShouldClose()) {
     /*
     * DRAW
@@ -57,14 +53,10 @@ int main() {
       case gameplay: {
         // The order matters; first is lowest layer & last is highest layer
         game.show_apartment();
-        //DrawTexture(test, 250, 300, WHITE);  // TEST
         game.display_game_information();
-        //game.display_sesame_coordinates();
         game.handle_keyboard_input();
         game.check_if_sesame_inside_screen();
 
-        
-        
       } break;
       case ending_success: {
         

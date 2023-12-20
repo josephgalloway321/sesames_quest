@@ -27,7 +27,7 @@ class Game {
     Font font;
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
-    void display_sesame_coordinates();
+    void display_sesame_coordinates(int game_information_width, int game_information_height);
     void display_game_information();
     void show_apartment();
     void reset_game();
