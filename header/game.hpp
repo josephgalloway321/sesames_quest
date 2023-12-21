@@ -22,6 +22,7 @@ class Game {
     Mobile_Objects litter_box;
     Mobile_Objects meow_rug;
     Mobile_Objects sign;
+    Mobile_Objects bathroom_rug;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     bool is_time_to_meow_or_groom;

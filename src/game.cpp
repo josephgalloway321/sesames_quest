@@ -23,6 +23,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   litter_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/litter_box.png", 100, 800);
   meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png", 909, 155);
   sign.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/sign.png", 160, 10);
+  bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png", 1290, 240);
 }
 
 Game::~Game() {
@@ -421,6 +422,7 @@ void Game::display_mobile_objects() {
   litter_box.show_mobile_object();
   meow_rug.show_mobile_object();
   sign.show_mobile_object();
+  bathroom_rug.show_mobile_object();
 }
 
 void Game::countdown_timer() {

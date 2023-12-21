@@ -31,3 +31,7 @@ float Mobile_Objects::get_position_top_left_y() const {
 void Mobile_Objects::move_left() {
   position_top_left_x -= 30;
 }
+
+void Mobile_Objects::move_right() {
+  position_top_left_x += 30;
+}
