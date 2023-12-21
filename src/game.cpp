@@ -14,7 +14,7 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   srand(time(NULL));
   best_time = 0;
   start_time = 120;
-  current_time = start_time;
+  time_remaining = start_time;
   is_game_over = false;
   is_successful = false;
 }
@@ -215,83 +215,120 @@ void Game::draw_best_time(int game_information_width, int game_information_start
   float background_best_time_width = 285;
   float background_best_time_height = 70;
 
+  char best_time_int_to_text[10];
+  sprintf(best_time_int_to_text, "%d", best_time);
+  Vector2 best_time_int_to_text_size = MeasureTextEx(font, best_time_int_to_text, best_time_font_size, 2);
+
+  // Adjust horizontal padding for best time to stay centered as it decreases
+  int padding_horizontal_best_time = 0;
+  if(best_time > 99) {
+    padding_horizontal_best_time = 30;
+  }
+  else if(best_time <= 99 && best_time > 9) {
+    padding_horizontal_best_time = 45;
+  }
+  else {
+    padding_horizontal_best_time = 60;
+  }
+  
+  int padding_vertical_best_time = 10;
+  float best_time_top_left_position_x = background_best_time_top_left_position_x + padding_horizontal_best_time;
+  float best_time_top_left_position_y = background_best_time_top_left_position_y + padding_vertical_best_time;
+
+  int padding_horizontal_best_time_text_seconds = 20;
+  float best_time_text_seconds_top_left_position_x = best_time_top_left_position_x + best_time_int_to_text_size.x + padding_horizontal_best_time_text_seconds;
+  float best_time_text_seconds_top_left_position_y = best_time_top_left_position_y;
+
   DrawTextEx(
     font, 
     "Best Time", 
     {best_time_text_top_left_position_x, best_time_text_top_left_position_y}, 
     best_time_font_size, 2, WHITE);
+
   DrawRectangleRounded({
     background_best_time_top_left_position_x, 
     background_best_time_top_left_position_y, 
     background_best_time_width, 
     background_best_time_height}, 
     0.3, 6, PINK);
-}
-
-void Game::draw_current_time(int game_information_width, int game_information_start_x) {
-  int current_time_font_size = 40;
-
-  int margin_horizontal_current_time_text = 25;
-  int margin_vertical_current_time_text = 400;
-  float current_time_text_top_left_position_x = game_information_start_x + margin_horizontal_current_time_text;
-  float current_time_text_top_left_position_y = margin_vertical_current_time_text;
   
-  int margin_horizontal_background_current_time = 10;
-  int margin_vertical_between_background_current_time_text = 50;
-  float background_current_time_top_left_position_x = game_information_start_x + margin_horizontal_background_current_time;
-  float background_current_time_top_left_position_y = current_time_text_top_left_position_y + margin_vertical_between_background_current_time_text;
-  float background_current_time_width = 285;
-  float background_current_time_height = 70;
-
-  char current_time_int_to_text[10];
-  sprintf(current_time_int_to_text, "%d", current_time);
-  Vector2 current_time_int_to_text_size = MeasureTextEx(font, current_time_int_to_text, current_time_font_size, 2);
-
-  // Adjust horizontal padding for current time to stay centered as it decreases
-  int padding_horizontal_current_time = 0;
-  if(current_time > 99) {
-    padding_horizontal_current_time = 30;
-  }
-  else if(current_time <= 99 && current_time > 9) {
-    padding_horizontal_current_time = 45;
-  }
-  else {
-    padding_horizontal_current_time = 60;
-  }
-  
-  int padding_vertical_current_time = 10;
-  float current_time_top_left_position_x = background_current_time_top_left_position_x + padding_horizontal_current_time;
-  float current_time_top_left_position_y = background_current_time_top_left_position_y + padding_vertical_current_time;
-
-  int padding_horizontal_current_time_text_seconds = 20;
-  float current_time_text_seconds_top_left_position_x = current_time_top_left_position_x + current_time_int_to_text_size.x + padding_horizontal_current_time_text_seconds;
-  float current_time_text_seconds_top_left_position_y = current_time_top_left_position_y;
-
-
   DrawTextEx(
     font, 
-    "Current Time", 
-    {current_time_text_top_left_position_x, current_time_text_top_left_position_y}, 
-    current_time_font_size, 2, WHITE);
-
-  DrawRectangleRounded({
-    background_current_time_top_left_position_x, 
-    background_current_time_top_left_position_y, 
-    background_current_time_width, 
-    background_current_time_height}, 
-    0.3, 6, PINK);
-
-  DrawTextEx(
-    font, 
-    current_time_int_to_text, 
-    {current_time_top_left_position_x, current_time_top_left_position_y}, 
-    current_time_font_size, 2, WHITE);
+    best_time_int_to_text, 
+    {best_time_top_left_position_x, best_time_top_left_position_y}, 
+    best_time_font_size, 2, WHITE);
 
   DrawTextEx(
     font, 
     "seconds", 
-    {current_time_text_seconds_top_left_position_x, current_time_text_seconds_top_left_position_y}, 
-    current_time_font_size, 2, WHITE);
+    {best_time_text_seconds_top_left_position_x, best_time_text_seconds_top_left_position_y}, 
+    best_time_font_size, 2, WHITE);
+}
+
+void Game::draw_time_remaining(int game_information_width, int game_information_start_x) {
+  int time_remaining_font_size = 40;
+
+  int margin_horizontal_time_remaining_text = 10;
+  int margin_vertical_time_remaining_text = 400;
+  float time_remaining_text_top_left_position_x = game_information_start_x + margin_horizontal_time_remaining_text;
+  float time_remaining_text_top_left_position_y = margin_vertical_time_remaining_text;
+  
+  int margin_horizontal_background_time_remaining = 10;
+  int margin_vertical_between_background_time_remaining_text = 50;
+  float background_time_remaining_top_left_position_x = game_information_start_x + margin_horizontal_background_time_remaining;
+  float background_time_remaining_top_left_position_y = time_remaining_text_top_left_position_y + margin_vertical_between_background_time_remaining_text;
+  float background_time_remaining_width = 285;
+  float background_time_remaining_height = 70;
+
+  char time_remaining_int_to_text[10];
+  sprintf(time_remaining_int_to_text, "%d", time_remaining);
+  Vector2 time_remaining_int_to_text_size = MeasureTextEx(font, time_remaining_int_to_text, time_remaining_font_size, 2);
+
+  // Adjust horizontal padding for time remaining to stay centered as it decreases
+  int padding_horizontal_time_remaining = 0;
+  if(time_remaining > 99) {
+    padding_horizontal_time_remaining = 30;
+  }
+  else if(time_remaining <= 99 && time_remaining > 9) {
+    padding_horizontal_time_remaining = 45;
+  }
+  else {
+    padding_horizontal_time_remaining = 60;
+  }
+  
+  int padding_vertical_time_remaining = 10;
+  float time_remaining_top_left_position_x = background_time_remaining_top_left_position_x + padding_horizontal_time_remaining;
+  float time_remaining_top_left_position_y = background_time_remaining_top_left_position_y + padding_vertical_time_remaining;
+
+  int padding_horizontal_time_remaining_text_seconds = 20;
+  float time_remaining_text_seconds_top_left_position_x = time_remaining_top_left_position_x + time_remaining_int_to_text_size.x + padding_horizontal_time_remaining_text_seconds;
+  float time_remaining_text_seconds_top_left_position_y = time_remaining_top_left_position_y;
+
+
+  DrawTextEx(
+    font, 
+    "Time Remaining", 
+    {time_remaining_text_top_left_position_x, time_remaining_text_top_left_position_y}, 
+    time_remaining_font_size, 2, WHITE);
+
+  DrawRectangleRounded({
+    background_time_remaining_top_left_position_x, 
+    background_time_remaining_top_left_position_y, 
+    background_time_remaining_width, 
+    background_time_remaining_height}, 
+    0.3, 6, PINK);
+
+  DrawTextEx(
+    font, 
+    time_remaining_int_to_text, 
+    {time_remaining_top_left_position_x, time_remaining_top_left_position_y}, 
+    time_remaining_font_size, 2, WHITE);
+
+  DrawTextEx(
+    font, 
+    "seconds", 
+    {time_remaining_text_seconds_top_left_position_x, time_remaining_text_seconds_top_left_position_y}, 
+    time_remaining_font_size, 2, WHITE);
 }
 
 void Game::draw_message(int game_information_width, int game_information_start_x) {
@@ -322,8 +359,8 @@ void Game::display_game_information() {
   // Draw best time
   draw_best_time(game_information_width, game_information_start_x);
 
-  // Draw current time
-  draw_current_time(game_information_width, game_information_start_x);
+  // Draw time remaining
+  draw_time_remaining(game_information_width, game_information_start_x);
 
   // Draw draw message
   draw_message(game_information_width, game_information_start_x);
@@ -343,14 +380,14 @@ void Game::show_apartment() {
 }
 
 void Game::countdown_timer() {
-  if(timer_countdown.is_time_for_event(1.0) && current_time > 0) {
-    current_time -= 1;
+  if(timer_countdown.is_time_for_event(1.0) && time_remaining > 0) {
+    time_remaining -= 1;
     timer_countdown.reset_timer();
   }
 }
 
 bool Game::check_game_over() {
-  if(current_time == 0) {
+  if(time_remaining == 0) {
     is_game_over = true;
   }
   return is_game_over;
@@ -360,7 +397,15 @@ bool Game::check_is_successful() const {
   return is_successful;
 }
 
+void Game::update_best_time() {
+  if(time_remaining > best_time) {
+    best_time = time_remaining;
+  }
+}
+
 void Game::reset_game() {
-  current_time = start_time;
+  time_remaining = start_time;
+  update_best_time();
+  time_remaining = 0;
   sesame.reset_sesame_position();
 }
