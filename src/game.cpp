@@ -1,4 +1,3 @@
-#include <raylib.h>
 #include "../header/game.hpp"
 
 Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) : 

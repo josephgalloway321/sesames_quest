@@ -1,4 +1,5 @@
 #pragma once
+#include <raylib.h>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -15,6 +16,7 @@ class Game {
     Timer timer_until_meow_or_groom;
     Timer timer_countdown;
     Audio audio;
+    Font font;
     Vector2 mouse_position;
     Mobile_Objects cat_bed;
     Mobile_Objects fruit_bowl;
@@ -47,7 +49,6 @@ class Game {
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
-    Font font;
     void check_if_sesame_inside_screen();  // Change to include object boundaries
     void handle_keyboard_input();
     void handle_mouse_input();
