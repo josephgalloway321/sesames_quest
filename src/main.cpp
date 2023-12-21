@@ -1,7 +1,6 @@
 #include <iostream>
 #include <raylib.h>
 #include "../header/game.hpp"
-#include "../header/apartment.hpp"
 
 const int SCREEN_WIDTH = 1820, SCREEN_HEIGHT = 1024;
 
