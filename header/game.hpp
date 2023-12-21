@@ -5,6 +5,7 @@
 #include "../header/sesame.hpp"
 #include "../header/timers.hpp"
 #include "../header/apartment.hpp"
+#include "../header/audio.hpp"
 
 class Game {
   private:
@@ -12,6 +13,7 @@ class Game {
     Sesame sesame;
     Timer timer_until_meow_or_groom;
     Timer timer_countdown;
+    Audio audio;
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     bool is_time_to_meow_or_groom;
     bool meow;
@@ -22,6 +24,7 @@ class Game {
     int time_remaining;  // seconds
     bool is_game_over;
     bool is_successful;
+    Vector2 mouse_position;
     void toggle_full_screen_window(int window_width, int window_height);
     void handle_meow_or_groom();
     void draw_sesame_coordinates(int game_information_width, int game_information_start_x);
@@ -37,6 +40,7 @@ class Game {
     Font font;
     void check_if_sesame_inside_screen();
     void handle_keyboard_input();
+    void handle_mouse_input();
     void display_game_information();
     void show_apartment();
     void countdown_timer();

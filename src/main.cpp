@@ -66,6 +66,7 @@ int main() {
         game.show_apartment();
         game.display_game_information();
         game.handle_keyboard_input();
+        game.handle_mouse_input();
         game.check_if_sesame_inside_screen();
 
         game.countdown_timer();

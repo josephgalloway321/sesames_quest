@@ -93,6 +93,34 @@ void Game::handle_keyboard_input() {
   }
 }
 
+void Game::handle_mouse_input() {
+  mouse_position = GetMousePosition();
+
+  if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(mouse_position, audio.get_audio_button_bounds())) {
+    audio.toggle_is_mute();
+  }
+
+  // Unmute && within bounds of volume texture
+  if(audio.get_is_mute() == false && CheckCollisionPointRec(mouse_position, audio.get_audio_button_bounds())) {
+    audio.draw_audio_light();
+  }
+
+  // Unmute && not within bounds of volume texture
+  else if(audio.get_is_mute() == false) {
+    audio.draw_audio_dark();
+  }
+
+  // Mute && within bounds of mute texture
+  else if(audio.get_is_mute() && CheckCollisionPointRec(mouse_position, audio.get_audio_button_bounds())) {
+    audio.draw_mute_light();
+  }
+
+  // Mute && not within bounds of mute texture
+  else if(audio.get_is_mute()) {
+    audio.draw_mute_dark();
+  }
+}
+
 void Game::handle_meow_or_groom() {
   if(is_time_to_meow_or_groom == false && timer_until_meow_or_groom.is_time_for_event(seconds_until_meow_or_groom)) {
     is_time_to_meow_or_groom = true;
