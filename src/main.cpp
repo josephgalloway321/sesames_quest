@@ -1,6 +1,7 @@
 #include <iostream>
 #include <raylib.h>
 #include "../header/game.hpp"
+#include "../header/mobile_objects.hpp"
 
 const int SCREEN_WIDTH = 1820, SCREEN_HEIGHT = 1024;
 
@@ -12,6 +13,7 @@ int main() {
   Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
   enum GameScreen {title, cut_scene, gameplay, duck_closeup, ending_success, ending_failure};
   GameScreen current_screen = gameplay;
+  //Mobile_Objects cat_bed("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/cat_bed.png", 295, 800);
 
   while(!WindowShouldClose()) {
     /*
@@ -62,7 +64,8 @@ int main() {
 
       case gameplay: {
         // The order matters; first is lowest layer & last is highest layer
-        game.show_apartment();
+        game.display_apartment();
+        game.display_mobile_objects();
         game.display_game_information();
         game.handle_keyboard_input();
         game.handle_mouse_input();

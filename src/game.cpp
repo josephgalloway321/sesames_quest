@@ -1,10 +1,8 @@
 #include <raylib.h>
 #include "../header/game.hpp"
 
-Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
-  this -> SCREEN_WIDTH = SCREEN_WIDTH;
-  this -> SCREEN_HEIGHT = SCREEN_HEIGHT;
-
+Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) : 
+SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
 
   is_time_to_meow_or_groom = false; 
@@ -17,6 +15,14 @@ Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) {
   time_remaining = start_time;
   is_game_over = false;
   is_successful = false;
+
+  // Initialize objects at the beginning of the game
+  cat_bed.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/cat_bed.png", 360, 670);
+  fruit_bowl.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/fruit_bowl.png", 590, 300);
+  laundry_basket.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/laundry_basket.png", 160, 340);
+  litter_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/litter_box.png", 100, 800);
+  meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png", 909, 155);
+  sign.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/sign.png", 160, 10);
 }
 
 Game::~Game() {
@@ -74,7 +80,8 @@ void Game::handle_keyboard_input() {
   }
   else if(IsKeyDown(KEY_O)) {
     timer_until_meow_or_groom.reset_timer();
-    sesame.woken();
+    //cat_bed.move_left();
+    //sesame.woken();
   }
   else {
     // No keys held down
@@ -397,7 +404,7 @@ void Game::display_game_information() {
   draw_sesame_coordinates(game_information_width, game_information_start_x);
 }
 
-void Game::show_apartment() {
+void Game::display_apartment() {
   // Write logic determining which frame of apartment to show based on 
   // Sesame interacting with opening/closing doors
 
@@ -405,6 +412,15 @@ void Game::show_apartment() {
   apartment.show_living_room();
   apartment.show_bathroom_closets();
   apartment.show_bedroom();
+}
+
+void Game::display_mobile_objects() {
+  cat_bed.show_mobile_object();
+  fruit_bowl.show_mobile_object();
+  laundry_basket.show_mobile_object();
+  litter_box.show_mobile_object();
+  meow_rug.show_mobile_object();
+  sign.show_mobile_object();
 }
 
 void Game::countdown_timer() {
