@@ -52,6 +52,7 @@ class Game {
     int num_hidden_objects;
     int returned_random_value;
     std::vector<int> vector_random_values;
+    std::vector<Hidden_Objects> vector_hidden_objects;
 
     int get_random_value(std::vector<int> vector_random_values, int num_hidden_objects);
     std::vector<float> get_coordinates(int random_value);

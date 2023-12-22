@@ -64,7 +64,6 @@ int main() {
       case gameplay: {
         // The order matters; first is lowest layer & last is highest layer
         game.draw_apartment();
-        //game.draw_hidden_objects();
         game.draw_mobile_objects();
         game.draw_hidden_objects();
         game.draw_game_information();
