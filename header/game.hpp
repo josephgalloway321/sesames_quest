@@ -20,11 +20,9 @@ class Game {
     Font font;
     Vector2 mouse_position;
     Mobile_Objects cat_bed;
-    Mobile_Objects fruit_bowl;
     Mobile_Objects laundry_basket;
     Mobile_Objects litter_box;
     Mobile_Objects meow_rug;
-    Mobile_Objects sign;
     Mobile_Objects bathroom_rug;
     Hidden_Objects blue_ball;
     Hidden_Objects pink_ball;
@@ -49,6 +47,7 @@ class Game {
     int time_remaining;  // seconds
     bool is_game_over;
     bool is_successful;
+    int max_hidden_objects = 12;
     
     void toggle_full_screen_window(int window_width, int window_height);
     void handle_meow_or_groom();
@@ -65,10 +64,10 @@ class Game {
     void check_if_sesame_inside_screen();  // Change to include object boundaries
     void handle_keyboard_input();
     void handle_mouse_input();
-    void display_game_information();
-    void display_apartment();
-    void display_mobile_objects() const;
-    void display_hidden_objects() const;
+    void draw_game_information();
+    void draw_apartment();
+    void draw_mobile_objects() const;
+    void draw_hidden_objects() const;
     void countdown_timer();
     bool check_game_over();
     bool check_is_successful() const;

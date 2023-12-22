@@ -16,6 +16,7 @@ void Hidden_Objects::initialize_object(std::string path_to_texture, float positi
 
 void Hidden_Objects::draw_mobile_object() const {
   DrawTexture(hidden_object, position_top_left_x, position_top_left_y, WHITE);
+  //DrawCircle(position_top_left_x, position_top_left_y, 6, BLUE);
 }
 
 float Hidden_Objects::get_position_top_left_x() const {
@@ -24,4 +25,20 @@ float Hidden_Objects::get_position_top_left_x() const {
 
 float Hidden_Objects::get_position_top_left_y() const {
   return position_top_left_y;
+}
+
+void Hidden_Objects::move_left() {
+  position_top_left_x -= 30;
+}
+
+void Hidden_Objects::move_right() {
+  position_top_left_x += 30;
+}
+
+void Hidden_Objects::move_up() {
+  position_top_left_y -= 30;
+}
+
+void Hidden_Objects::move_down() {
+  position_top_left_y += 30;
 }

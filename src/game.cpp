@@ -10,33 +10,40 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   seconds_until_meow_or_groom = 12;
   srand(time(NULL));
   best_time = 0;
-  start_time = 120;
+  start_time = 999;
   time_remaining = start_time;
   is_game_over = false;
   is_successful = false;
 
   // Initialize mobile objects at the beginning of the game
   cat_bed.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/cat_bed.png", 360, 670);
-  fruit_bowl.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/fruit_bowl.png", 590, 300);
   laundry_basket.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/laundry_basket.png", 160, 340);
   litter_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/litter_box.png", 100, 800);
   meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png", 909, 155);
-  sign.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/sign.png", 160, 10);
   bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png", 1290, 240);
 
+  // Assign hidden objects to places to hide in the apartment
+  // Assignment numbers are between 1 and the maximum # of hidden objects
+  // For places to hide, assignment number 0 represents no hidden object there
+  //int random_number = (rand() % max_hidden_objects) + 1;
+  // TODO: Assign random numbers but do not repeat values
+  // TODO: Provide coordinates for hidden object 
+
   // Initialize hidden objects at the beginning of the game
-  blue_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/blue_ball.png", 250, 250);
-  green_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/green_ball.png", 100, 100);
-  pink_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/pink_ball.png", 100, 100);
-  book.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/book.png", 100, 800);
-  cow.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/cow.png", 160, 340);
-  duck_one.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_one.png", 250, 250);
-  duck_two.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_two.png", 564, 223);
-  gray_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/gray_mouse.png", 260, 850);
-  brown_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/brown_mouse.png", 483, 102);
-  white_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/white_mouse.png", 383, 622);
-  papers.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/papers.png", 360, 670);
-  treat_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/treat_box.png", 970, 610);
+  int test_x = 940;
+  int test_y = 190;
+  blue_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/blue_ball.png", test_x, test_y);
+  green_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/green_ball.png", test_x, test_y);
+  pink_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/pink_ball.png", test_x, test_y);
+  book.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/book.png", test_x, test_y);
+  cow.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/cow.png", test_x, test_y);
+  duck_one.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_one.png", test_x, test_y);
+  duck_two.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_two.png", test_x, test_y);
+  gray_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/gray_mouse.png", test_x, test_y);
+  brown_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/brown_mouse.png", test_x, test_y);
+  white_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/white_mouse.png", test_x, test_y);
+  papers.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/papers.png", test_x, test_y);
+  treat_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/treat_box.png", test_x, test_y);
 }
 
 Game::~Game() {
@@ -398,7 +405,7 @@ void Game::draw_message(int game_information_width, int game_information_start_x
     0.3, 6, PINK);
 }
 
-void Game::display_game_information() {
+void Game::draw_game_information() {
   int game_information_start_x = 1515;
   int game_information_width = SCREEN_WIDTH - game_information_start_x;
 
@@ -418,7 +425,7 @@ void Game::display_game_information() {
   draw_sesame_coordinates(game_information_width, game_information_start_x);
 }
 
-void Game::display_apartment() {
+void Game::draw_apartment() {
   // Write logic determining which frame of apartment to show based on 
   // Sesame interacting with opening/closing doors
   apartment.draw_laundry_kitchen_rooms();
@@ -427,17 +434,15 @@ void Game::display_apartment() {
   apartment.draw_bedroom();
 }
 
-void Game::display_mobile_objects() const {
+void Game::draw_mobile_objects() const {
   cat_bed.draw_mobile_object();
-  fruit_bowl.draw_mobile_object();
   laundry_basket.draw_mobile_object();
   litter_box.draw_mobile_object();
   meow_rug.draw_mobile_object();
-  sign.draw_mobile_object();
   bathroom_rug.draw_mobile_object();
 }
 
-void Game::display_hidden_objects() const {
+void Game::draw_hidden_objects() const {
   blue_ball.draw_mobile_object();
   pink_ball.draw_mobile_object();
   green_ball.draw_mobile_object();

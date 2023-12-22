@@ -35,3 +35,11 @@ void Mobile_Objects::move_left() {
 void Mobile_Objects::move_right() {
   position_top_left_x += 30;
 }
+
+void Mobile_Objects::move_up() {
+  position_top_left_y -= 30;
+}
+
+void Mobile_Objects::move_down() {
+  position_top_left_y += 30;
+}

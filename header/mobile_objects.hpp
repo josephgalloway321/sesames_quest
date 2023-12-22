@@ -18,4 +18,6 @@ class Mobile_Objects {
     float get_position_top_left_y() const;
     void move_left();
     void move_right();
+    void move_up();
+    void move_down();
 };

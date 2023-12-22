@@ -16,4 +16,8 @@ class Hidden_Objects {
     void draw_mobile_object() const;
     float get_position_top_left_x() const;
     float get_position_top_left_y() const;
+    void move_left();
+    void move_right();
+    void move_up();
+    void move_down();
 };
