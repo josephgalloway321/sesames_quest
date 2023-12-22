@@ -8,9 +8,7 @@ Hidden_Objects::~Hidden_Objects() {
   UnloadTexture(hidden_object);
 }
 
-void Hidden_Objects::initialize_object(std::string path_to_texture, float position_top_left_x, float position_top_left_y) {
-  this -> position_top_left_x = position_top_left_x;
-  this -> position_top_left_y = position_top_left_y;
+void Hidden_Objects::initialize_object(std::string path_to_texture) {
   hidden_object = LoadTexture(path_to_texture.c_str());
 }
 
@@ -25,6 +23,11 @@ float Hidden_Objects::get_position_top_left_x() const {
 
 float Hidden_Objects::get_position_top_left_y() const {
   return position_top_left_y;
+}
+
+void Hidden_Objects::set_position(int position_top_left_x, int position_top_left_y) {
+  this -> position_top_left_x = position_top_left_x;
+  this -> position_top_left_y = position_top_left_y;
 }
 
 void Hidden_Objects::move_left() {

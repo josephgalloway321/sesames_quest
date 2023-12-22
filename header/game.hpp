@@ -1,8 +1,10 @@
 #pragma once
+#include <iostream>
 #include <raylib.h>
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <unordered_map>
 #include "../header/sesame.hpp"
 #include "../header/timers.hpp"
 #include "../header/apartment.hpp"
@@ -47,8 +49,12 @@ class Game {
     int time_remaining;  // seconds
     bool is_game_over;
     bool is_successful;
-    int max_hidden_objects = 12;
-    
+    int num_hidden_objects;
+    int returned_random_value;
+    std::vector<int> vector_random_values;
+
+    int get_random_value(std::vector<int> vector_random_values, int num_hidden_objects);
+    std::vector<float> get_coordinates(int random_value);
     void toggle_full_screen_window(int window_width, int window_height);
     void handle_meow_or_groom();
     void draw_sesame_coordinates(int game_information_width, int game_information_start_x);
@@ -57,6 +63,8 @@ class Game {
     void draw_time_remaining(int game_information_width, int game_information_start_x);
     void draw_message(int game_information_width, int game_information_start_x);
     void update_best_time();
+    void initialize_hidden_objects();
+    void set_hidden_objects_starting_positions();
 
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);

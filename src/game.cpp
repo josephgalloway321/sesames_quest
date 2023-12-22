@@ -22,32 +22,93 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png", 909, 155);
   bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png", 1290, 240);
 
-  // Assign hidden objects to places to hide in the apartment
-  // Assignment numbers are between 1 and the maximum # of hidden objects
-  // For places to hide, assignment number 0 represents no hidden object there
-  //int random_number = (rand() % max_hidden_objects) + 1;
-  // TODO: Assign random numbers but do not repeat values
-  // TODO: Provide coordinates for hidden object 
-
+  
   // Initialize hidden objects at the beginning of the game
-  int test_x = 940;
-  int test_y = 190;
-  blue_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/blue_ball.png", test_x, test_y);
-  green_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/green_ball.png", test_x, test_y);
-  pink_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/pink_ball.png", test_x, test_y);
-  book.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/book.png", test_x, test_y);
-  cow.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/cow.png", test_x, test_y);
-  duck_one.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_one.png", test_x, test_y);
-  duck_two.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_two.png", test_x, test_y);
-  gray_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/gray_mouse.png", test_x, test_y);
-  brown_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/brown_mouse.png", test_x, test_y);
-  white_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/white_mouse.png", test_x, test_y);
-  papers.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/papers.png", test_x, test_y);
-  treat_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/treat_box.png", test_x, test_y);
+  num_hidden_objects = 5;
+  initialize_hidden_objects();
+  set_hidden_objects_starting_positions();
 }
 
 Game::~Game() {
   UnloadFont(font);
+}
+
+void Game::initialize_hidden_objects() {
+  blue_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/blue_ball.png");
+  green_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/green_ball.png");
+  pink_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/pink_ball.png");
+  book.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/book.png");
+  cow.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/cow.png");
+  //duck_one.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_one.png");
+  //duck_two.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_two.png");
+  //gray_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/gray_mouse.png");
+  //brown_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/brown_mouse.png");
+  //white_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/white_mouse.png");
+  //papers.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/papers.png");
+  //treat_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/treat_box.png");
+}
+
+void Game::set_hidden_objects_starting_positions() {
+  // Assign each hidden object a #; Each # represents a place to hide in the apartment
+  // Assignment numbers are between 1 and the maximum # of places to hide
+  // TODO: Game class will keep track of where each hidden object is located
+
+  for(int i = 0; i < num_hidden_objects; i++) {
+    returned_random_value = get_random_value(vector_random_values, num_hidden_objects);
+    vector_random_values.push_back(returned_random_value); 
+  }
+
+  // TODO: Go through vector_random_values and assign random values to each hidden object
+  int blue_ball_random_value = vector_random_values[0];
+  std::vector<float> blue_ball_coordinates = get_coordinates(blue_ball_random_value);
+  blue_ball.set_position(blue_ball_coordinates[0], blue_ball_coordinates[1]);
+}
+
+int Game::get_random_value(std::vector<int> vector_random_values, int num_hidden_objects) {
+  int random_value;
+  bool is_repeated;
+  
+  do {
+    is_repeated = false;
+    random_value = (rand() % num_hidden_objects) + 1;
+    // Check if random value already in vector
+    for(int i : vector_random_values) {
+      if(random_value == i) {
+        // Stop iterating, generate a new value, start at beginning of vector & iterate again  
+        is_repeated = true;
+        break;
+      }
+    }
+  } while(is_repeated);
+  
+  return random_value;
+}
+
+std::vector<float> Game::get_coordinates(int random_value) {
+  switch(random_value) {
+    case 1: {
+      return {1330, 275};
+    } break;
+
+    case 2: {
+      return {400, 700};
+    } break;
+    
+    case 3: {
+      return {165, 370};
+    } break;
+
+    case 4: {
+      return {150, 890};
+    } break;
+
+    case 5: {
+      return {940, 190};
+    } break;
+
+    default:
+      break;
+  }
 }
 
 void Game::check_if_sesame_inside_screen() {
@@ -444,17 +505,17 @@ void Game::draw_mobile_objects() const {
 
 void Game::draw_hidden_objects() const {
   blue_ball.draw_mobile_object();
-  pink_ball.draw_mobile_object();
-  green_ball.draw_mobile_object();
-  book.draw_mobile_object();
-  cow.draw_mobile_object();
-  duck_one.draw_mobile_object();
-  duck_two.draw_mobile_object();
-  gray_mouse.draw_mobile_object();
-  brown_mouse.draw_mobile_object();
-  white_mouse.draw_mobile_object();
-  papers.draw_mobile_object();
-  treat_box.draw_mobile_object();
+  //pink_ball.draw_mobile_object();
+  //green_ball.draw_mobile_object();
+  //book.draw_mobile_object();
+  //cow.draw_mobile_object();
+  //duck_one.draw_mobile_object();
+  //duck_two.draw_mobile_object();
+  //gray_mouse.draw_mobile_object();
+  //brown_mouse.draw_mobile_object();
+  //white_mouse.draw_mobile_object();
+  //papers.draw_mobile_object();
+  //treat_box.draw_mobile_object();
 }
 
 void Game::countdown_timer() {
