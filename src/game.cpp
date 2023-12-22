@@ -15,7 +15,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   is_game_over = false;
   is_successful = false;
 
-  // Initialize objects at the beginning of the game
+  // Initialize mobile objects at the beginning of the game
   cat_bed.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/cat_bed.png", 360, 670);
   fruit_bowl.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/fruit_bowl.png", 590, 300);
   laundry_basket.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/laundry_basket.png", 160, 340);
@@ -23,6 +23,20 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png", 909, 155);
   sign.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/sign.png", 160, 10);
   bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png", 1290, 240);
+
+  // Initialize hidden objects at the beginning of the game
+  blue_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/blue_ball.png", 250, 250);
+  green_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/green_ball.png", 100, 100);
+  pink_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/pink_ball.png", 100, 100);
+  book.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/book.png", 100, 800);
+  cow.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/cow.png", 160, 340);
+  duck_one.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_one.png", 250, 250);
+  duck_two.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/duck_two.png", 564, 223);
+  gray_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/gray_mouse.png", 260, 850);
+  brown_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/brown_mouse.png", 483, 102);
+  white_mouse.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/white_mouse.png", 383, 622);
+  papers.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/papers.png", 360, 670);
+  treat_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/treat_box.png", 970, 610);
 }
 
 Game::~Game() {
@@ -407,21 +421,35 @@ void Game::display_game_information() {
 void Game::display_apartment() {
   // Write logic determining which frame of apartment to show based on 
   // Sesame interacting with opening/closing doors
-
-  apartment.show_laundry_kitchen_rooms();
-  apartment.show_living_room();
-  apartment.show_bathroom_closets();
-  apartment.show_bedroom();
+  apartment.draw_laundry_kitchen_rooms();
+  apartment.draw_living_room();
+  apartment.draw_bathroom_closets();
+  apartment.draw_bedroom();
 }
 
-void Game::display_mobile_objects() {
-  cat_bed.show_mobile_object();
-  fruit_bowl.show_mobile_object();
-  laundry_basket.show_mobile_object();
-  litter_box.show_mobile_object();
-  meow_rug.show_mobile_object();
-  sign.show_mobile_object();
-  bathroom_rug.show_mobile_object();
+void Game::display_mobile_objects() const {
+  cat_bed.draw_mobile_object();
+  fruit_bowl.draw_mobile_object();
+  laundry_basket.draw_mobile_object();
+  litter_box.draw_mobile_object();
+  meow_rug.draw_mobile_object();
+  sign.draw_mobile_object();
+  bathroom_rug.draw_mobile_object();
+}
+
+void Game::display_hidden_objects() const {
+  blue_ball.draw_mobile_object();
+  pink_ball.draw_mobile_object();
+  green_ball.draw_mobile_object();
+  book.draw_mobile_object();
+  cow.draw_mobile_object();
+  duck_one.draw_mobile_object();
+  duck_two.draw_mobile_object();
+  gray_mouse.draw_mobile_object();
+  brown_mouse.draw_mobile_object();
+  white_mouse.draw_mobile_object();
+  papers.draw_mobile_object();
+  treat_box.draw_mobile_object();
 }
 
 void Game::countdown_timer() {

@@ -16,7 +16,7 @@ void Mobile_Objects::initialize_object(std::string path_to_texture, float positi
   mobile_object = LoadTexture(path_to_texture.c_str());
 }
 
-void Mobile_Objects::show_mobile_object() const {
+void Mobile_Objects::draw_mobile_object() const {
   DrawTexture(mobile_object, position_top_left_x, position_top_left_y, WHITE);
 }
 

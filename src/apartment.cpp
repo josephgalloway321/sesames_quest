@@ -25,7 +25,7 @@ Apartment::~Apartment() {
   UnloadTexture(apartment);
 }
 
-void Apartment::show_laundry_kitchen_rooms() {
+void Apartment::draw_laundry_kitchen_rooms() {
   DrawTextureRec(
     apartment,
     Rectangle{
@@ -39,7 +39,7 @@ void Apartment::show_laundry_kitchen_rooms() {
       WHITE);
 }
 
-void Apartment::show_living_room() {
+void Apartment::draw_living_room() {
   DrawTextureRec(
     apartment,
     Rectangle{
@@ -53,7 +53,7 @@ void Apartment::show_living_room() {
       WHITE);
 }
 
-void Apartment::show_bathroom_closets() {
+void Apartment::draw_bathroom_closets() {
   DrawTextureRec(
     apartment,
     Rectangle{
@@ -67,7 +67,7 @@ void Apartment::show_bathroom_closets() {
       WHITE);
 }
 
-void Apartment::show_bedroom() {
+void Apartment::draw_bedroom() {
   DrawTextureRec(
     apartment,
     Rectangle{

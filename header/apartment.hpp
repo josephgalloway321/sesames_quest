@@ -27,8 +27,8 @@ class Apartment {
   public:
     Apartment();
     ~Apartment();
-    void show_laundry_kitchen_rooms();
-    void show_living_room();
-    void show_bathroom_closets();
-    void show_bedroom();
+    void draw_laundry_kitchen_rooms();
+    void draw_living_room();
+    void draw_bathroom_closets();
+    void draw_bedroom();
 };

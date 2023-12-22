@@ -66,6 +66,7 @@ int main() {
         // The order matters; first is lowest layer & last is highest layer
         game.display_apartment();
         game.display_mobile_objects();
+        game.display_hidden_objects();
         game.display_game_information();
         game.handle_keyboard_input();
         game.handle_mouse_input();

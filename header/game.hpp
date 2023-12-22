@@ -8,6 +8,7 @@
 #include "../header/apartment.hpp"
 #include "../header/audio.hpp"
 #include "../header/mobile_objects.hpp"
+#include "../header/hidden_objects.hpp"
 
 class Game {
   private:
@@ -25,6 +26,18 @@ class Game {
     Mobile_Objects meow_rug;
     Mobile_Objects sign;
     Mobile_Objects bathroom_rug;
+    Hidden_Objects blue_ball;
+    Hidden_Objects pink_ball;
+    Hidden_Objects green_ball;
+    Hidden_Objects book;
+    Hidden_Objects cow;
+    Hidden_Objects duck_one;
+    Hidden_Objects duck_two;
+    Hidden_Objects gray_mouse;
+    Hidden_Objects brown_mouse;
+    Hidden_Objects white_mouse;
+    Hidden_Objects papers;
+    Hidden_Objects treat_box;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     bool is_time_to_meow_or_groom;
@@ -54,7 +67,8 @@ class Game {
     void handle_mouse_input();
     void display_game_information();
     void display_apartment();
-    void display_mobile_objects();
+    void display_mobile_objects() const;
+    void display_hidden_objects() const;
     void countdown_timer();
     bool check_game_over();
     bool check_is_successful() const;
