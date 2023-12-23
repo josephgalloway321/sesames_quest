@@ -16,12 +16,9 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   is_successful = false;
 
   // Initialize mobile objects at the beginning of the game
-  cat_bed.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/cat_bed.png", 360, 670);
-  laundry_basket.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/laundry_basket.png", 160, 340);
-  litter_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/litter_box.png", 100, 800);
-  meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png", 909, 155);
-  bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png", 1290, 240);
-
+  initialize_mobile_objects();
+  set_mobile_objects_starting_positions();
+  set_mobile_objects_interaction_boundaries();
   
   // Initialize hidden objects at the beginning of the game
   initialize_hidden_objects();
@@ -49,6 +46,14 @@ void Game::initialize_hidden_objects() {
   num_hidden_objects = 5;
 }
 
+void Game::initialize_mobile_objects() {
+  cat_bed.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/cat_bed.png");
+  laundry_basket.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/laundry_basket.png");
+  litter_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/litter_box.png");
+  meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png");
+  bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png");
+}
+
 void Game::set_hidden_objects_starting_positions() {
   // TODO: Game class will keep track of where each hidden object is located
   // Create a vector of random numbers between 1 and maximum # of places to hide without repeats
@@ -57,17 +62,6 @@ void Game::set_hidden_objects_starting_positions() {
     returned_random_value = get_random_value(vector_random_values, num_hidden_objects);
     vector_random_values.push_back(returned_random_value); 
   }
-
-
-  /* TODO: Create a vector to hold all objects 
-  // Assign each hidden object a random # from vector_random_values
-  for(int i = 0; i < num_hidden_objects; i++) {
-    std::vector<float> object_coordiantes = get_coordinates(vector_random_values[i]);
-    //TEST = object_coordiantes[1];
-    vector_hidden_objects[i].set_position(object_coordiantes[0], object_coordiantes[1]);
-    //TEST = vector_hidden_objects[i].get_position_top_left_x();
-  }
-  */
   
   // Assign each hidden object a random # from vector_random_values
   int blue_ball_random_value = vector_random_values[0];
@@ -89,6 +83,82 @@ void Game::set_hidden_objects_starting_positions() {
   int duck_one_random_value = vector_random_values[4];
   std::vector<float> duck_one_coordinates = get_coordinates(duck_one_random_value);
   duck_one.set_position(duck_one_coordinates[0], duck_one_coordinates[1]);
+
+  /* TODO: Create a vector to hold all objects 
+  // Assign each hidden object a random # from vector_random_values
+  for(int i = 0; i < num_hidden_objects; i++) {
+    std::vector<float> object_coordiantes = get_coordinates(vector_random_values[i]);
+    //TEST = object_coordiantes[1];
+    vector_hidden_objects[i].set_position(object_coordiantes[0], object_coordiantes[1]);
+    //TEST = vector_hidden_objects[i].get_position_top_left_x();
+  }
+  */
+}
+
+void Game::set_mobile_objects_starting_positions() {
+  cat_bed.set_position(360, 670);
+  laundry_basket.set_position(160, 340);
+  litter_box.set_position(100, 800);
+  meow_rug.set_position(909, 155);
+  bathroom_rug.set_position(1290, 240);
+}
+
+void Game::set_mobile_objects_interaction_boundaries() {
+  cat_bed.set_interaction_boundary({340, 650, 190, 160});
+  laundry_basket.set_interaction_boundary({135, 335, 160, 140});
+  litter_box.set_interaction_boundary({100, 850, 160, 140});
+  meow_rug.set_interaction_boundary({920, 220, 140, 100});
+  bathroom_rug.set_interaction_boundary({1270, 250, 190, 115});
+}
+
+void Game::interact_with_mobile_object() {
+  if(cat_bed.get_is_sesame_in_interaction_boundary() && !cat_bed.get_is_object_moved()) {
+    cat_bed.toggle_move('d', 100);
+    cat_bed.toggle_is_object_moved();
+  }
+  else if(cat_bed.get_is_sesame_in_interaction_boundary() && cat_bed.get_is_object_moved()) {
+    cat_bed.toggle_move('u', 100);
+    cat_bed.toggle_is_object_moved();
+  }
+
+  else if(laundry_basket.get_is_sesame_in_interaction_boundary() && !laundry_basket.get_is_object_moved()) {
+    laundry_basket.toggle_move('l', 100);
+    laundry_basket.toggle_is_object_moved();
+  }
+  else if(laundry_basket.get_is_sesame_in_interaction_boundary() && laundry_basket.get_is_object_moved()) {
+    laundry_basket.toggle_move('r', 100);
+    laundry_basket.toggle_is_object_moved();
+  }
+
+  else if(litter_box.get_is_sesame_in_interaction_boundary() && !litter_box.get_is_object_moved()) {
+    litter_box.toggle_move('u', 100);
+    litter_box.toggle_is_object_moved();
+  }
+  else if(litter_box.get_is_sesame_in_interaction_boundary() && litter_box.get_is_object_moved()) {
+    litter_box.toggle_move('d', 100);
+    litter_box.toggle_is_object_moved();
+
+  }
+
+  else if(meow_rug.get_is_sesame_in_interaction_boundary() && !meow_rug.get_is_object_moved()) {
+    meow_rug.toggle_move('d', 75);
+    meow_rug.toggle_is_object_moved();
+  }
+  else if(meow_rug.get_is_sesame_in_interaction_boundary() && meow_rug.get_is_object_moved()) {
+    meow_rug.toggle_move('u', 75);
+    meow_rug.toggle_is_object_moved();
+  }
+
+  else if(bathroom_rug.get_is_sesame_in_interaction_boundary() && !bathroom_rug.get_is_object_moved()) {
+    bathroom_rug.toggle_move('d', 60);
+    bathroom_rug.toggle_move('r', 60);
+    bathroom_rug.toggle_is_object_moved();
+  }
+  else if(bathroom_rug.get_is_sesame_in_interaction_boundary() && bathroom_rug.get_is_object_moved()) {
+    bathroom_rug.toggle_move('u', 60);
+    bathroom_rug.toggle_move('l', 60);
+    bathroom_rug.toggle_is_object_moved();
+  }
 }
 
 int Game::get_random_value(std::vector<int> vector_random_values, int num_hidden_objects) {
@@ -169,22 +239,63 @@ void Game::check_sesame_interactions() {
   std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
   float position_top_left_x = coordinates[0][0];
   float position_top_left_y = coordinates[0][1];
+  float position_bottom_left_x = 1;
+  float position_bottom_left_y = 1;
+  float position_bottom_right_x = coordinates[1][0];
+  float position_bottom_right_y = coordinates[1][1];
+  float position_top_right_x = coordinates[1][0];
+  float position_top_right_y = coordinates[1][1];
 
-  // TODO: When in specific rooms, check if Sesame within mobile object boundaries
+  // TODO: Create a method to get Sesame rectangle from Sesame class
+  Rectangle sesame_boundary = {};
 
-  if(position_top_left_x > 0 && position_top_left_x < 370 &&
-  position_top_left_y > 0 && position_top_left_y < 490) {
-    // Check interactions in laundry room  
+  Vector2 position_top_left = {position_top_left_x, position_top_left_y};
+  Vector2 position_bottom_right = {position_bottom_right_x, position_bottom_right_y};
+  
+
+  
+  // Cat bed
+  if(CheckCollisionPointRec(position_top_left, cat_bed.get_interaction_boundary()) || 
+  CheckCollisionPointRec(position_bottom_right, cat_bed.get_interaction_boundary())) {
+    cat_bed.draw_interaction_boundary();
+    cat_bed.set_is_sesame_in_interaction_boundary(true);
   }
 
-  // When Sesame is in the living room
+  // Bathroom rug  
+  else if(CheckCollisionPointRec(position_top_left, bathroom_rug.get_interaction_boundary()) || 
+  CheckCollisionPointRec(position_bottom_right, bathroom_rug.get_interaction_boundary())) {
+    bathroom_rug.draw_interaction_boundary();
+    bathroom_rug.set_is_sesame_in_interaction_boundary(true);
+  }
 
-  // When Sesame is in the kitchen
+  // Laundry basket
+  else if(CheckCollisionPointRec(position_top_left, laundry_basket.get_interaction_boundary()) || 
+  CheckCollisionPointRec(position_bottom_right, laundry_basket.get_interaction_boundary())) {
+    laundry_basket.draw_interaction_boundary();
+    laundry_basket.set_is_sesame_in_interaction_boundary(true);
+  }
 
-  // When Sesame is in the bathroom
+  // Litter box
+  else if(CheckCollisionPointRec(position_top_left, litter_box.get_interaction_boundary()) || 
+  CheckCollisionPointRec(position_bottom_right, litter_box.get_interaction_boundary())) {
+    litter_box.draw_interaction_boundary();
+    litter_box.set_is_sesame_in_interaction_boundary(true);
+  }
 
-  // When Sesame is in the bedroom
+  // Meow rug
+  else if(CheckCollisionPointRec(position_top_left, meow_rug.get_interaction_boundary()) || 
+  CheckCollisionPointRec(position_bottom_right, meow_rug.get_interaction_boundary())) {
+    meow_rug.draw_interaction_boundary();
+    meow_rug.set_is_sesame_in_interaction_boundary(true);
+  }
 
+  else {
+    cat_bed.set_is_sesame_in_interaction_boundary(false);
+    laundry_basket.set_is_sesame_in_interaction_boundary(false);
+    litter_box.set_is_sesame_in_interaction_boundary(false);
+    meow_rug.set_is_sesame_in_interaction_boundary(false);
+    bathroom_rug.set_is_sesame_in_interaction_boundary(false);
+  }
 }
 
 void Game::handle_keyboard_input() {
@@ -205,15 +316,6 @@ void Game::handle_keyboard_input() {
     timer_until_meow_or_groom.reset_timer();
     sesame.walk_up();
   }
-  else if(IsKeyDown(KEY_P)) {
-    timer_until_meow_or_groom.reset_timer();
-    sesame.sleeping();
-  }
-  else if(IsKeyDown(KEY_O)) {
-    timer_until_meow_or_groom.reset_timer();
-    //cat_bed.move_left();
-    //sesame.woken();
-  }
   else {
     // No keys held down
     // After sitting w/o user input, meow or groom
@@ -225,6 +327,11 @@ void Game::handle_keyboard_input() {
   switch(key_pressed) {
     case KEY_SPACE: {
       toggle_full_screen_window(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    case KEY_A: {
+      timer_until_meow_or_groom.reset_timer();
+      // Call function to check which object interaction with 
+      interact_with_mobile_object();
     }
     default:
       break;

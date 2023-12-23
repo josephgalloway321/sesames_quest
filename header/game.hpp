@@ -64,7 +64,11 @@ class Game {
     void draw_message(int game_information_width, int game_information_start_x);
     void update_best_time();
     void initialize_hidden_objects();
+    void initialize_mobile_objects();
     void set_hidden_objects_starting_positions();
+    void set_mobile_objects_starting_positions();
+    void set_mobile_objects_interaction_boundaries();
+    void interact_with_mobile_object();
 
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
