@@ -15,8 +15,6 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   is_game_over = false;
   is_successful = false;
 
-  vector_hidden_objects = {blue_ball, book, cow, duck_one, brown_mouse};
-
   // Initialize mobile objects at the beginning of the game
   cat_bed.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/cat_bed.png", 360, 670);
   laundry_basket.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/laundry_basket.png", 160, 340);
@@ -48,14 +46,11 @@ void Game::initialize_hidden_objects() {
   //papers.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/papers.png");
   //treat_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/treat_box.png");
 
-  //vector_hidden_objects = {blue_ball, book, cow, duck_one, brown_mouse};
-  //num_hidden_objects = (int)vector_hidden_objects.size();
   num_hidden_objects = 5;
 }
 
 void Game::set_hidden_objects_starting_positions() {
   // TODO: Game class will keep track of where each hidden object is located
-  
   // Create a vector of random numbers between 1 and maximum # of places to hide without repeats
   // Each # represents a place to hide in the apartment
   for(int i = 0; i < num_hidden_objects; i++) {
@@ -63,13 +58,18 @@ void Game::set_hidden_objects_starting_positions() {
     vector_random_values.push_back(returned_random_value); 
   }
 
+
+  /* TODO: Create a vector to hold all objects 
   // Assign each hidden object a random # from vector_random_values
   for(int i = 0; i < num_hidden_objects; i++) {
     std::vector<float> object_coordiantes = get_coordinates(vector_random_values[i]);
+    //TEST = object_coordiantes[1];
     vector_hidden_objects[i].set_position(object_coordiantes[0], object_coordiantes[1]);
+    //TEST = vector_hidden_objects[i].get_position_top_left_x();
   }
+  */
   
-  /*
+  // Assign each hidden object a random # from vector_random_values
   int blue_ball_random_value = vector_random_values[0];
   std::vector<float> blue_ball_coordinates = get_coordinates(blue_ball_random_value);
   blue_ball.set_position(blue_ball_coordinates[0], blue_ball_coordinates[1]);
@@ -89,13 +89,11 @@ void Game::set_hidden_objects_starting_positions() {
   int duck_one_random_value = vector_random_values[4];
   std::vector<float> duck_one_coordinates = get_coordinates(duck_one_random_value);
   duck_one.set_position(duck_one_coordinates[0], duck_one_coordinates[1]);
-  */
 }
 
 int Game::get_random_value(std::vector<int> vector_random_values, int num_hidden_objects) {
   int random_value;
   bool is_repeated;
-  
   do {
     is_repeated = false;
     random_value = (rand() % num_hidden_objects) + 1;
@@ -137,9 +135,10 @@ std::vector<float> Game::get_coordinates(int random_value) {
     default:
       break;
   }
+  return {0, 0};
 }
 
-void Game::check_if_sesame_inside_screen() {
+void Game::check_sesame_boundaries() {
   // Check if Sesame moves outside of the screen
   std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
   float position_top_left_x = coordinates[0][0];
@@ -164,6 +163,28 @@ void Game::check_if_sesame_inside_screen() {
     // Moved too far down
     sesame.reverse_walk_down();
   }
+}
+
+void Game::check_sesame_interactions() {
+  std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
+  float position_top_left_x = coordinates[0][0];
+  float position_top_left_y = coordinates[0][1];
+
+  // TODO: When in specific rooms, check if Sesame within mobile object boundaries
+
+  if(position_top_left_x > 0 && position_top_left_x < 370 &&
+  position_top_left_y > 0 && position_top_left_y < 490) {
+    // Check interactions in laundry room  
+  }
+
+  // When Sesame is in the living room
+
+  // When Sesame is in the kitchen
+
+  // When Sesame is in the bathroom
+
+  // When Sesame is in the bedroom
+
 }
 
 void Game::handle_keyboard_input() {
@@ -532,18 +553,18 @@ void Game::draw_mobile_objects() const {
 }
 
 void Game::draw_hidden_objects() const {
-  blue_ball.draw_mobile_object();
-  //pink_ball.draw_mobile_object();
-  //green_ball.draw_mobile_object();
-  book.draw_mobile_object();
-  cow.draw_mobile_object();
-  duck_one.draw_mobile_object();
-  //duck_two.draw_mobile_object();
-  //gray_mouse.draw_mobile_object();
-  brown_mouse.draw_mobile_object();
-  //white_mouse.draw_mobile_object();
-  //papers.draw_mobile_object();
-  //treat_box.draw_mobile_object();
+  blue_ball.draw_hidden_object();
+  //pink_ball.draw_hidden_object();
+  //green_ball.draw_hidden_object();
+  book.draw_hidden_object();
+  cow.draw_hidden_object();
+  duck_one.draw_hidden_object();
+  //duck_two.draw_hidden_object();
+  //gray_mouse.draw_hidden_object();
+  brown_mouse.draw_hidden_object();
+  //white_mouse.draw_hidden_object();
+  //papers.draw_hidden_object();
+  //treat_box.draw_hidden_object();
 }
 
 void Game::countdown_timer() {

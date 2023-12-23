@@ -65,12 +65,12 @@ int main() {
         // The order matters; first is lowest layer & last is highest layer
         game.draw_apartment();
         game.draw_mobile_objects();
-        game.draw_hidden_objects();
+        game.draw_hidden_objects();  // Place before mobile objects after testing
         game.draw_game_information();
         game.handle_keyboard_input();
         game.handle_mouse_input();
-        game.check_if_sesame_inside_screen();
-
+        game.check_sesame_boundaries();
+        
         game.countdown_timer();
         if(game.check_game_over() && game.check_is_successful()) {
           current_screen = ending_success;

@@ -52,7 +52,6 @@ class Game {
     int num_hidden_objects;
     int returned_random_value;
     std::vector<int> vector_random_values;
-    std::vector<Hidden_Objects> vector_hidden_objects;
 
     int get_random_value(std::vector<int> vector_random_values, int num_hidden_objects);
     std::vector<float> get_coordinates(int random_value);
@@ -70,7 +69,8 @@ class Game {
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
-    void check_if_sesame_inside_screen();  // Change to include object boundaries
+    void check_sesame_boundaries();
+    void check_sesame_interactions();
     void handle_keyboard_input();
     void handle_mouse_input();
     void draw_game_information();

@@ -13,7 +13,7 @@ class Hidden_Objects {
     Hidden_Objects();
     ~Hidden_Objects();
     void initialize_object(std::string path_to_texture);
-    void draw_mobile_object() const;
+    void draw_hidden_object() const;
     float get_position_top_left_x() const;
     float get_position_top_left_y() const;
     void set_position(int position_top_left_x, int position_top_left_y);

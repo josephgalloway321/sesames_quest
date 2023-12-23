@@ -12,7 +12,7 @@ void Hidden_Objects::initialize_object(std::string path_to_texture) {
   hidden_object = LoadTexture(path_to_texture.c_str());
 }
 
-void Hidden_Objects::draw_mobile_object() const {
+void Hidden_Objects::draw_hidden_object() const {
   DrawTexture(hidden_object, position_top_left_x, position_top_left_y, WHITE);
   //DrawCircle(position_top_left_x, position_top_left_y, 6, BLUE);
 }
