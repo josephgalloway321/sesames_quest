@@ -131,6 +131,42 @@ std::vector<std::vector<float>> Sesame::get_sesame_frame_coordinates() {
   return sesame_frame_coordinates;
 }
 
+Rectangle Sesame::get_sesame_boundary() {
+  switch(sesame_current_action) {
+    case 0: {
+      // Walking
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_walking_frame_width, sesame_walking_frame_height};
+    } break;
+    case 1: {
+      // Grooming
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_grooming_frame_width, sesame_grooming_frame_height};
+    } break;
+    case 2: {
+      // Sitting & Meowing
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_sitting_meowing_frame_width, sesame_sitting_meowing_frame_height};
+    } break;
+    case 3: {
+      // Eating
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_eating_frame_width, sesame_eating_frame_height};
+    } break;
+    case 4: {
+      // Dancing
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_dancing_frame_width, sesame_dancing_frame_height};
+    } break;
+    case 5: {
+      // Scared
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_scared_frame_width, sesame_scared_frame_height};
+    } break;
+    case 6: {
+      // Sleeping & Woken
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_sleeping_woken_frame_width, sesame_sleeping_woken_frame_height};
+    } break;
+    default:
+      return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_sitting_meowing_frame_width, sesame_sitting_meowing_frame_height};
+      break;
+  }
+}
+
 void Sesame::walk_left() {
   sesame_current_action = 0;
   sesame_walking_left_current_frame += 1;

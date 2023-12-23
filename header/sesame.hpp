@@ -22,6 +22,7 @@ class Sesame {
     float sesame_position_bottom_right_x;
     float sesame_position_bottom_right_y;
     std::vector<std::vector<float>> sesame_frame_coordinates;
+    Rectangle sesame_boundary;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
 
@@ -86,6 +87,7 @@ class Sesame {
     Sesame();
     ~Sesame();
     std::vector<std::vector<float>> get_sesame_frame_coordinates();
+    Rectangle get_sesame_boundary();
 
     void walk_left();
     void walk_down();

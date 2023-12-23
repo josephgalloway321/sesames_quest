@@ -141,22 +141,22 @@ void Game::interact_with_mobile_object() {
   }
 
   else if(meow_rug.get_is_sesame_in_interaction_boundary() && !meow_rug.get_is_object_moved()) {
-    meow_rug.toggle_move('d', 75);
+    meow_rug.toggle_move('d', 55);
     meow_rug.toggle_is_object_moved();
   }
   else if(meow_rug.get_is_sesame_in_interaction_boundary() && meow_rug.get_is_object_moved()) {
-    meow_rug.toggle_move('u', 75);
+    meow_rug.toggle_move('u', 55);
     meow_rug.toggle_is_object_moved();
   }
 
   else if(bathroom_rug.get_is_sesame_in_interaction_boundary() && !bathroom_rug.get_is_object_moved()) {
-    bathroom_rug.toggle_move('d', 60);
-    bathroom_rug.toggle_move('r', 60);
+    bathroom_rug.toggle_move('d', 50);
+    bathroom_rug.toggle_move('r', 70);
     bathroom_rug.toggle_is_object_moved();
   }
   else if(bathroom_rug.get_is_sesame_in_interaction_boundary() && bathroom_rug.get_is_object_moved()) {
-    bathroom_rug.toggle_move('u', 60);
-    bathroom_rug.toggle_move('l', 60);
+    bathroom_rug.toggle_move('u', 50);
+    bathroom_rug.toggle_move('l', 70);
     bathroom_rug.toggle_is_object_moved();
   }
 }
@@ -236,55 +236,34 @@ void Game::check_sesame_boundaries() {
 }
 
 void Game::check_sesame_interactions() {
-  std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
-  float position_top_left_x = coordinates[0][0];
-  float position_top_left_y = coordinates[0][1];
-  float position_bottom_left_x = 1;
-  float position_bottom_left_y = 1;
-  float position_bottom_right_x = coordinates[1][0];
-  float position_bottom_right_y = coordinates[1][1];
-  float position_top_right_x = coordinates[1][0];
-  float position_top_right_y = coordinates[1][1];
-
-  // TODO: Create a method to get Sesame rectangle from Sesame class
-  Rectangle sesame_boundary = {};
-
-  Vector2 position_top_left = {position_top_left_x, position_top_left_y};
-  Vector2 position_bottom_right = {position_bottom_right_x, position_bottom_right_y};
-  
-
+  Rectangle sesame_boundary = sesame.get_sesame_boundary();
   
   // Cat bed
-  if(CheckCollisionPointRec(position_top_left, cat_bed.get_interaction_boundary()) || 
-  CheckCollisionPointRec(position_bottom_right, cat_bed.get_interaction_boundary())) {
+  if(CheckCollisionRecs(sesame_boundary, cat_bed.get_interaction_boundary())) {
     cat_bed.draw_interaction_boundary();
     cat_bed.set_is_sesame_in_interaction_boundary(true);
   }
 
   // Bathroom rug  
-  else if(CheckCollisionPointRec(position_top_left, bathroom_rug.get_interaction_boundary()) || 
-  CheckCollisionPointRec(position_bottom_right, bathroom_rug.get_interaction_boundary())) {
+  else if(CheckCollisionRecs(sesame_boundary, bathroom_rug.get_interaction_boundary())) {
     bathroom_rug.draw_interaction_boundary();
     bathroom_rug.set_is_sesame_in_interaction_boundary(true);
   }
 
   // Laundry basket
-  else if(CheckCollisionPointRec(position_top_left, laundry_basket.get_interaction_boundary()) || 
-  CheckCollisionPointRec(position_bottom_right, laundry_basket.get_interaction_boundary())) {
+  else if(CheckCollisionRecs(sesame_boundary, laundry_basket.get_interaction_boundary())) {
     laundry_basket.draw_interaction_boundary();
     laundry_basket.set_is_sesame_in_interaction_boundary(true);
   }
 
   // Litter box
-  else if(CheckCollisionPointRec(position_top_left, litter_box.get_interaction_boundary()) || 
-  CheckCollisionPointRec(position_bottom_right, litter_box.get_interaction_boundary())) {
+  else if(CheckCollisionRecs(sesame_boundary, litter_box.get_interaction_boundary())) {
     litter_box.draw_interaction_boundary();
     litter_box.set_is_sesame_in_interaction_boundary(true);
   }
 
   // Meow rug
-  else if(CheckCollisionPointRec(position_top_left, meow_rug.get_interaction_boundary()) || 
-  CheckCollisionPointRec(position_bottom_right, meow_rug.get_interaction_boundary())) {
+  else if(CheckCollisionRecs(sesame_boundary, meow_rug.get_interaction_boundary())) {
     meow_rug.draw_interaction_boundary();
     meow_rug.set_is_sesame_in_interaction_boundary(true);
   }
