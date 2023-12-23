@@ -1,12 +1,13 @@
 #pragma once
 #include <string>
 #include <raylib.h>
+#include "../header/custom_colors.hpp"
 
 class Mobile_Objects {
   private:
     Texture2D mobile_object;
-    Color CUSTOM_RED;
     Rectangle interaction_boundary;
+    Rectangle collision_boundary;
     std::string path_to_texture;
     bool is_object_moved;
     float position_top_left_x;
@@ -25,12 +26,15 @@ class Mobile_Objects {
     void initialize_object(std::string path_to_texture);
     void set_position(int position_top_left_x, int position_top_left_y);
     void set_interaction_boundary(Rectangle interaction_boundary);
+    void set_collision_boundary(Rectangle collision_boundary);
     void set_is_sesame_in_interaction_boundary(bool condition);
     void draw_mobile_object() const;
     void draw_interaction_boundary();
+    void draw_collision_boundary();
     float get_position_top_left_x() const;
     float get_position_top_left_y() const;
     Rectangle get_interaction_boundary() const;
+    Rectangle get_collision_boundary() const;
     bool get_is_sesame_in_interaction_boundary() const;
     void toggle_move(char direction, int distance);
 };

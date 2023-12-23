@@ -4,7 +4,6 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <unordered_map>
 #include "../header/sesame.hpp"
 #include "../header/timers.hpp"
 #include "../header/apartment.hpp"
@@ -68,14 +67,15 @@ class Game {
     void set_hidden_objects_starting_positions();
     void set_mobile_objects_starting_positions();
     void set_mobile_objects_interaction_boundaries();
+    void set_mobile_objects_collision_boundaries();
     void interact_with_mobile_object();
     //void interact_with_apartment();
 
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
-    void check_sesame_boundaries();
-    void check_sesame_interactions();
+    void check_all_boundaries();
+    void check_all_interactions();
     void handle_keyboard_input();
     void handle_mouse_input();
     void draw_game_information();
@@ -86,4 +86,5 @@ class Game {
     bool check_game_over();
     bool check_is_successful() const;
     void reset_game();
+    void reset_mobile_objects();
 };

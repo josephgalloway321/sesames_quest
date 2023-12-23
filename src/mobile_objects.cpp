@@ -1,7 +1,6 @@
 #include "../header/mobile_objects.hpp"
 
 Mobile_Objects::Mobile_Objects() {
-  CUSTOM_RED = {255, 0, 0, 50};
   is_sesame_in_interaction_boundary = false;
   is_object_moved = false;
 }
@@ -29,12 +28,20 @@ void Mobile_Objects::set_interaction_boundary(Rectangle interaction_boundary) {
   this -> interaction_boundary = interaction_boundary;
 }
 
+void Mobile_Objects::set_collision_boundary(Rectangle collision_boundary) {
+  this -> collision_boundary = collision_boundary;
+}
+
 void Mobile_Objects::draw_mobile_object() const {
   DrawTexture(mobile_object, position_top_left_x, position_top_left_y, WHITE);
 }
 
 void Mobile_Objects::draw_interaction_boundary() {
   DrawRectangleRec(interaction_boundary, CUSTOM_RED);
+}
+
+void Mobile_Objects::draw_collision_boundary() {
+  DrawRectangleRec(collision_boundary, CUSTOM_BLUE);
 }
 
 float Mobile_Objects::get_position_top_left_x() const {
@@ -47,6 +54,10 @@ float Mobile_Objects::get_position_top_left_y() const {
 
 Rectangle Mobile_Objects::get_interaction_boundary() const {
   return interaction_boundary;
+}
+
+Rectangle Mobile_Objects::get_collision_boundary() const {
+  return collision_boundary;
 }
 
 bool Mobile_Objects::get_is_sesame_in_interaction_boundary() const {

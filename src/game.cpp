@@ -19,7 +19,8 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   initialize_mobile_objects();
   set_mobile_objects_starting_positions();
   set_mobile_objects_interaction_boundaries();
-  
+  set_mobile_objects_collision_boundaries();
+
   // Initialize hidden objects at the beginning of the game
   initialize_hidden_objects();
   set_hidden_objects_starting_positions();
@@ -109,6 +110,11 @@ void Game::set_mobile_objects_interaction_boundaries() {
   litter_box.set_interaction_boundary({100, 850, 160, 140});
   meow_rug.set_interaction_boundary({920, 220, 140, 100});
   bathroom_rug.set_interaction_boundary({1270, 250, 190, 115});
+}
+
+void Game::set_mobile_objects_collision_boundaries() {
+  laundry_basket.set_collision_boundary({176, 370, 86, 88});
+  litter_box.set_collision_boundary({100, 900, 155, 56});
 }
 
 void Game::interact_with_mobile_object() {
@@ -212,34 +218,17 @@ std::vector<float> Game::get_coordinates(int random_value) {
   return {0, 0};
 }
 
-void Game::check_sesame_boundaries() {
-  // Check if Sesame moves outside of the screen
-  std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
-  float position_top_left_x = coordinates[0][0];
-  float position_top_left_y = coordinates[0][1];
-  float position_bottom_right_x = coordinates[1][0];
-  float position_bottom_right_y = coordinates[1][1];
+void Game::check_all_boundaries() {
+  // TODO: Check collisions with walls by room
 
-  // If Sesame went out of bounds, track direction
-  if(position_top_left_x <= 0) {
-    // Moved too far left
-    sesame.reverse_walk_left();
-  }
-  else if(position_top_left_y <= 0) {
-    // Moved too far up
-    sesame.reverse_walk_up();
-  }
-  else if(position_bottom_right_x >= SCREEN_WIDTH) {
-    // Moved too far right
-    sesame.reverse_walk_right();
-  }
-  else if(position_bottom_right_y >= SCREEN_HEIGHT) {
-    // Moved too far down
-    sesame.reverse_walk_down();
-  }
+  // Check collisions with mobile objects
+  laundry_basket.draw_collision_boundary();
+  litter_box.draw_collision_boundary();
+
+  // TODO: Check collisions with hidden objects
 }
 
-void Game::check_sesame_interactions() {
+void Game::check_all_interactions() {
   Rectangle sesame_boundary = sesame.get_sesame_boundary();
   
   // Cat bed
@@ -687,4 +676,30 @@ void Game::reset_game() {
   update_best_time();
   time_remaining = 0;
   sesame.reset_sesame_position();
+  reset_mobile_objects();
+}
+
+void Game::reset_mobile_objects() {
+  // Reset all the objects that were moved
+  if(cat_bed.get_is_object_moved()) {
+    cat_bed.toggle_move('u', 100);
+    cat_bed.toggle_is_object_moved();
+  }
+  else if(laundry_basket.get_is_object_moved()) {
+    laundry_basket.toggle_move('r', 100);
+    laundry_basket.toggle_is_object_moved();
+  }
+  else if(litter_box.get_is_object_moved()) {
+    litter_box.toggle_move('d', 100);
+    litter_box.toggle_is_object_moved();
+  }
+  else if(meow_rug.get_is_object_moved()) {
+    meow_rug.toggle_move('u', 55);
+    meow_rug.toggle_is_object_moved();
+  }
+  else if(bathroom_rug.get_is_object_moved()) {
+    bathroom_rug.toggle_move('u', 50);
+    bathroom_rug.toggle_move('l', 70);
+    bathroom_rug.toggle_is_object_moved();
+  }
 }

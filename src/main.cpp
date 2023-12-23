@@ -66,19 +66,28 @@ int main() {
         game.draw_apartment();
         game.draw_hidden_objects();
         game.draw_mobile_objects();
-        //game.draw_hidden_objects();  // Place before mobile objects after testing
         game.draw_game_information();
+
         game.handle_keyboard_input();
         game.handle_mouse_input();
-        game.check_sesame_boundaries();
-        game.check_sesame_interactions();
+
+        game.check_all_boundaries();
+        game.check_all_interactions();
+
         game.countdown_timer();
+
         if(game.check_game_over() && game.check_is_successful()) {
           current_screen = ending_success;
         }
         else if(game.check_game_over()) {
           current_screen = ending_failure;
         }
+
+        // ONLY FOR TESTING
+        // Track position of mouse to get coordinates on screen
+        int test_x = (int)GetMousePosition().x;
+        int test_y = (int)GetMousePosition().y;
+        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
       } break;
 
       case ending_success: {
