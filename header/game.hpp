@@ -69,6 +69,7 @@ class Game {
     void set_mobile_objects_starting_positions();
     void set_mobile_objects_interaction_boundaries();
     void interact_with_mobile_object();
+    //void interact_with_apartment();
 
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);

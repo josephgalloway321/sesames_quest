@@ -161,6 +161,10 @@ void Game::interact_with_mobile_object() {
   }
 }
 
+//void Game::interact_with_apartment() {
+
+//}
+
 int Game::get_random_value(std::vector<int> vector_random_values, int num_hidden_objects) {
   int random_value;
   bool is_repeated;
@@ -311,6 +315,7 @@ void Game::handle_keyboard_input() {
       timer_until_meow_or_groom.reset_timer();
       // Call function to check which object interaction with 
       interact_with_mobile_object();
+      //interact_with_apartment();
     }
     default:
       break;
