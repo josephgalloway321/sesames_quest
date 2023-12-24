@@ -70,6 +70,7 @@ class Game {
     void set_mobile_objects_interaction_boundaries();
     void set_mobile_objects_collision_boundaries();
     void interact_with_mobile_object();
+    void reverse_sesame_last_move();
     //void interact_with_apartment();
 
   public:

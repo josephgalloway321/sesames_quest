@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include <vector>
 #include <string>
+#include "../header/custom_colors.hpp"
 
 class Sesame {
   private:

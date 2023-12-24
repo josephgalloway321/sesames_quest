@@ -69,18 +69,22 @@ void Mobile_Objects::toggle_move(char direction, int distance) {
   if(direction == 'l') {
     move_left(distance);
     collision_boundary.x -= distance;  // Adjust collision boundary
+    interaction_boundary.x -= distance;  // Adjust interacition boundary
   }
   else if(direction == 'r') {
     move_right(distance);
     collision_boundary.x += distance;  // Adjust collision boundary
+    interaction_boundary.x += distance;  // Adjust interacition boundary
   }
   else if(direction == 'u') {
     move_up(distance);
     collision_boundary.y -= distance;  // Adjust collision boundary
+    interaction_boundary.y -= distance;  // Adjust interacition boundary
   }
   else if(direction == 'd') {
     move_down(distance);
     collision_boundary.y += distance;  // Adjust collision boundary
+    interaction_boundary.y += distance;  // Adjust interacition boundary
   }
 }
 

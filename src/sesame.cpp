@@ -135,6 +135,7 @@ Rectangle Sesame::get_sesame_boundary() {
   switch(sesame_current_action) {
     case 0: {
       // Walking
+      //DrawRectangle(sesame_position_top_left_x, sesame_position_top_left_y, sesame_walking_frame_width/4, sesame_walking_frame_height, CUSTOM_BLUE);
       return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_walking_frame_width, sesame_walking_frame_height};
     } break;
     case 1: {
@@ -143,6 +144,7 @@ Rectangle Sesame::get_sesame_boundary() {
     } break;
     case 2: {
       // Sitting & Meowing
+      //DrawRectangle(sesame_position_top_left_x, sesame_position_top_left_y, sesame_sitting_meowing_frame_width, sesame_sitting_meowing_frame_height, CUSTOM_BLUE);
       return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_sitting_meowing_frame_width, sesame_sitting_meowing_frame_height};
     } break;
     case 3: {

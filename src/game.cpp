@@ -8,7 +8,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   meow = false;
   groom = false;
   seconds_until_meow_or_groom = 12;
-  sesame_last_move = 'z';  // 'z' = No last action, 'l' = walk left, 'd' = walk down, 'r' = walk right, 'u' = walk up
+  sesame_last_move = 's';  // 's' = sitting, 'l' = walk left, 'd' = walk down, 'r' = walk right, 'u' = walk up
   srand(time(NULL));
   best_time = 0;
   start_time = 999;
@@ -108,7 +108,7 @@ void Game::set_mobile_objects_starting_positions() {
 void Game::set_mobile_objects_interaction_boundaries() {
   cat_bed.set_interaction_boundary({340, 650, 190, 160});
   laundry_basket.set_interaction_boundary({135, 335, 160, 140});
-  litter_box.set_interaction_boundary({100, 850, 160, 140});
+  litter_box.set_interaction_boundary({50, 850, 230, 140});
   meow_rug.set_interaction_boundary({920, 220, 140, 100});
   bathroom_rug.set_interaction_boundary({1270, 250, 190, 115});
 }
@@ -119,6 +119,7 @@ void Game::set_mobile_objects_collision_boundaries() {
 }
 
 void Game::interact_with_mobile_object() {
+  // Interaction & collision boundaries move w/ mobile object
   if(cat_bed.get_is_sesame_in_interaction_boundary() && !cat_bed.get_is_object_moved()) {
     cat_bed.toggle_move('d', 100);
     cat_bed.toggle_is_object_moved();
@@ -138,11 +139,11 @@ void Game::interact_with_mobile_object() {
   }
 
   else if(litter_box.get_is_sesame_in_interaction_boundary() && !litter_box.get_is_object_moved()) {
-    litter_box.toggle_move('u', 100);  // Also moves collision_boundary
+    litter_box.toggle_move('r', 150);  // Also moves collision_boundary
     litter_box.toggle_is_object_moved();
   }
   else if(litter_box.get_is_sesame_in_interaction_boundary() && litter_box.get_is_object_moved()) {
-    litter_box.toggle_move('d', 100);  // Also moves collision_boundary
+    litter_box.toggle_move('l', 150);  // Also moves collision_boundary
     litter_box.toggle_is_object_moved();
   }
 
@@ -218,6 +219,35 @@ std::vector<float> Game::get_coordinates(int random_value) {
   return {0, 0};
 }
 
+void Game::reverse_sesame_last_move() {
+  switch(sesame_last_move) {
+    case 's': {
+      sesame.reverse_walk_down();
+    } break;
+
+    case 'l': {
+      sesame.reverse_walk_left();
+    } break;
+
+    case 'd': {
+      sesame.reverse_walk_down();
+    } break;
+
+    case 'r': {
+      sesame.reverse_walk_right();
+      break;
+    }
+
+    case 'u': {
+      sesame.reverse_walk_up();
+    } break;
+
+    default: {
+      break;
+    }
+  }
+}
+
 void Game::check_all_boundaries() {
   // TODO: Use sesame_last_move to determine which direction to reverse move
   // TODO: Check collisions with walls by room
@@ -225,6 +255,14 @@ void Game::check_all_boundaries() {
   // Check collisions with mobile objects
   laundry_basket.draw_collision_boundary();
   litter_box.draw_collision_boundary();
+  if(CheckCollisionRecs(sesame.get_sesame_boundary(), laundry_basket.get_collision_boundary())) {
+    //DrawText("TEST", 300, 300, 32, WHITE);
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionRecs(sesame.get_sesame_boundary(), litter_box.get_collision_boundary())) {
+    //DrawText("TEST", 300, 300, 32, WHITE);
+    reverse_sesame_last_move();
+  }
 
   // TODO: Check collisions with hidden objects
 }
@@ -297,6 +335,7 @@ void Game::handle_keyboard_input() {
     // No keys held down
     // After sitting w/o user input, meow or groom
     handle_meow_or_groom();
+    sesame_last_move = 's';
   }
 
   // Handle keys pressed
