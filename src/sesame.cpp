@@ -135,6 +135,7 @@ Rectangle Sesame::get_sesame_boundary() {
   switch(sesame_current_action) {
     case 0: {
       // Walking
+      // TODO: Split up walking into separate cases to narrow frame width
       //DrawRectangle(sesame_position_top_left_x, sesame_position_top_left_y, sesame_walking_frame_width/4, sesame_walking_frame_height, CUSTOM_BLUE);
       return {sesame_position_top_left_x, sesame_position_top_left_y, sesame_walking_frame_width, sesame_walking_frame_height};
     } break;
