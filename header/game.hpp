@@ -43,6 +43,7 @@ class Game {
     bool meow;
     bool groom;
     int seconds_until_meow_or_groom;
+    char sesame_last_move;
     int best_time;  // seconds
     int start_time; // seconds
     int time_remaining;  // seconds

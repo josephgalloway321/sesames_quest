@@ -3,6 +3,7 @@
 Mobile_Objects::Mobile_Objects() {
   is_sesame_in_interaction_boundary = false;
   is_object_moved = false;
+  collision_boundary = {0, 0, 0, 0};
 }
 
 Mobile_Objects::~Mobile_Objects() {
@@ -67,15 +68,19 @@ bool Mobile_Objects::get_is_sesame_in_interaction_boundary() const {
 void Mobile_Objects::toggle_move(char direction, int distance) {
   if(direction == 'l') {
     move_left(distance);
+    collision_boundary.x -= distance;  // Adjust collision boundary
   }
   else if(direction == 'r') {
     move_right(distance);
+    collision_boundary.x += distance;  // Adjust collision boundary
   }
   else if(direction == 'u') {
     move_up(distance);
+    collision_boundary.y -= distance;  // Adjust collision boundary
   }
   else if(direction == 'd') {
     move_down(distance);
+    collision_boundary.y += distance;  // Adjust collision boundary
   }
 }
 

@@ -8,6 +8,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   meow = false;
   groom = false;
   seconds_until_meow_or_groom = 12;
+  sesame_last_move = 'z';  // 'z' = No last action, 'l' = walk left, 'd' = walk down, 'r' = walk right, 'u' = walk up
   srand(time(NULL));
   best_time = 0;
   start_time = 999;
@@ -128,22 +129,21 @@ void Game::interact_with_mobile_object() {
   }
 
   else if(laundry_basket.get_is_sesame_in_interaction_boundary() && !laundry_basket.get_is_object_moved()) {
-    laundry_basket.toggle_move('l', 100);
+    laundry_basket.toggle_move('l', 100);  // Also moves collision_boundary
     laundry_basket.toggle_is_object_moved();
   }
   else if(laundry_basket.get_is_sesame_in_interaction_boundary() && laundry_basket.get_is_object_moved()) {
-    laundry_basket.toggle_move('r', 100);
+    laundry_basket.toggle_move('r', 100);  // Also moves collision_boundary
     laundry_basket.toggle_is_object_moved();
   }
 
   else if(litter_box.get_is_sesame_in_interaction_boundary() && !litter_box.get_is_object_moved()) {
-    litter_box.toggle_move('u', 100);
+    litter_box.toggle_move('u', 100);  // Also moves collision_boundary
     litter_box.toggle_is_object_moved();
   }
   else if(litter_box.get_is_sesame_in_interaction_boundary() && litter_box.get_is_object_moved()) {
-    litter_box.toggle_move('d', 100);
+    litter_box.toggle_move('d', 100);  // Also moves collision_boundary
     litter_box.toggle_is_object_moved();
-
   }
 
   else if(meow_rug.get_is_sesame_in_interaction_boundary() && !meow_rug.get_is_object_moved()) {
@@ -219,6 +219,7 @@ std::vector<float> Game::get_coordinates(int random_value) {
 }
 
 void Game::check_all_boundaries() {
+  // TODO: Use sesame_last_move to determine which direction to reverse move
   // TODO: Check collisions with walls by room
 
   // Check collisions with mobile objects
@@ -275,18 +276,22 @@ void Game::handle_keyboard_input() {
   if(IsKeyDown(KEY_LEFT)) {
     timer_until_meow_or_groom.reset_timer();
     sesame.walk_left();
+    sesame_last_move = 'l';
   }
   else if(IsKeyDown(KEY_DOWN)) {
     timer_until_meow_or_groom.reset_timer();
     sesame.walk_down();
+    sesame_last_move = 'd';
   }
   else if(IsKeyDown(KEY_RIGHT)) {
     timer_until_meow_or_groom.reset_timer();
     sesame.walk_right();
+    sesame_last_move = 'r';
   }
   else if(IsKeyDown(KEY_UP)) {
     timer_until_meow_or_groom.reset_timer();
     sesame.walk_up();
+    sesame_last_move = 'u';
   }
   else {
     // No keys held down
