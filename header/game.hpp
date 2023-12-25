@@ -17,8 +17,8 @@ class Game {
     Sesame sesame;
     Timer timer_until_meow_or_groom;
     Timer timer_countdown;
-    Audio audio;
     Font font;
+    Audio audio;
     Vector2 mouse_position;
     Mobile_Objects cat_bed;
     Mobile_Objects laundry_basket;
@@ -66,6 +66,7 @@ class Game {
     void initialize_hidden_objects();
     void initialize_mobile_objects();
     void set_hidden_objects_starting_positions();
+    void set_hidden_objects_collision_boundaries();
     void set_mobile_objects_starting_positions();
     void set_mobile_objects_interaction_boundaries();
     void set_mobile_objects_collision_boundaries();
@@ -84,6 +85,7 @@ class Game {
     void draw_apartment();
     void draw_mobile_objects() const;
     void draw_hidden_objects() const;
+    Font get_font() const;
     void countdown_timer();
     bool check_game_over();
     bool check_is_successful() const;

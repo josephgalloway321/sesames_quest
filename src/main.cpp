@@ -12,7 +12,7 @@ int main() {
   // Create game objects
   Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
   enum GameScreen {title, cut_scene, gameplay, duck_closeup, ending_success, ending_failure};
-  GameScreen current_screen = gameplay;
+  GameScreen current_screen = title;
 
   while(!WindowShouldClose()) {
     /*
@@ -20,7 +20,9 @@ int main() {
     */
     switch(current_screen) {
       case title: {
-
+        BeginDrawing();
+        ClearBackground(PINK);
+        EndDrawing();
       } break;
       
       case cut_scene: {

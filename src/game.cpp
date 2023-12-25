@@ -25,6 +25,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   // Initialize hidden objects at the beginning of the game
   initialize_hidden_objects();
   set_hidden_objects_starting_positions();
+  set_hidden_objects_collision_boundaries();
 }
 
 Game::~Game() {
@@ -95,6 +96,14 @@ void Game::set_hidden_objects_starting_positions() {
     //TEST = vector_hidden_objects[i].get_position_top_left_x();
   }
   */
+}
+
+void Game::set_hidden_objects_collision_boundaries() {
+  blue_ball.set_collision_boundary();
+  book.set_collision_boundary();
+  brown_mouse.set_collision_boundary();
+  cow.set_collision_boundary();
+  duck_one.set_collision_boundary();
 }
 
 void Game::set_mobile_objects_starting_positions() {
@@ -264,7 +273,31 @@ void Game::check_all_boundaries() {
     reverse_sesame_last_move();
   }
 
-  // TODO: Check collisions with hidden objects
+  // Removed checking collision w/ hidden objects
+  // Check collisions with hidden objects
+  /*
+  blue_ball.draw_collision_boundary();
+  book.draw_collision_boundary();
+  brown_mouse.draw_collision_boundary();
+  cow.draw_collision_boundary();
+  duck_one.draw_collision_boundary();
+  
+  if(CheckCollisionRecs(sesame.get_sesame_boundary(), blue_ball.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionRecs(sesame.get_sesame_boundary(), book.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionRecs(sesame.get_sesame_boundary(), brown_mouse.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionRecs(sesame.get_sesame_boundary(), cow.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionRecs(sesame.get_sesame_boundary(), duck_one.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  */
 }
 
 void Game::check_all_interactions() {
@@ -330,6 +363,10 @@ void Game::handle_keyboard_input() {
     timer_until_meow_or_groom.reset_timer();
     sesame.walk_up();
     sesame_last_move = 'u';
+  }
+  else if(IsKeyDown(KEY_S)) {
+    timer_until_meow_or_groom.reset_timer();
+    sesame.sleeping();
   }
   else {
     // No keys held down
@@ -689,6 +726,10 @@ void Game::draw_hidden_objects() const {
   //white_mouse.draw_hidden_object();
   //papers.draw_hidden_object();
   //treat_box.draw_hidden_object();
+}
+
+Font Game::get_font() const {
+  return font;
 }
 
 void Game::countdown_timer() {
