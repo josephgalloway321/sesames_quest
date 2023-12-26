@@ -9,7 +9,7 @@ Audio::Audio() {
   UnloadImage(mute_image);
 
   audio_texture_position_top_left_x = 1650;
-  audio_texture_position_top_left_y = 885;
+  audio_texture_position_top_left_y = 975;
   audio_button_bounds = {audio_texture_position_top_left_x, audio_texture_position_top_left_y, 50, 50};
 
   InitAudioDevice();

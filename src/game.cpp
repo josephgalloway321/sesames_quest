@@ -2,6 +2,9 @@
 
 Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) : 
 SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
+  game_information_start_x = 1515;
+  game_information_width = SCREEN_WIDTH - game_information_start_x;
+
   font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
 
   is_time_to_meow_or_groom = false; 
@@ -26,6 +29,10 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   initialize_hidden_objects();
   set_hidden_objects_starting_positions();
   set_hidden_objects_collision_boundaries();
+
+  // Initialize goals at the beginning of the game
+  set_goal_texts();
+  set_goal_positions();
 }
 
 Game::~Game() {
@@ -125,6 +132,29 @@ void Game::set_mobile_objects_interaction_boundaries() {
 void Game::set_mobile_objects_collision_boundaries() {
   laundry_basket.set_collision_boundary({176, 370, 86, 88});
   litter_box.set_collision_boundary({100, 900, 155, 56});
+}
+
+void Game::set_goal_texts() {
+  find_treats.set_goal_text("Find treats");
+  eat_treats.set_goal_text("Eat treats");
+  hide_empty_treat_box.set_goal_text("Hide treat box");
+}
+
+void Game::set_goal_positions() {
+  int margin_vertical = 700;
+  int margin_horizontal = 10;
+  int padding_vertical = 75;
+
+  float find_treats_top_left_position_x = game_information_start_x + margin_horizontal;
+  float find_treats_top_left_position_y = margin_vertical;
+  float eat_treats_top_left_position_x = game_information_start_x + margin_horizontal;
+  float eat_treats_top_left_position_y = margin_vertical + padding_vertical;
+  float hide_empty_treat_box_top_left_position_x = game_information_start_x + margin_horizontal;
+  float hide_empty_treat_box_top_left_position_y = margin_vertical + padding_vertical * 2;;
+
+  find_treats.set_position(find_treats_top_left_position_x, find_treats_top_left_position_y);
+  eat_treats.set_position(eat_treats_top_left_position_x, eat_treats_top_left_position_y);
+  hide_empty_treat_box.set_position(hide_empty_treat_box_top_left_position_x, hide_empty_treat_box_top_left_position_y);
 }
 
 void Game::interact_with_mobile_object() {
@@ -531,7 +561,7 @@ void Game::draw_best_time(int game_information_width, int game_information_start
   int best_time_font_size = 40;
 
   int margin_horizontal_best_time_text = 60;
-  int margin_vertical_best_time_text = 200;
+  int margin_vertical_best_time_text = 180;
   float best_time_text_top_left_position_x = game_information_start_x + margin_horizontal_best_time_text;
   float best_time_text_top_left_position_y = margin_vertical_best_time_text;
   
@@ -596,7 +626,7 @@ void Game::draw_time_remaining(int game_information_width, int game_information_
   int time_remaining_font_size = 40;
 
   int margin_horizontal_time_remaining_text = 10;
-  int margin_vertical_time_remaining_text = 400;
+  int margin_vertical_time_remaining_text = 350;
   float time_remaining_text_top_left_position_x = game_information_start_x + margin_horizontal_time_remaining_text;
   float time_remaining_text_top_left_position_y = margin_vertical_time_remaining_text;
   
@@ -662,11 +692,11 @@ void Game::draw_message(int game_information_width, int game_information_start_x
   //int message_font_size = 30;
 
   int margin_horizontal_background_message = 10;
-  int margin_vertical_background_message = 600;
+  int margin_vertical_background_message = 525;
   float background_message_top_left_position_x = game_information_start_x + margin_horizontal_background_message;
   float background_message_top_left_position_y = margin_vertical_background_message;
   float background_message_width = 285;
-  float background_message_height = 250;
+  float background_message_height = 125;
 
   DrawRectangleRounded(
     {background_message_top_left_position_x, 
@@ -677,9 +707,6 @@ void Game::draw_message(int game_information_width, int game_information_start_x
 }
 
 void Game::draw_game_information() {
-  int game_information_start_x = 1515;
-  int game_information_width = SCREEN_WIDTH - game_information_start_x;
-
   // Draw title
   draw_title(game_information_width, game_information_start_x);
 
@@ -693,7 +720,8 @@ void Game::draw_game_information() {
   draw_message(game_information_width, game_information_start_x);
 
   // Draw Sesame's coordinates
-  draw_sesame_coordinates(game_information_width, game_information_start_x);
+  // Not necessary for gameplay, commented out
+  //draw_sesame_coordinates(game_information_width, game_information_start_x);
 }
 
 void Game::draw_apartment() {
@@ -726,6 +754,12 @@ void Game::draw_hidden_objects() const {
   //white_mouse.draw_hidden_object();
   //papers.draw_hidden_object();
   //treat_box.draw_hidden_object();
+}
+
+void Game::draw_goals() const {
+  find_treats.draw_goal();
+  eat_treats.draw_goal();
+  hide_empty_treat_box.draw_goal();
 }
 
 Font Game::get_font() const {

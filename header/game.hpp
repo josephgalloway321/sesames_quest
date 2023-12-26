@@ -10,6 +10,7 @@
 #include "../header/audio.hpp"
 #include "../header/mobile_objects.hpp"
 #include "../header/hidden_objects.hpp"
+#include "../header/goals.hpp"
 
 class Game {
   private:
@@ -37,8 +38,13 @@ class Game {
     Hidden_Objects white_mouse;
     Hidden_Objects papers;
     Hidden_Objects treat_box;
+    Goals find_treats;
+    Goals eat_treats;
+    Goals hide_empty_treat_box;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
+    int game_information_start_x;
+    int game_information_width;
     bool is_time_to_meow_or_groom;
     bool meow;
     bool groom;
@@ -70,6 +76,8 @@ class Game {
     void set_mobile_objects_starting_positions();
     void set_mobile_objects_interaction_boundaries();
     void set_mobile_objects_collision_boundaries();
+    void set_goal_texts();
+    void set_goal_positions();
     void interact_with_mobile_object();
     void reverse_sesame_last_move();
     //void interact_with_apartment();
@@ -85,6 +93,7 @@ class Game {
     void draw_apartment();
     void draw_mobile_objects() const;
     void draw_hidden_objects() const;
+    void draw_goals() const;
     Font get_font() const;
     void countdown_timer();
     bool check_game_over();

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <raylib.h>
 #include "../header/game.hpp"
-#include "../header/mobile_objects.hpp"
 
 const int SCREEN_WIDTH = 1820, SCREEN_HEIGHT = 1024;
 
@@ -12,7 +11,7 @@ int main() {
   // Create game objects
   Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
   enum GameScreen {title, cut_scene, gameplay, duck_closeup, ending_success, ending_failure};
-  GameScreen current_screen = title;
+  GameScreen current_screen = gameplay;
 
   while(!WindowShouldClose()) {
     /*
@@ -69,6 +68,7 @@ int main() {
         game.draw_hidden_objects();
         game.draw_mobile_objects();
         game.draw_game_information();
+        game.draw_goals();
 
         game.handle_keyboard_input();
         game.handle_mouse_input();
