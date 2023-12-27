@@ -23,6 +23,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   // Initialize apartment rooms
   initialize_apartment();
   set_apartment_room_positions();
+  set_apartment_interaction_boundaries();
 
   // Initialize mobile objects at the beginning of the game
   initialize_mobile_objects();
@@ -101,6 +102,13 @@ void Game::set_apartment_room_positions() {
   living_room.set_apartment_room_position(0, 512);
   bathroom.set_apartment_room_position(910, 0);
   bedroom.set_apartment_room_position(910, 512);
+}
+
+void Game::set_apartment_interaction_boundaries() {
+  laundry_room_kitchen.set_interaction_boundary({600, 200, 90, 115});
+  living_room.set_interaction_boundary({60, 600, 90, 150});
+  bathroom.set_interaction_boundary({1158, 185, 50, 115});
+  bedroom.set_interaction_boundary({975, 615, 115, 115});
 }
 
 void Game::set_hidden_objects_starting_positions() {
@@ -196,7 +204,7 @@ void Game::set_goal_positions() {
   hide_empty_treat_box.set_position(hide_empty_treat_box_top_left_position_x, hide_empty_treat_box_top_left_position_y);
 }
 
-void Game::interact_with_mobile_object() {
+void Game::interact_with_mobile_objects() {
   // Interaction & collision boundaries move w/ mobile object
   if(cat_bed.get_is_sesame_in_interaction_boundary() && !cat_bed.get_is_object_moved()) {
     cat_bed.toggle_move('d', 100);
@@ -246,9 +254,14 @@ void Game::interact_with_mobile_object() {
   }
 }
 
-//void Game::interact_with_apartment() {
-
-//}
+void Game::interact_with_apartment() {
+  if(laundry_room_kitchen.get_is_sesame_in_interaction_boundary() && !laundry_room_kitchen.get_is_door_open()) {
+    laundry_room_kitchen.update_current_frame(1);
+  }
+  else if(laundry_room_kitchen.get_is_sesame_in_interaction_boundary() && laundry_room_kitchen.get_is_door_open()) {
+    laundry_room_kitchen.update_current_frame(0);
+  }
+}
 
 int Game::get_random_value(std::vector<int> vector_random_values, int num_hidden_objects) {
   int random_value;
@@ -402,12 +415,40 @@ void Game::check_all_interactions() {
     meow_rug.set_is_sesame_in_interaction_boundary(true);
   }
 
+  // Laundry room & kicthen
+  else if(CheckCollisionRecs(sesame_boundary, laundry_room_kitchen.get_interaction_boundary())) {
+    laundry_room_kitchen.draw_interaction_boundary();
+    laundry_room_kitchen.set_is_sesame_in_interaction_boundary(true);
+  }
+
+  // Living room
+  else if(CheckCollisionRecs(sesame_boundary, living_room.get_interaction_boundary())) {
+    living_room.draw_interaction_boundary();
+    living_room.set_is_sesame_in_interaction_boundary(true);
+  }
+
+  // Bathroom
+  else if(CheckCollisionRecs(sesame_boundary, bathroom.get_interaction_boundary())) {
+    bathroom.draw_interaction_boundary();
+    bathroom.set_is_sesame_in_interaction_boundary(true);
+  }
+
+  // Bedroom
+  else if(CheckCollisionRecs(sesame_boundary, bedroom.get_interaction_boundary())) {
+    bedroom.draw_interaction_boundary();
+    bedroom.set_is_sesame_in_interaction_boundary(true);
+  }
+
   else {
     cat_bed.set_is_sesame_in_interaction_boundary(false);
     laundry_basket.set_is_sesame_in_interaction_boundary(false);
     litter_box.set_is_sesame_in_interaction_boundary(false);
     meow_rug.set_is_sesame_in_interaction_boundary(false);
     bathroom_rug.set_is_sesame_in_interaction_boundary(false);
+    laundry_room_kitchen.set_is_sesame_in_interaction_boundary(false);
+    living_room.set_is_sesame_in_interaction_boundary(false);
+    bathroom.set_is_sesame_in_interaction_boundary(false);
+    bedroom.set_is_sesame_in_interaction_boundary(false);
   }
 }
 
@@ -453,12 +494,12 @@ void Game::handle_keyboard_input() {
     case KEY_A: {
       timer_until_meow_or_groom.reset_timer();
       // Call function to check which object interaction with 
-      interact_with_mobile_object();
-      //interact_with_apartment();
+      interact_with_mobile_objects();
+      interact_with_apartment();
     }
     case KEY_T: {
       timer_until_meow_or_groom.reset_timer();
-      laundry_room_kitchen.update_current_frame(1);
+      //laundry_room_kitchen.update_current_frame(1);
     }
     default: {
       break;

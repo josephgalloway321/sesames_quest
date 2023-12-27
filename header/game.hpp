@@ -79,6 +79,7 @@ class Game {
     void initialize_hidden_objects();
     void initialize_mobile_objects();
     void set_apartment_room_positions();
+    void set_apartment_interaction_boundaries();
     void set_hidden_objects_starting_positions();
     void set_hidden_objects_collision_boundaries();
     void set_mobile_objects_starting_positions();
@@ -86,9 +87,9 @@ class Game {
     void set_mobile_objects_collision_boundaries();
     void set_goal_texts();
     void set_goal_positions();
-    void interact_with_mobile_object();
+    void interact_with_mobile_objects();
     void reverse_sesame_last_move();
-    //void interact_with_apartment();
+    void interact_with_apartment();
 
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
