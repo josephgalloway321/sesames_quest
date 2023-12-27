@@ -74,9 +74,10 @@ int main() {
         game.draw_game_information();
         game.draw_goals();
 
+        // TEST
         //DrawTexture(test, 1520, 520, WHITE);
 
-        game.handle_keyboard_input();
+        game.handle_keyboard_input();  // Sesame drawn here
         game.handle_mouse_input();
 
         game.check_all_boundaries();

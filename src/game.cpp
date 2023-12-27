@@ -38,6 +38,9 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   // Initialize goals at the beginning of the game
   set_goal_texts();
   set_goal_positions();
+
+  // Initialize Sesame objects at the beginning of the game
+  initialize_sesame();
 }
 
 Game::~Game() {
@@ -94,6 +97,20 @@ void Game::initialize_mobile_objects() {
   litter_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/litter_box.png");
   meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png");
   bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png");
+}
+
+void Game::initialize_sesame() {
+  sesame_walking_left.initialize_sesame_action('w');
+  sesame_walking_down.initialize_sesame_action('w');
+  sesame_walking_right.initialize_sesame_action('w');
+  sesame_walking_up.initialize_sesame_action('w');
+  sesame_grooming.initialize_sesame_action('g');
+  sesame_sitting.initialize_sesame_action('s');
+  sesame_meowing.initialize_sesame_action('m');
+  sesame_eating.initialize_sesame_action('e');
+  sesame_dancing.initialize_sesame_action('d');
+  sesame_frightened.initialize_sesame_action('f');
+  sesame_napping.initialize_sesame_action('n');
 }
 
 void Game::set_apartment_room_positions() {

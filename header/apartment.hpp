@@ -8,11 +8,10 @@ class Apartment {
     int max_frames;
     float frame_width;
     float frame_height;
-    float position_top_left_x, position_top_left_y;
-
     int start_frame;
     int current_frame;
     int end_frame;
+    float position_top_left_x, position_top_left_y;
 
   public:
     Apartment();
