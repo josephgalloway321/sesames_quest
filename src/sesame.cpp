@@ -1,81 +1,91 @@
 #include "../header/sesame.hpp"
 
 Sesame::Sesame() {
-  walking_stride = 30;  // Stride length in pixels while walking
+  // Walking = 0, Grooming = 1, Sitting & Meowing = 2, Eating = 3, Dancing = 4, Scared = 5
+  // Sleeping & Woken = 6
+  sesame_current_action = 0;  
+
+  sesame_start_position_top_left_x = 250.0;  // Position x at the start of the game
+  sesame_start_position_top_left_y = 250.0;  // Position y at the start of the game
+  sesame_position_top_left_x = sesame_start_position_top_left_x;  
+  sesame_position_top_left_y = sesame_start_position_top_left_y;  
+  sesame_position_bottom_right_x = 0.0;  // Initialize
+  sesame_position_bottom_right_y = 0.0;  // Initialize
+
+  sesame_walking = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_walking.png");  
+  sesame_walking_max_frames = 16;  //  Number of frames in the original png file
+  sesame_walking_frame_width = (float)(sesame_walking.width / sesame_walking_max_frames);   // Calculate the width of each frame in image
+  sesame_walking_frame_height = sesame_walking.height;
+  sesame_walking_left_start_frame_index = 0;  // Each walking frame start index
+  sesame_walking_down_start_frame_index = 4;
+  sesame_walking_right_start_frame_index = 8;
+  sesame_walking_up_start_frame_index = 12;
+  sesame_walking_left_current_frame = sesame_walking_left_start_frame_index;  // Keep track of current frame
+  sesame_walking_down_current_frame = sesame_walking_down_start_frame_index;
+  sesame_walking_right_current_frame = sesame_walking_right_start_frame_index;
+  sesame_walking_up_current_frame = sesame_walking_up_start_frame_index;
+  sesame_walking_left_end_frame_index = sesame_walking_down_start_frame_index;
+  sesame_walking_down_end_frame_index = sesame_walking_right_start_frame_index;
+  sesame_walking_right_end_frame_index = sesame_walking_up_start_frame_index;
+  sesame_walking_up_end_frame_index = sesame_walking_max_frames;
+  sesame_walking_stride = 30;  // Stride length in pixels while walking
   
-  position_top_left_x = 250;  // Position at the beginning of the game
-  position_top_left_y = 250;
+  sesame_grooming = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_grooming.png");
+  sesame_grooming_max_frames = 12;  //  Number of frames in the original png file
+  sesame_grooming_frame_width = (float)(sesame_grooming.width / sesame_grooming_max_frames);   // Calculate the width of each frame in image
+  sesame_grooming_frame_height = sesame_grooming.height;
+  sesame_grooming_current_frame = 0;  // Frame counter to keep track of current frame
 
-  max_frames = 0;
-  frame_width = (float)(sesame.width / max_frames);
-  frame_height = sesame.height;
+  sesame_sitting_meowing = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sitting_meowing.png");
+  sesame_sitting_meowing_max_frames = 12;
+  sesame_sitting_meowing_frame_width = (float)(sesame_sitting_meowing.width / sesame_sitting_meowing_max_frames);   // Calculate the width of each frame in image
+  sesame_sitting_meowing_frame_height = sesame_sitting_meowing.height;
+  sesame_sitting_start_frame_index = 0;
+  sesame_meowing_start_frame_index = 6;
+  sesame_sitting_current_frame = sesame_sitting_start_frame_index;
+  sesame_meowing_current_frame = sesame_meowing_start_frame_index;
+  sesame_sitting_end_frame_index = sesame_meowing_start_frame_index;
+  sesame_meowing_end_frame_index = sesame_sitting_meowing_max_frames;
 
-  start_frame = 0;
-  current_frame = 0;
-  end_frame = 0;
+  sesame_eating = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_eating.png");
+  sesame_eating_max_frames = 2;
+  sesame_eating_frame_width = (float)(sesame_eating.width / sesame_eating_max_frames);
+  sesame_eating_frame_height = sesame_eating.height; 
+  sesame_eating_current_frame = 0;
+
+  sesame_dancing = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_dancing.png");
+  sesame_dancing_max_frames = 2;
+  sesame_dancing_frame_width = (float)(sesame_dancing.width / sesame_dancing_max_frames);
+  sesame_dancing_frame_height = sesame_dancing.height; 
+  sesame_dancing_current_frame = 0; 
+
+  sesame_scared = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_scared.png");
+  sesame_scared_max_frames = 4;
+  sesame_scared_frame_width = (float)(sesame_scared.width / sesame_scared_max_frames);
+  sesame_scared_frame_height = sesame_scared.height; 
+  sesame_scared_current_frame = 0; 
+
+  sesame_sleeping_woken = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sleeping_woken.png");
+  sesame_sleeping_woken_max_frames = 6;
+  sesame_sleeping_woken_frame_width = (float)(sesame_sleeping_woken.width / sesame_sleeping_woken_max_frames);
+  sesame_sleeping_woken_frame_height = sesame_sleeping_woken.height;
+  sesame_sleeping_start_frame_index = 0;
+  sesame_woken_start_frame_index = 4;
+  sesame_sleeping_current_frame = sesame_sleeping_start_frame_index;
+  sesame_woken_current_frame = sesame_woken_start_frame_index;
+  sesame_sleeping_end_frame_index = sesame_woken_start_frame_index;
+  sesame_woken_end_frame_index = sesame_sleeping_woken_max_frames;
 }
 
 Sesame::~Sesame() {
-  UnloadTexture(sesame);
+  UnloadTexture(sesame_walking);
+  UnloadTexture(sesame_grooming);
+  UnloadTexture(sesame_sitting_meowing);
+  UnloadTexture(sesame_eating);
+  UnloadTexture(sesame_dancing);
+  UnloadTexture(sesame_scared);
+  UnloadTexture(sesame_sleeping_woken);
 }
-
-void Sesame::initialize_action(char action) {
-  switch(action) {
-    // For all Sesame walking objects
-    case 'w': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_walking.png");  
-    }  break;
-
-    // For Sesame grooming
-    case 'g': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_grooming.png");
-    } break;
-
-    // For Sesame sitting
-    case 's': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sitting_meowing.png");
-    } break;
-
-    // For Sesame meowing
-    case 'm': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sitting_meowing.png");
-    } break;  
-
-    // For Sesame eating
-    case 'e': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_eating.png");
-    } break;
-
-    // For Sesame dancing
-    case 'd': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_dancing.png");
-    } break;
-
-    // For Sesame frightened
-    case 'f': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_scared.png");
-    } break;
-
-    // For Sesame napping
-    case 'n': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sleeping_woken.png");
-    } break;
-
-    // For Sesame awake
-    case 'a': {
-      sesame = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_sleeping_woken.png");
-    } break;
-
-    default:
-      break;
-  }
-}
-
-
-
-
-
-
 
 std::vector<std::vector<float>> Sesame::get_sesame_frame_coordinates() {
   switch(sesame_current_action) {
