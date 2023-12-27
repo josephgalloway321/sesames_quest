@@ -49,6 +49,7 @@ void Game::set_wall_boundary_vector() {
 }
 
 void Game::draw_wall_boundary_vector() {
+  /*
   for(int i = 0; i < wall_boundary_vector.size(); i++) {
     for(int j = 0; j < 2; j++) {
       //float x = wall_boundary_vector[i][j];
@@ -56,6 +57,7 @@ void Game::draw_wall_boundary_vector() {
       //DrawCircle(x, y, 3, GREEN);
     }
   }
+  */
 }
 
 void Game::initialize_hidden_objects() {

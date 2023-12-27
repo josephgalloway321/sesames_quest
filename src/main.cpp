@@ -8,6 +8,10 @@ int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sesame's Quest");
   SetTargetFPS(4);
 
+  // TEST
+  //Texture2D test = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/human.png");
+  //Texture2D test = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_message.png");
+
   // Create game objects
   Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
   enum GameScreen {title, cut_scene, gameplay, duck_closeup, ending_success, ending_failure};
@@ -69,6 +73,8 @@ int main() {
         game.draw_mobile_objects();
         game.draw_game_information();
         game.draw_goals();
+
+        //DrawTexture(test, 1520, 520, WHITE);
 
         game.handle_keyboard_input();
         game.handle_mouse_input();
