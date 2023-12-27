@@ -43,6 +43,7 @@ class Game {
     Goals hide_empty_treat_box;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
+    std::vector<std::vector<float>> wall_boundary_vector;
     int game_information_start_x;
     int game_information_width;
     bool is_time_to_meow_or_groom;
@@ -59,6 +60,8 @@ class Game {
     int returned_random_value;
     std::vector<int> vector_random_values;
 
+    void set_wall_boundary_vector();
+    void draw_wall_boundary_vector();
     int get_random_value(std::vector<int> vector_random_values, int num_hidden_objects);
     std::vector<float> get_coordinates(int random_value);
     void toggle_full_screen_window(int window_width, int window_height);

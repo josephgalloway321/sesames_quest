@@ -10,7 +10,6 @@ class Goals {
     int max_frames; 
     float frame_width;
     float frame_height;
-    int current_frame;  // Current frame will change depending on goal status
     bool is_goal_accomplished;
     float position_top_left_x;
     float position_top_left_y;

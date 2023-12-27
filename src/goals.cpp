@@ -7,7 +7,6 @@ Goals::Goals() {
   frame_height = goal.height;
   
   is_goal_accomplished = false;
-  current_frame = 0;
 }
 
 Goals::~Goals() {
@@ -27,7 +26,7 @@ void Goals::draw_goal() const {
   DrawTextureRec(
     goal,
     Rectangle{
-      frame_width * current_frame,
+      frame_width * 0,
       0,
       frame_width,
       frame_height},
@@ -39,11 +38,33 @@ void Goals::draw_goal() const {
 }
 
 void Goals::draw_goal_accomplished() const {
-  
+  DrawTextureRec(
+    goal,
+    Rectangle{
+      frame_width * 1,
+      0,
+      frame_width,
+      frame_height},
+    Vector2{
+      position_top_left_x,
+      position_top_left_y},
+      WHITE);
+  DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
 }
 
 void Goals::draw_goal_failed() const {
-  
+  DrawTextureRec(
+    goal,
+    Rectangle{
+      frame_width * 2,
+      0,
+      frame_width,
+      frame_height},
+    Vector2{
+      position_top_left_x,
+      position_top_left_y},
+      WHITE);
+  DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
 }
 
 bool Goals::get_is_goal_accomplished() {

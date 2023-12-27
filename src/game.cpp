@@ -2,6 +2,7 @@
 
 Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) : 
 SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
+  wall_boundary_vector = {{200, 200}, {250, 250}, {275, 275}};
   game_information_start_x = 1515;
   game_information_width = SCREEN_WIDTH - game_information_start_x;
 
@@ -37,6 +38,24 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
 
 Game::~Game() {
   UnloadFont(font);
+}
+
+void Game::set_wall_boundary_vector() {
+  // Laundry room
+  //wall_boundary_vector.push_back({});
+
+  // Kitchen
+  //wall_boundary_vector.push_back({});
+}
+
+void Game::draw_wall_boundary_vector() {
+  for(int i = 0; i < wall_boundary_vector.size(); i++) {
+    for(int j = 0; j < 2; j++) {
+      //float x = wall_boundary_vector[i][j];
+      //float y = wall_boundary_vector[i][j];
+      //DrawCircle(x, y, 3, GREEN);
+    }
+  }
 }
 
 void Game::initialize_hidden_objects() {
