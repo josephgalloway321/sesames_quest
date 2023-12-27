@@ -2,81 +2,48 @@
 
 Apartment::Apartment() {
   apartment = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/apartment.png");
-  apartment_max_frames = 13;
-  apartment_frame_width = (float)(apartment.width / apartment_max_frames);
-  apartment_frame_height = apartment.height;
+  
+  max_frames = 13;
+  frame_width = (float)(apartment.width / max_frames);
+  frame_height = apartment.height;
 
-  apartment_laundry_kitchen_current_frame_index = 0;
-  apartment_living_room_current_frame_index = 7;
-  apartment_bathroom_closets_current_frame_index = 8;
-  apartment_bedroom_current_frame_index = 11;
+  position_top_left_x = 0;
+  position_top_left_y = 0;
 
-  apartment_laundry_kitchen_top_left_x = 0;
-  apartment_laundry_kitchen_top_left_y = 0;
-  apartment_living_room_top_left_x = 0;
-  apartment_living_room_top_left_y = apartment_frame_height;
-  apartment_bathroom_closets_top_left_x = apartment_frame_width;
-  apartment_bathroom_closets_top_left_y = 0;
-  apartment_bedroom_top_left_x = apartment_frame_width;
-  apartment_bedroom_top_left_y = apartment_frame_height;
+  start_frame = 0;
+  current_frame = 0;
+  end_frame = 0;
 }
 
 Apartment::~Apartment() {
   UnloadTexture(apartment);
 }
 
-void Apartment::draw_laundry_kitchen_rooms() {
+void Apartment::initialize_apartment_room(int start_frame, int end_frame) {
+  this -> start_frame = start_frame;
+  current_frame = start_frame;
+  this -> end_frame = end_frame;  // Exclusive
+}
+
+void Apartment::set_apartment_room_position(float x, float y) {
+  position_top_left_x = x;
+  position_top_left_y = y;
+}
+
+void Apartment::draw_room() {
   DrawTextureRec(
     apartment,
     Rectangle{
-      apartment_frame_width * apartment_laundry_kitchen_current_frame_index,
+      frame_width * current_frame,
       0,
-      apartment_frame_width,
-      apartment_frame_height},
+      frame_width,
+      frame_height},
     Vector2{
-      apartment_laundry_kitchen_top_left_x,
-      apartment_laundry_kitchen_top_left_y},
+      position_top_left_x,
+      position_top_left_y},
       WHITE);
 }
 
-void Apartment::draw_living_room() {
-  DrawTextureRec(
-    apartment,
-    Rectangle{
-      apartment_frame_width * apartment_living_room_current_frame_index,
-      0,
-      apartment_frame_width,
-      apartment_frame_height},
-    Vector2{
-      apartment_living_room_top_left_x,
-      apartment_living_room_top_left_y},
-      WHITE);
-}
-
-void Apartment::draw_bathroom_closets() {
-  DrawTextureRec(
-    apartment,
-    Rectangle{
-      apartment_frame_width * apartment_bathroom_closets_current_frame_index,
-      0,
-      apartment_frame_width,
-      apartment_frame_height},
-    Vector2{
-      apartment_bathroom_closets_top_left_x,
-      apartment_bathroom_closets_top_left_y},
-      WHITE);
-}
-
-void Apartment::draw_bedroom() {
-  DrawTextureRec(
-    apartment,
-    Rectangle{
-      apartment_frame_width * apartment_bedroom_current_frame_index,
-      0,
-      apartment_frame_width,
-      apartment_frame_height},
-    Vector2{
-      apartment_bedroom_top_left_x,
-      apartment_bedroom_top_left_y},
-      WHITE);
+void Apartment::update_current_frame(int current_frame) {
+  this -> current_frame = current_frame;
 }

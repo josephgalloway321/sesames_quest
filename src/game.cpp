@@ -20,6 +20,10 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   is_game_over = false;
   is_successful = false;
 
+  // Initialize apartment rooms
+  initialize_apartment();
+  set_apartment_room_positions();
+
   // Initialize mobile objects at the beginning of the game
   initialize_mobile_objects();
   set_mobile_objects_starting_positions();
@@ -60,6 +64,13 @@ void Game::draw_wall_boundary_vector() {
   */
 }
 
+void Game::initialize_apartment() {
+  laundry_room_kitchen.initialize_apartment_room(0, 7);
+  living_room.initialize_apartment_room(7, 8);
+  bathroom.initialize_apartment_room(8, 11);
+  bedroom.initialize_apartment_room(11, 13);
+}
+
 void Game::initialize_hidden_objects() {
   blue_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/blue_ball.png");
   //green_ball.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/hidden_objects/green_ball.png");
@@ -83,6 +94,13 @@ void Game::initialize_mobile_objects() {
   litter_box.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/litter_box.png");
   meow_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/meow_rug.png");
   bathroom_rug.initialize_object("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/mobile_objects/bathroom_rug.png");
+}
+
+void Game::set_apartment_room_positions() {
+  laundry_room_kitchen.set_apartment_room_position(0, 0);
+  living_room.set_apartment_room_position(0, 512);
+  bathroom.set_apartment_room_position(910, 0);
+  bedroom.set_apartment_room_position(910, 512);
 }
 
 void Game::set_hidden_objects_starting_positions() {
@@ -438,8 +456,13 @@ void Game::handle_keyboard_input() {
       interact_with_mobile_object();
       //interact_with_apartment();
     }
-    default:
+    case KEY_T: {
+      timer_until_meow_or_groom.reset_timer();
+      laundry_room_kitchen.update_current_frame(1);
+    }
+    default: {
       break;
+    }
   }
 }
 
@@ -748,10 +771,10 @@ void Game::draw_game_information() {
 void Game::draw_apartment() {
   // Write logic determining which frame of apartment to show based on 
   // Sesame interacting with opening/closing doors
-  apartment.draw_laundry_kitchen_rooms();
-  apartment.draw_living_room();
-  apartment.draw_bathroom_closets();
-  apartment.draw_bedroom();
+  laundry_room_kitchen.draw_room();
+  living_room.draw_room();
+  bathroom.draw_room();
+  bedroom.draw_room();
 }
 
 void Game::draw_mobile_objects() const {

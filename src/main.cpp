@@ -8,7 +8,7 @@ int main() {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Sesame's Quest");
   SetTargetFPS(4);
 
-  // TEST
+  // TEST (Add to Message class)
   //Texture2D test = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/human.png");
   //Texture2D test = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_message.png");
 

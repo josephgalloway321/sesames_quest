@@ -14,7 +14,10 @@
 
 class Game {
   private:
-    Apartment apartment;
+    Apartment laundry_room_kitchen;
+    Apartment living_room;
+    Apartment bathroom;
+    Apartment bedroom;
     Sesame sesame;
     Timer timer_until_meow_or_groom;
     Timer timer_countdown;
@@ -72,8 +75,10 @@ class Game {
     void draw_time_remaining(int game_information_width, int game_information_start_x);
     void draw_message(int game_information_width, int game_information_start_x);
     void update_best_time();
+    void initialize_apartment();
     void initialize_hidden_objects();
     void initialize_mobile_objects();
+    void set_apartment_room_positions();
     void set_hidden_objects_starting_positions();
     void set_hidden_objects_collision_boundaries();
     void set_mobile_objects_starting_positions();
