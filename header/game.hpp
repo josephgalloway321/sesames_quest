@@ -18,7 +18,18 @@ class Game {
     Apartment living_room;
     Apartment bathroom;
     Apartment bedroom;
-    Sesame sesame;
+    Sesame sesame_walking_left;
+    Sesame sesame_walking_down;
+    Sesame sesame_walking_right;
+    Sesame sesame_walking_up;
+    Sesame sesame_grooming;
+    Sesame sesame_sitting;
+    Sesame sesame_meowing;
+    Sesame sesame_eating;
+    Sesame sesame_dancing;
+    Sesame sesame_frightened;
+    Sesame sesame_napping;
+    Sesame sesame_awake;
     Timer timer_until_meow_or_groom;
     Timer timer_countdown;
     Font font;
@@ -78,6 +89,7 @@ class Game {
     void initialize_apartment();
     void initialize_hidden_objects();
     void initialize_mobile_objects();
+    void initialize_sesame();
     void set_apartment_room_positions();
     void set_hidden_objects_starting_positions();
     void set_hidden_objects_collision_boundaries();
