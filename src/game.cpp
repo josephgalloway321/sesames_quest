@@ -257,9 +257,31 @@ void Game::interact_with_mobile_objects() {
 void Game::interact_with_apartment() {
   if(laundry_room_kitchen.get_is_sesame_in_interaction_boundary() && !laundry_room_kitchen.get_is_door_open()) {
     laundry_room_kitchen.update_current_frame(1);
+    laundry_room_kitchen.toggle_is_door_open();
   }
   else if(laundry_room_kitchen.get_is_sesame_in_interaction_boundary() && laundry_room_kitchen.get_is_door_open()) {
     laundry_room_kitchen.update_current_frame(0);
+    laundry_room_kitchen.toggle_is_door_open();
+  }
+
+  // Living room switch screens
+
+  else if(bathroom.get_is_sesame_in_interaction_boundary() && !bathroom.get_is_door_open()) {
+    bathroom.update_current_frame(9);
+    bathroom.toggle_is_door_open();
+  }
+  else if(bathroom.get_is_sesame_in_interaction_boundary() && bathroom.get_is_door_open()) {
+    bathroom.update_current_frame(8);
+    bathroom.toggle_is_door_open();
+  }
+
+  else if(bedroom.get_is_sesame_in_interaction_boundary() && !bedroom.get_is_door_open()) {
+    bedroom.update_current_frame(12);
+    bedroom.toggle_is_door_open();
+  }
+  else if(bedroom.get_is_sesame_in_interaction_boundary() && bedroom.get_is_door_open()) {
+    bedroom.update_current_frame(11);
+    bedroom.toggle_is_door_open();
   }
 }
 
