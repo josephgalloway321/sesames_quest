@@ -448,8 +448,8 @@ void Sesame::happy() {
       sesame_happy_sad_frame_width,
       sesame_happy_sad_frame_height},
     Vector2{
-      sesame_position_top_left_x - 500,
-      sesame_position_top_left_y - 50},
+      250,
+      725},
       WHITE);
 }
 
@@ -462,8 +462,8 @@ void Sesame::sad() {
       sesame_happy_sad_frame_width,
       sesame_happy_sad_frame_height},
     Vector2{
-      sesame_position_top_left_x - 500,
-      sesame_position_top_left_y - 50},
+      250,
+      725},
       WHITE);
 }
 
