@@ -7,6 +7,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
 
   font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
   duck_date = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/ducks_date_closeup.png"); 
+  human = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/human.png");
 
   is_time_to_meow_or_groom = false; 
   meow = false;
@@ -15,7 +16,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   sesame_last_move = 's';  // 's' = sitting, 'l' = walk left, 'd' = walk down, 'r' = walk right, 'u' = walk up
   srand(time(NULL));
   best_time = 0;
-  start_time = 999;
+  start_time = 5*60;  // Seconds
   time_remaining = start_time;
   is_successful = false;
 
@@ -25,6 +26,9 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   seconds_until_finished_eating = 3;
   is_done_eating_treats = false;
   is_hide_treats = false;
+
+  end_cut_scene = false;
+  sesame_woken_up = false;
 
   // Initialize apartment rooms
   initialize_apartment();
@@ -53,6 +57,47 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
 
 Game::~Game() {
   UnloadFont(font);
+}
+
+void Game::start_cut_scene_timers() {
+  sesame_woken.reset_timer();
+  timer_end_cut_scene.reset_timer();
+}
+
+void Game::cut_scene_start() {
+  bathroom.update_current_frame(10);
+}
+
+bool Game::get_end_cut_scene() const {
+  return end_cut_scene;
+}
+
+void Game::draw_cut_scene() {
+  // Show Noor saying bye to Sesame
+  DrawTexture(human, 1490, 400, WHITE);
+  DrawText("Bye, Sesame!", 1525, 540, 20, WHITE);
+  DrawText("I'll be back later!", 1525, 590, 20, WHITE);
+  
+  //Show Sesame sleeping
+  if(sesame_woken.is_time_for_event(3.5)) {
+    sesame_woken_up = true;
+  }
+
+  if(sesame_woken_up) {
+    sesame.woken();
+  }
+  else {
+    sesame.sleeping();
+  }
+
+  if(timer_end_cut_scene.is_time_for_event(5.0)) {
+      end_cut_scene = true;
+    }
+}
+
+void Game::cut_scene_done() {
+  bathroom.update_current_frame(8);
+  timer_until_meow_or_groom.reset_timer();
 }
 
 void Game::initialize_apartment() {
@@ -102,10 +147,11 @@ void Game::set_apartment_interaction_boundaries() {
 }
 
 void Game::set_apartment_collision_boundaries() {
-  laundry_room_kitchen.set_collision_boundary({0, 0, 0, 0});
-  living_room.set_collision_boundary();
-  bathroom.set_collision_boundary();
-  bedroom.set_collision_boundary();
+  laundry_room_kitchen.set_collision_boundary({10, 10, 910, 280});
+  living_room.set_collision_boundary({10, 1015, 1515, 25});
+  bathroom.set_collision_boundary({920, 10, 600, 200});
+  bedroom.set_collision_boundary({1515, 200, 50, 800});
+  apartment_left_wall = {-30, 10, 50, 1000};
 }
 
 void Game::draw_wall_boundaries() {
@@ -113,6 +159,7 @@ void Game::draw_wall_boundaries() {
   living_room.draw_collision_boundary();
   bathroom.draw_collision_boundary();
   bedroom.draw_collision_boundary();
+  DrawRectangleRec(apartment_left_wall, CUSTOM_BLUE);
 }
 
 void Game::set_hidden_objects_starting_positions() {
@@ -410,7 +457,26 @@ void Game::reverse_sesame_last_move() {
 }
 
 void Game::check_all_boundaries() {
-  // TODO: Check collisions with walls by room
+  // Check collisions with walls by room
+  std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
+  Vector2 position_top_left = {coordinates[0][0], coordinates[0][1]};
+  Vector2 position_bottom_right = {coordinates[1][0], coordinates[1][1]};
+
+  if(CheckCollisionPointRec(position_bottom_right, laundry_room_kitchen.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionPointRec(position_bottom_right, living_room.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionPointRec(position_bottom_right, bathroom.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionPointRec(position_bottom_right, bedroom.get_collision_boundary())) {
+    reverse_sesame_last_move();
+  }
+  else if(CheckCollisionPointRec(position_top_left, apartment_left_wall)) {
+    reverse_sesame_last_move();
+  }
 
   // Check collisions with mobile objects
   if(CheckCollisionRecs(sesame.get_sesame_boundary(), laundry_basket.get_collision_boundary())) {
@@ -530,7 +596,7 @@ void Game::handle_keyboard_input() {
       }
     }
   }
-  else if(IsKeyDown(KEY_A)) {
+  else if(IsKeyDown(KEY_D)) {
     if(living_room.get_is_sesame_in_interaction_boundary()) {
       DrawTexture(duck_date, 300, 10, WHITE);
     }
@@ -546,7 +612,7 @@ void Game::handle_keyboard_input() {
   // Handle keys pressed
   int key_pressed = GetKeyPressed();
   switch(key_pressed) {
-    case KEY_SPACE: {
+    case KEY_F: {
       toggle_full_screen_window(SCREEN_WIDTH, SCREEN_HEIGHT);
     }
     case KEY_A: {
@@ -640,6 +706,7 @@ void Game::toggle_full_screen_window(int window_width, int window_height) {
 }
 
 void Game::draw_sesame_coordinates(int game_information_width, int game_information_start_x) {
+  // Removed this feature
   std::vector<std::vector<float>> coordinates = sesame.get_sesame_frame_coordinates();
   int position_top_left_x = (int)coordinates[0][0];
   int position_top_left_y = (int)coordinates[0][1];

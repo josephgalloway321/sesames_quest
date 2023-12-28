@@ -5,8 +5,8 @@ Sesame::Sesame() {
   // Sleeping & Woken = 6
   sesame_current_action = 0;  
 
-  sesame_start_position_top_left_x = 250.0;  // Position x at the start of the game
-  sesame_start_position_top_left_y = 250.0;  // Position y at the start of the game
+  sesame_start_position_top_left_x = 1115;  // Position x at the start of the game
+  sesame_start_position_top_left_y = 725;  // Position y at the start of the game
   sesame_position_top_left_x = sesame_start_position_top_left_x;  
   sesame_position_top_left_y = sesame_start_position_top_left_y;  
   sesame_position_bottom_right_x = 0.0;  // Initialize

@@ -78,7 +78,7 @@ void Apartment::draw_interaction_boundary() {
   DrawRectangleRec(interaction_boundary, CUSTOM_RED);
 }
 
-void Apartment::set_collision_boundary(Rectangle get_collision_boundary) {
+void Apartment::set_collision_boundary(Rectangle collision_boundary) {
   this -> collision_boundary = collision_boundary;
 }
 

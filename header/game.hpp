@@ -18,10 +18,13 @@ class Game {
     Apartment living_room;
     Apartment bathroom;
     Apartment bedroom;
+    Rectangle apartment_left_wall;
     Sesame sesame;
     Timer timer_until_meow_or_groom;
     Timer timer_countdown;
     Timer sesame_eating;
+    Timer sesame_woken;
+    Timer timer_end_cut_scene;
     Font font;
     Audio audio;
     Vector2 mouse_position;
@@ -46,6 +49,7 @@ class Game {
     Goals eat_treats;
     Goals hide_treat_box;
     Texture2D duck_date;
+    Texture2D human;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     int game_information_start_x;
@@ -69,6 +73,9 @@ class Game {
     int seconds_until_finished_eating;
     bool is_done_eating_treats;
     bool is_hide_treats;
+
+    bool end_cut_scene;
+    bool sesame_woken_up;
 
     int get_random_value(std::vector<int> vector_random_values, int num_hidden_objects);
     std::vector<float> get_coordinates(int random_value);
@@ -102,6 +109,9 @@ class Game {
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
     ~Game();
+    void cut_scene_start();
+    void draw_cut_scene();
+    void cut_scene_done();
     void check_all_boundaries();
     void check_all_interactions();
     void handle_keyboard_input();
@@ -121,4 +131,6 @@ class Game {
     void check_eat_treats();
     void check_hide_treats();
     void draw_wall_boundaries();
+    bool get_end_cut_scene() const;
+    void start_cut_scene_timers();
 };
