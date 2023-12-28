@@ -7,6 +7,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   game_information_width = SCREEN_WIDTH - game_information_start_x;
 
   font = LoadFont("C:/Users/josep/Documents/GitHub/sesames_quest/resources/font/monogram.ttf");
+  duck_date = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/ducks_date_closeup.png"); 
 
   is_time_to_meow_or_groom = false; 
   meow = false;
@@ -52,26 +53,6 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
 
 Game::~Game() {
   UnloadFont(font);
-}
-
-void Game::set_wall_boundary_vector() {
-  // Laundry room
-  //wall_boundary_vector.push_back({});
-
-  // Kitchen
-  //wall_boundary_vector.push_back({});
-}
-
-void Game::draw_wall_boundary_vector() {
-  /*
-  for(int i = 0; i < wall_boundary_vector.size(); i++) {
-    for(int j = 0; j < 2; j++) {
-      //float x = wall_boundary_vector[i][j];
-      //float y = wall_boundary_vector[i][j];
-      //DrawCircle(x, y, 3, GREEN);
-    }
-  }
-  */
 }
 
 void Game::initialize_apartment() {
@@ -267,9 +248,6 @@ void Game::interact_with_apartment() {
     laundry_room_kitchen.update_current_frame(0);
     laundry_room_kitchen.toggle_is_door_open();
   }
-
-  // Living room switch screens
-  // TODO: Create method to draw duck texture (almost whole screen)
 
   // Bathroom
   else if(bathroom.get_is_sesame_in_interaction_boundary() && !bathroom.get_is_door_open()) {
@@ -535,6 +513,11 @@ void Game::handle_keyboard_input() {
       if(sesame_eating.is_time_for_event(seconds_until_finished_eating)) {
         is_done_eating_treats = true;
       }
+    }
+  }
+  else if(IsKeyDown(KEY_A)) {
+    if(living_room.get_is_sesame_in_interaction_boundary()) {
+      DrawTexture(duck_date, 300, 10, WHITE);
     }
   }
   else {

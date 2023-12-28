@@ -45,6 +45,7 @@ class Game {
     Goals find_treats;
     Goals eat_treats;
     Goals hide_treat_box;
+    Texture2D duck_date;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     std::vector<std::vector<float>> wall_boundary_vector;
@@ -70,8 +71,6 @@ class Game {
     bool is_done_eating_treats;
     bool is_hide_treats;
 
-    void set_wall_boundary_vector();
-    void draw_wall_boundary_vector();
     int get_random_value(std::vector<int> vector_random_values, int num_hidden_objects);
     std::vector<float> get_coordinates(int random_value);
     void toggle_full_screen_window(int window_width, int window_height);

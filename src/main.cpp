@@ -25,6 +25,11 @@ int main() {
       case title: {
         BeginDrawing();
         ClearBackground(PINK);
+        // ONLY FOR TESTING
+        // Track position of mouse to get coordinates on screen
+        int test_x = (int)GetMousePosition().x;
+        int test_y = (int)GetMousePosition().y;
+        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
         EndDrawing();
       } break;
       
@@ -41,12 +46,22 @@ int main() {
       case ending_success: {
         BeginDrawing();
         ClearBackground(PINK);
+        // ONLY FOR TESTING
+        // Track position of mouse to get coordinates on screen
+        int test_x = (int)GetMousePosition().x;
+        int test_y = (int)GetMousePosition().y;
+        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
         EndDrawing();
       } break;
 
       case ending_failure: {
         BeginDrawing();
         ClearBackground(BLUE);
+        // ONLY FOR TESTING
+        // Track position of mouse to get coordinates on screen
+        int test_x = (int)GetMousePosition().x;
+        int test_y = (int)GetMousePosition().y;
+        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
         EndDrawing();
       } break;
 
@@ -73,9 +88,6 @@ int main() {
         game.draw_mobile_objects();
         game.draw_game_information();
         game.draw_goals();
-
-        // TEST
-        //DrawTexture(test, 1520, 520, WHITE);
 
         game.handle_keyboard_input();  // Sesame drawn here
         game.handle_mouse_input();
