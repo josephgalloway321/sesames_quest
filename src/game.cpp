@@ -16,7 +16,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   sesame_last_move = 's';  // 's' = sitting, 'l' = walk left, 'd' = walk down, 'r' = walk right, 'u' = walk up
   srand(time(NULL));
   best_time = 0;
-  start_time = 5*60;  // Seconds
+  start_time = 2*60;  // Seconds
   time_remaining = start_time;
   is_successful = false;
 
