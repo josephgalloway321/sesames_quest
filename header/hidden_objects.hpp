@@ -6,6 +6,7 @@
 class Hidden_Objects {
   private:
     Texture2D hidden_object;
+    Rectangle interaction_boundary;
     std::string path_to_texture;
     float position_top_left_x;
     float position_top_left_y;
@@ -22,4 +23,6 @@ class Hidden_Objects {
     void move_right();
     void move_up();
     void move_down();
+    void set_interaction_boundary(Rectangle interaction_boundary);
+    Rectangle get_interaction_boundary() const;
 };

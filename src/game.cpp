@@ -20,6 +20,10 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   is_game_over = false;
   is_successful = false;
 
+  treat_box_location = 0;
+  is_treat_box_revealed = false;
+  is_sesame_near_treat_box = false;
+
   // Initialize apartment rooms
   initialize_apartment();
   set_apartment_room_positions();
@@ -34,10 +38,14 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   // Initialize hidden objects at the beginning of the game
   initialize_hidden_objects();
   set_hidden_objects_starting_positions();
+  set_treat_box_interation_boundary();
 
   // Initialize goals at the beginning of the game
   set_goal_texts();
   set_goal_positions();
+
+  // Determine location of treat box
+  find_treat_box_location();
 }
 
 Game::~Game() {
@@ -282,6 +290,47 @@ void Game::interact_with_apartment() {
   }
 }
 
+void Game::find_treat_box_location() {
+  float x = treat_box.get_position_top_left_x();
+  float y = treat_box.get_position_top_left_y();
+  Rectangle treat_box_boundary = {x, y, 50, 50};
+
+  // Cat bed
+  if(CheckCollisionRecs(treat_box_boundary, cat_bed.get_interaction_boundary())) {
+    cat_bed.set_is_object_hiding_treat_box();
+    treat_box_location = 1;
+  }
+
+  // Bathroom rug  
+  else if(CheckCollisionRecs(treat_box_boundary, bathroom_rug.get_interaction_boundary())) {
+    bathroom_rug.set_is_object_hiding_treat_box();
+    treat_box_location = 2;
+  }
+
+  // Laundry basket
+  else if(CheckCollisionRecs(treat_box_boundary, laundry_basket.get_interaction_boundary())) {
+    laundry_basket.set_is_object_hiding_treat_box();
+    treat_box_location = 3;
+  }
+
+  // Litter box
+  else if(CheckCollisionRecs(treat_box_boundary, litter_box.get_interaction_boundary())) {
+    litter_box.set_is_object_hiding_treat_box();
+    treat_box_location = 4;
+  }
+
+  // Meow rug
+  else if(CheckCollisionRecs(treat_box_boundary, meow_rug.get_interaction_boundary())) {
+    meow_rug.set_is_object_hiding_treat_box();
+    treat_box_location = 5;
+  }
+
+  // TODO: After knowing which mobile object, check is_object_moved
+  // TODO: Change a boolean that says to proceed to goal two
+}
+
+
+
 int Game::get_random_value(std::vector<int> vector_random_values, int num_hidden_objects) {
   int random_value;
   bool is_repeated;
@@ -388,7 +437,7 @@ void Game::check_all_boundaries() {
 
 void Game::check_all_interactions() {
   Rectangle sesame_boundary = sesame.get_sesame_boundary();
-  
+
   // Cat bed
   if(CheckCollisionRecs(sesame_boundary, cat_bed.get_interaction_boundary())) {
     cat_bed.draw_interaction_boundary();
@@ -481,6 +530,13 @@ void Game::handle_keyboard_input() {
   else if(IsKeyDown(KEY_S)) {
     timer_until_meow_or_groom.reset_timer();
     sesame.sleeping();
+  }
+  else if(IsKeyDown(KEY_E)) {
+    if(is_treat_box_revealed && is_sesame_near_treat_box) {
+      timer_until_meow_or_groom.reset_timer();
+      // Start/continue timer for finishing treats
+      sesame.eating();
+    }
   }
   else {
     // No keys held down
@@ -907,5 +963,34 @@ void Game::reset_mobile_objects() {
     bathroom_rug.toggle_move('u', 50);
     bathroom_rug.toggle_move('l', 70);
     bathroom_rug.toggle_is_object_moved();
+  }
+}
+
+void Game::check_find_treats() {
+  // If treat box revealed, then set first goal accomplished
+  if(cat_bed.get_is_treat_box_revealed() || laundry_basket.get_is_treat_box_revealed() ||
+  litter_box.get_is_treat_box_revealed() || meow_rug.get_is_treat_box_revealed() ||
+  bathroom_rug.get_is_treat_box_revealed()) {
+    find_treats.set_goal_accomplshed();
+    is_treat_box_revealed = true;
+  }
+}
+
+void Game::set_treat_box_interation_boundary() {
+  treat_box.set_interaction_boundary({
+      treat_box.get_position_top_left_x() + 15,
+      treat_box.get_position_top_left_y() + 15, 
+      50, 50});
+}
+
+void Game::check_eat_treats() {
+  if(find_treats.get_is_goal_accomplished()) {
+    DrawRectangleRec(treat_box.get_interaction_boundary(), CUSTOM_RED);
+    if(CheckCollisionRecs(sesame.get_sesame_boundary(), treat_box.get_interaction_boundary())) {
+      is_sesame_near_treat_box = true;
+    }
+    else {
+      is_sesame_near_treat_box = false;
+    }
   }
 }

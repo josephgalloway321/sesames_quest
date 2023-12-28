@@ -1,6 +1,7 @@
 #include "../header/hidden_objects.hpp"
 
 Hidden_Objects::Hidden_Objects() {
+  interaction_boundary = {0, 0, 0, 0};
 }
 
 Hidden_Objects::~Hidden_Objects() {
@@ -43,4 +44,12 @@ void Hidden_Objects::move_up() {
 
 void Hidden_Objects::move_down() {
   position_top_left_y += 30;
+}
+
+void Hidden_Objects::set_interaction_boundary(Rectangle interaction_boundary) {
+  this -> interaction_boundary = interaction_boundary;
+}
+
+Rectangle Hidden_Objects::get_interaction_boundary() const {
+  return interaction_boundary;
 }

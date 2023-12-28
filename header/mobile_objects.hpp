@@ -10,6 +10,7 @@ class Mobile_Objects {
     Rectangle collision_boundary;
     std::string path_to_texture;
     bool is_object_moved;
+    bool is_object_hiding_treat_box;
     float position_top_left_x;
     float position_top_left_y;
     bool is_sesame_in_interaction_boundary;
@@ -37,4 +38,6 @@ class Mobile_Objects {
     Rectangle get_collision_boundary() const;
     bool get_is_sesame_in_interaction_boundary() const;
     void toggle_move(char direction, int distance);
+    void set_is_object_hiding_treat_box();
+    bool get_is_treat_box_revealed() const;
 };

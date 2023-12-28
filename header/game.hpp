@@ -62,6 +62,9 @@ class Game {
     int num_hidden_objects;
     int returned_random_value;
     std::vector<int> vector_random_values;
+    int treat_box_location;
+    bool is_treat_box_revealed;
+    bool is_sesame_near_treat_box;
 
     void set_wall_boundary_vector();
     void draw_wall_boundary_vector();
@@ -81,6 +84,7 @@ class Game {
     void set_apartment_room_positions();
     void set_apartment_interaction_boundaries();
     void set_hidden_objects_starting_positions();
+    void set_treat_box_interation_boundary();
     void set_mobile_objects_starting_positions();
     void set_mobile_objects_interaction_boundaries();
     void set_mobile_objects_collision_boundaries();
@@ -89,6 +93,7 @@ class Game {
     void interact_with_mobile_objects();
     void reverse_sesame_last_move();
     void interact_with_apartment();
+    void find_treat_box_location();
 
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
@@ -108,4 +113,6 @@ class Game {
     bool check_is_successful() const;
     void reset_game();
     void reset_mobile_objects();
+    void check_find_treats();
+    void check_eat_treats();
 };

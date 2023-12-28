@@ -85,6 +85,9 @@ int main() {
 
         game.countdown_timer();
 
+        game.check_find_treats();
+        game.check_eat_treats();
+
         if(game.check_game_over() && game.check_is_successful()) {
           current_screen = ending_success;
         }

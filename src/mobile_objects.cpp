@@ -3,6 +3,7 @@
 Mobile_Objects::Mobile_Objects() {
   is_sesame_in_interaction_boundary = false;
   is_object_moved = false;
+  is_object_hiding_treat_box = false;
   collision_boundary = {0, 0, 0, 0};
 }
 
@@ -110,4 +111,15 @@ bool Mobile_Objects::get_is_object_moved() {
 
 void Mobile_Objects::toggle_is_object_moved() {
   is_object_moved = !is_object_moved;
+}
+
+void Mobile_Objects::set_is_object_hiding_treat_box() {
+  is_object_hiding_treat_box = true;
+}
+
+bool Mobile_Objects::get_is_treat_box_revealed() const {
+  if(is_object_hiding_treat_box && is_object_moved) {
+    return true;
+  }
+  return false;
 }

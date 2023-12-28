@@ -5,8 +5,9 @@ Goals::Goals() {
   max_frames = 3;
   frame_width = (float)(goal.width / max_frames);
   frame_height = goal.height;
-  
+
   is_goal_accomplished = false;
+  is_goal_failed = false;
 }
 
 Goals::~Goals() {
@@ -23,22 +24,9 @@ void Goals::set_goal_text(std::string goal_text) {
 }
 
 void Goals::draw_goal() const {
-  DrawTextureRec(
-    goal,
-    Rectangle{
-      frame_width * 0,
-      0,
-      frame_width,
-      frame_height},
-    Vector2{
-      position_top_left_x,
-      position_top_left_y},
-      WHITE);
-  DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
-}
-
-void Goals::draw_goal_accomplished() const {
-  DrawTextureRec(
+  if(is_goal_accomplished) {
+    // Draw checkbox with check
+    DrawTextureRec(
     goal,
     Rectangle{
       frame_width * 1,
@@ -49,11 +37,11 @@ void Goals::draw_goal_accomplished() const {
       position_top_left_x,
       position_top_left_y},
       WHITE);
-  DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
-}
-
-void Goals::draw_goal_failed() const {
-  DrawTextureRec(
+    DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
+  }
+  else if(is_goal_failed) {
+    // Draw checkbox with red x
+    DrawTextureRec(
     goal,
     Rectangle{
       frame_width * 2,
@@ -64,7 +52,23 @@ void Goals::draw_goal_failed() const {
       position_top_left_x,
       position_top_left_y},
       WHITE);
-  DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
+    DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
+  }
+  else {
+    // Draw empty checkbox
+    DrawTextureRec(
+    goal,
+    Rectangle{
+      frame_width * 0,
+      0,
+      frame_width,
+      frame_height},
+    Vector2{
+      position_top_left_x,
+      position_top_left_y},
+      WHITE);
+    DrawText(goal_text.c_str(), position_top_left_x + 50, position_top_left_y, 30, WHITE);
+  }
 }
 
 bool Goals::get_is_goal_accomplished() {
