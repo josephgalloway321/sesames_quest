@@ -14,7 +14,7 @@ int main() {
 
   // Create game objects
   Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
-  enum GameScreen {title, cut_scene, gameplay, duck_closeup, ending_success, ending_failure};
+  enum GameScreen {title, cut_scene, gameplay, ending_success, ending_failure};
   GameScreen current_screen = gameplay;
 
   while(!WindowShouldClose()) {

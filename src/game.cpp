@@ -255,6 +255,7 @@ void Game::interact_with_mobile_objects() {
 }
 
 void Game::interact_with_apartment() {
+  // Laundry room & kitchen
   if(laundry_room_kitchen.get_is_sesame_in_interaction_boundary() && !laundry_room_kitchen.get_is_door_open()) {
     laundry_room_kitchen.update_current_frame(1);
     laundry_room_kitchen.toggle_is_door_open();
@@ -265,7 +266,9 @@ void Game::interact_with_apartment() {
   }
 
   // Living room switch screens
+  // TODO: Create method to draw duck texture (almost whole screen)
 
+  // Bathroom
   else if(bathroom.get_is_sesame_in_interaction_boundary() && !bathroom.get_is_door_open()) {
     bathroom.update_current_frame(9);
     bathroom.toggle_is_door_open();
@@ -275,6 +278,7 @@ void Game::interact_with_apartment() {
     bathroom.toggle_is_door_open();
   }
 
+  // Bedroom
   else if(bedroom.get_is_sesame_in_interaction_boundary() && !bedroom.get_is_door_open()) {
     bedroom.update_current_frame(12);
     bedroom.toggle_is_door_open();
@@ -832,8 +836,6 @@ void Game::draw_game_information() {
 }
 
 void Game::draw_apartment() {
-  // Write logic determining which frame of apartment to show based on 
-  // Sesame interacting with opening/closing doors
   laundry_room_kitchen.draw_room();
   living_room.draw_room();
   bathroom.draw_room();
