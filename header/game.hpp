@@ -21,6 +21,7 @@ class Game {
     Sesame sesame;
     Timer timer_until_meow_or_groom;
     Timer timer_countdown;
+    Timer sesame_eating;
     Font font;
     Audio audio;
     Vector2 mouse_position;
@@ -43,7 +44,7 @@ class Game {
     Hidden_Objects treat_box;
     Goals find_treats;
     Goals eat_treats;
-    Goals hide_empty_treat_box;
+    Goals hide_treat_box;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
     std::vector<std::vector<float>> wall_boundary_vector;
@@ -57,14 +58,17 @@ class Game {
     int best_time;  // seconds
     int start_time; // seconds
     int time_remaining;  // seconds
-    bool is_game_over;
     bool is_successful;
     int num_hidden_objects;
     int returned_random_value;
     std::vector<int> vector_random_values;
+
     int treat_box_location;
     bool is_treat_box_revealed;
     bool is_sesame_near_treat_box;
+    int seconds_until_finished_eating;
+    bool is_done_eating_treats;
+    bool is_hide_treats;
 
     void set_wall_boundary_vector();
     void draw_wall_boundary_vector();
@@ -94,6 +98,7 @@ class Game {
     void reverse_sesame_last_move();
     void interact_with_apartment();
     void find_treat_box_location();
+    void set_is_game_over();
 
   public:
     Game(int SCREEN_WIDTH, int SCREEN_HEIGHT);
@@ -115,4 +120,5 @@ class Game {
     void reset_mobile_objects();
     void check_find_treats();
     void check_eat_treats();
+    void check_hide_treats();
 };

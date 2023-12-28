@@ -39,5 +39,6 @@ class Mobile_Objects {
     bool get_is_sesame_in_interaction_boundary() const;
     void toggle_move(char direction, int distance);
     void set_is_object_hiding_treat_box();
+    bool get_is_object_hiding_treat_box() const;
     bool get_is_treat_box_revealed() const;
 };

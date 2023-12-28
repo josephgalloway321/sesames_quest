@@ -123,3 +123,7 @@ bool Mobile_Objects::get_is_treat_box_revealed() const {
   }
   return false;
 }
+
+bool Mobile_Objects::get_is_object_hiding_treat_box() const {
+  return is_object_hiding_treat_box;
+}

@@ -17,12 +17,14 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   best_time = 0;
   start_time = 999;
   time_remaining = start_time;
-  is_game_over = false;
   is_successful = false;
 
   treat_box_location = 0;
   is_treat_box_revealed = false;
   is_sesame_near_treat_box = false;
+  seconds_until_finished_eating = 3;
+  is_done_eating_treats = false;
+  is_hide_treats = false;
 
   // Initialize apartment rooms
   initialize_apartment();
@@ -185,7 +187,7 @@ void Game::set_mobile_objects_collision_boundaries() {
 void Game::set_goal_texts() {
   find_treats.set_goal_text("Find treats");
   eat_treats.set_goal_text("Eat treats");
-  hide_empty_treat_box.set_goal_text("Hide treat box");
+  hide_treat_box.set_goal_text("Hide treat box");
 }
 
 void Game::set_goal_positions() {
@@ -202,7 +204,7 @@ void Game::set_goal_positions() {
 
   find_treats.set_position(find_treats_top_left_position_x, find_treats_top_left_position_y);
   eat_treats.set_position(eat_treats_top_left_position_x, eat_treats_top_left_position_y);
-  hide_empty_treat_box.set_position(hide_empty_treat_box_top_left_position_x, hide_empty_treat_box_top_left_position_y);
+  hide_treat_box.set_position(hide_empty_treat_box_top_left_position_x, hide_empty_treat_box_top_left_position_y);
 }
 
 void Game::interact_with_mobile_objects() {
@@ -324,12 +326,7 @@ void Game::find_treat_box_location() {
     meow_rug.set_is_object_hiding_treat_box();
     treat_box_location = 5;
   }
-
-  // TODO: After knowing which mobile object, check is_object_moved
-  // TODO: Change a boolean that says to proceed to goal two
 }
-
-
 
 int Game::get_random_value(std::vector<int> vector_random_values, int num_hidden_objects) {
   int random_value;
@@ -534,8 +531,10 @@ void Game::handle_keyboard_input() {
   else if(IsKeyDown(KEY_E)) {
     if(is_treat_box_revealed && is_sesame_near_treat_box) {
       timer_until_meow_or_groom.reset_timer();
-      // Start/continue timer for finishing treats
       sesame.eating();
+      if(sesame_eating.is_time_for_event(seconds_until_finished_eating)) {
+        is_done_eating_treats = true;
+      }
     }
   }
   else {
@@ -543,6 +542,7 @@ void Game::handle_keyboard_input() {
     // After sitting w/o user input, meow or groom
     handle_meow_or_groom();
     sesame_last_move = 's';
+    sesame_eating.reset_timer();
   }
 
   // Handle keys pressed
@@ -902,7 +902,7 @@ void Game::draw_hidden_objects() const {
 void Game::draw_goals() const {
   find_treats.draw_goal();
   eat_treats.draw_goal();
-  hide_empty_treat_box.draw_goal();
+  hide_treat_box.draw_goal();
 }
 
 Font Game::get_font() const {
@@ -917,10 +917,16 @@ void Game::countdown_timer() {
 }
 
 bool Game::check_game_over() {
-  if(time_remaining == 0) {
-    is_game_over = true;
+  if(find_treats.get_is_goal_accomplished() && eat_treats.get_is_goal_accomplished() &&
+  hide_treat_box.get_is_goal_accomplished()) {
+    is_successful = true;
+    return true;
   }
-  return is_game_over;
+  else if(time_remaining == 0) {
+    is_successful = false;
+    return true;
+  }
+  return false;
 }
 
 bool Game::check_is_successful() const {
@@ -985,12 +991,36 @@ void Game::set_treat_box_interation_boundary() {
 
 void Game::check_eat_treats() {
   if(find_treats.get_is_goal_accomplished()) {
-    DrawRectangleRec(treat_box.get_interaction_boundary(), CUSTOM_RED);
     if(CheckCollisionRecs(sesame.get_sesame_boundary(), treat_box.get_interaction_boundary())) {
+      DrawRectangleRec(treat_box.get_interaction_boundary(), CUSTOM_RED);
       is_sesame_near_treat_box = true;
     }
     else {
       is_sesame_near_treat_box = false;
+    }
+  }
+
+  if(is_done_eating_treats) {
+    eat_treats.set_goal_accomplshed();
+  }
+}
+
+void Game::check_hide_treats() {
+  if(eat_treats.get_is_goal_accomplished()) {
+    if(cat_bed.get_is_object_hiding_treat_box() &&  !cat_bed.get_is_object_moved()) {
+      hide_treat_box.set_goal_accomplshed();
+    }
+    else if(laundry_basket.get_is_object_hiding_treat_box() &&  !laundry_basket.get_is_object_moved()) {
+      hide_treat_box.set_goal_accomplshed();
+    }
+    else if(litter_box.get_is_object_hiding_treat_box() &&  !litter_box.get_is_object_moved()) {
+      hide_treat_box.set_goal_accomplshed();
+    }
+    else if(meow_rug.get_is_object_hiding_treat_box() &&  !meow_rug.get_is_object_moved()) {
+      hide_treat_box.set_goal_accomplshed();
+    }
+    else if(bathroom_rug.get_is_object_hiding_treat_box() &&  !bathroom_rug.get_is_object_moved()) {
+      hide_treat_box.set_goal_accomplshed();
     }
   }
 }
