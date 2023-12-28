@@ -2,7 +2,6 @@
 
 Game::Game(int SCREEN_WIDTH, int SCREEN_HEIGHT) : 
 SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
-  wall_boundary_vector = {{200, 200}, {250, 250}, {275, 275}};
   game_information_start_x = 1515;
   game_information_width = SCREEN_WIDTH - game_information_start_x;
 
@@ -31,6 +30,7 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
   initialize_apartment();
   set_apartment_room_positions();
   set_apartment_interaction_boundaries();
+  set_apartment_collision_boundaries();
 
   // Initialize mobile objects at the beginning of the game
   initialize_mobile_objects();
@@ -99,6 +99,20 @@ void Game::set_apartment_interaction_boundaries() {
   living_room.set_interaction_boundary({60, 600, 90, 150});
   bathroom.set_interaction_boundary({1158, 185, 50, 115});
   bedroom.set_interaction_boundary({975, 615, 115, 115});
+}
+
+void Game::set_apartment_collision_boundaries() {
+  laundry_room_kitchen.set_collision_boundary({0, 0, 0, 0});
+  living_room.set_collision_boundary();
+  bathroom.set_collision_boundary();
+  bedroom.set_collision_boundary();
+}
+
+void Game::draw_wall_boundaries() {
+  laundry_room_kitchen.draw_collision_boundary();
+  living_room.draw_collision_boundary();
+  bathroom.draw_collision_boundary();
+  bedroom.draw_collision_boundary();
 }
 
 void Game::set_hidden_objects_starting_positions() {
@@ -399,15 +413,16 @@ void Game::check_all_boundaries() {
   // TODO: Check collisions with walls by room
 
   // Check collisions with mobile objects
-  // Use the method calls below for debugging
-  //laundry_basket.draw_collision_boundary();
-  //litter_box.draw_collision_boundary(); 
   if(CheckCollisionRecs(sesame.get_sesame_boundary(), laundry_basket.get_collision_boundary())) {
     reverse_sesame_last_move();
   }
   else if(CheckCollisionRecs(sesame.get_sesame_boundary(), litter_box.get_collision_boundary())) {
     reverse_sesame_last_move();
   }
+
+  // Use the method calls below for debugging
+  //laundry_basket.draw_collision_boundary();
+  //litter_box.draw_collision_boundary(); 
 }
 
 void Game::check_all_interactions() {

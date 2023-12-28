@@ -88,6 +88,7 @@ int main() {
         game.draw_mobile_objects();
         game.draw_game_information();
         game.draw_goals();
+        game.draw_wall_boundaries();
 
         game.handle_keyboard_input();  // Sesame drawn here
         game.handle_mouse_input();

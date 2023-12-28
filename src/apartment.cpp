@@ -78,3 +78,14 @@ void Apartment::draw_interaction_boundary() {
   DrawRectangleRec(interaction_boundary, CUSTOM_RED);
 }
 
+void Apartment::set_collision_boundary(Rectangle get_collision_boundary) {
+  this -> collision_boundary = collision_boundary;
+}
+
+Rectangle Apartment::get_collision_boundary() const {
+  return collision_boundary;
+}
+
+void Apartment::draw_collision_boundary() {
+  DrawRectangleRec(collision_boundary, CUSTOM_BLUE);
+}

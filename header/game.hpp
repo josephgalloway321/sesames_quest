@@ -48,7 +48,6 @@ class Game {
     Texture2D duck_date;
 
     int SCREEN_WIDTH, SCREEN_HEIGHT;
-    std::vector<std::vector<float>> wall_boundary_vector;
     int game_information_start_x;
     int game_information_width;
     bool is_time_to_meow_or_groom;
@@ -86,6 +85,7 @@ class Game {
     void initialize_mobile_objects();
     void set_apartment_room_positions();
     void set_apartment_interaction_boundaries();
+    void set_apartment_collision_boundaries();
     void set_hidden_objects_starting_positions();
     void set_treat_box_interation_boundary();
     void set_mobile_objects_starting_positions();
@@ -120,4 +120,5 @@ class Game {
     void check_find_treats();
     void check_eat_treats();
     void check_hide_treats();
+    void draw_wall_boundaries();
 };

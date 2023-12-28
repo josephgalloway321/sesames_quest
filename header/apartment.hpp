@@ -6,6 +6,7 @@ class Apartment {
   private:
     Texture2D apartment;
     Rectangle interaction_boundary;
+    Rectangle collision_boundary;
 
     int max_frames;
     float frame_width;
@@ -25,9 +26,13 @@ class Apartment {
     void draw_room();
     void update_current_frame(int current_frame);
     void set_interaction_boundary(Rectangle interaction_boundary);
-    void draw_interaction_boundary();
-    void set_is_sesame_in_interaction_boundary(bool condition);
     Rectangle get_interaction_boundary() const;
+    void draw_interaction_boundary();
+    void set_collision_boundary(Rectangle get_collision_boundary);
+    Rectangle get_collision_boundary() const;
+    void draw_collision_boundary();
+    void set_is_sesame_in_interaction_boundary(bool condition);
+    
     bool get_is_sesame_in_interaction_boundary() const;
     void toggle_is_door_open();
     bool get_is_door_open() const;
