@@ -57,6 +57,24 @@ SCREEN_WIDTH(SCREEN_WIDTH), SCREEN_HEIGHT(SCREEN_HEIGHT) {
 
 Game::~Game() {
   UnloadFont(font);
+  UnloadTexture(duck_date);
+  UnloadTexture(human);
+}
+
+void Game::call_sesame_dancing() {
+  sesame.dancing();
+}
+
+void Game::call_sesame_scared() {
+  sesame.scared();
+}
+
+void Game::call_sesame_happy() {
+  sesame.happy();
+}
+
+void Game::call_sesame_sad() {
+  sesame.sad();
 }
 
 void Game::start_cut_scene_timers() {
@@ -1088,4 +1106,8 @@ void Game::check_hide_treats() {
       hide_treat_box.set_goal_accomplshed();
     }
   }
+}
+
+int Game::get_time_remaining() const {
+  return time_remaining;
 }

@@ -75,6 +75,11 @@ Sesame::Sesame() {
   sesame_woken_current_frame = sesame_woken_start_frame_index;
   sesame_sleeping_end_frame_index = sesame_woken_start_frame_index;
   sesame_woken_end_frame_index = sesame_sleeping_woken_max_frames;
+
+  sesame_happy_sad = LoadTexture("C:/Users/josep/Documents/GitHub/sesames_quest/resources/sprites/sesame/sesame_happy_sad.png");
+  sesame_happy_sad_max_frames = 2;
+  sesame_happy_sad_frame_width = (float)(sesame_happy_sad.width / sesame_happy_sad_max_frames);
+  sesame_happy_sad_frame_height = sesame_happy_sad.height;
 }
 
 Sesame::~Sesame() {
@@ -371,8 +376,8 @@ void Sesame::dancing() {
       sesame_dancing_frame_width,
       sesame_dancing_frame_height},
     Vector2{
-      sesame_position_top_left_x,
-      sesame_position_top_left_y},
+      1115,
+      725},
       WHITE);
 }
 
@@ -389,8 +394,8 @@ void Sesame::scared() {
       sesame_scared_frame_width,
       sesame_scared_frame_height},
     Vector2{
-      sesame_position_top_left_x,
-      sesame_position_top_left_y},
+      1115,
+      725},
       WHITE);
 }
 
@@ -431,6 +436,34 @@ void Sesame::woken() {
     Vector2{
       sesame_position_top_left_x,
       sesame_position_top_left_y},
+      WHITE);
+}
+
+void Sesame::happy() {
+  DrawTextureRec(
+    sesame_happy_sad,
+    Rectangle{
+      sesame_happy_sad_frame_width * 0,
+      0,
+      sesame_happy_sad_frame_width,
+      sesame_happy_sad_frame_height},
+    Vector2{
+      sesame_position_top_left_x - 500,
+      sesame_position_top_left_y - 50},
+      WHITE);
+}
+
+void Sesame::sad() {
+  DrawTextureRec(
+    sesame_happy_sad,
+    Rectangle{
+      sesame_happy_sad_frame_width * 1,
+      0,
+      sesame_happy_sad_frame_width,
+      sesame_happy_sad_frame_height},
+    Vector2{
+      sesame_position_top_left_x - 500,
+      sesame_position_top_left_y - 50},
       WHITE);
 }
 

@@ -59,12 +59,19 @@ int main() {
       case ending_success: {
         BeginDrawing();
         ClearBackground(PINK);
+        DrawText("Success!", 450, 350, 64, WHITE);
+        DrawText(TextFormat("Time Remaining: %d", game.get_time_remaining()), 450, 550, 32, WHITE);
+        game.call_sesame_dancing();
+        game.call_sesame_happy();
         EndDrawing();
       } break;
 
       case ending_failure: {
         BeginDrawing();
         ClearBackground(BLUE);
+        DrawText("Failed!", 450, 350, 64, RED);
+        game.call_sesame_scared();
+        game.call_sesame_sad();
         EndDrawing();
       } break;
 
@@ -81,11 +88,6 @@ int main() {
           current_screen = cut_scene;
           game.start_cut_scene_timers();
         }
-
-        // ONLY FOR TESTING, Track position of mouse to get coordinates on screen
-        int test_x = (int)GetMousePosition().x;
-        int test_y = (int)GetMousePosition().y;
-        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
       } break;
 
       case cut_scene: {
@@ -100,11 +102,6 @@ int main() {
           current_screen = gameplay;
           game.cut_scene_done();
         }
-
-        // ONLY FOR TESTING, Track position of mouse to get coordinates on screen
-        int test_x = (int)GetMousePosition().x;
-        int test_y = (int)GetMousePosition().y;
-        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
       } break;
 
       case gameplay: {
@@ -134,33 +131,25 @@ int main() {
         else if(game.check_game_over()) {
           current_screen = ending_failure;
         }
-
-        // ONLY FOR TESTING, Track position of mouse to get coordinates on screen
-        int test_x = (int)GetMousePosition().x;
-        int test_y = (int)GetMousePosition().y;
-        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
       } break;
 
       case ending_success: {
-        game.reset_game();
-
-        // ONLY FOR TESTING, Track position of mouse to get coordinates on screen
-        int test_x = (int)GetMousePosition().x;
-        int test_y = (int)GetMousePosition().y;
-        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
-      } break;
+        //game.reset_game();
+        } break;
 
       case ending_failure: {
-        game.reset_game();
-
-        // ONLY FOR TESTING, Track position of mouse to get coordinates on screen
-        int test_x = (int)GetMousePosition().x;
-        int test_y = (int)GetMousePosition().y;
-        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
-      } break;
+        //game.reset_game();
+        } break;
 
       default:
         break;
     }
   }
 }
+
+/*
+// ONLY FOR TESTING, Track position of mouse to get coordinates on screen
+        int test_x = (int)GetMousePosition().x;
+        int test_y = (int)GetMousePosition().y;
+        DrawText(TextFormat("x: %d,\n\ny: %d", test_x, test_y), 25, 10, 25, WHITE);
+*/

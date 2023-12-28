@@ -133,4 +133,9 @@ class Game {
     void draw_wall_boundaries();
     bool get_end_cut_scene() const;
     void start_cut_scene_timers();
+    int get_time_remaining() const;
+    void call_sesame_dancing();
+    void call_sesame_scared();
+    void call_sesame_happy();
+    void call_sesame_sad();
 };

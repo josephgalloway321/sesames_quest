@@ -13,6 +13,7 @@ class Sesame {
     Texture2D sesame_dancing;
     Texture2D sesame_scared;
     Texture2D sesame_sleeping_woken;
+    Texture2D sesame_happy_sad;
 
     int sesame_current_action;
 
@@ -84,6 +85,10 @@ class Sesame {
     int sesame_sleeping_end_frame_index;
     int sesame_woken_end_frame_index;
 
+    int sesame_happy_sad_max_frames;
+    float sesame_happy_sad_frame_width;
+    float sesame_happy_sad_frame_height; 
+
   public:
     Sesame();
     ~Sesame();
@@ -107,6 +112,9 @@ class Sesame {
     void scared();
     void sleeping();
     void woken();
+
+    void happy();
+    void sad();
 
     int get_sesame_grooming_current_frame() const;
     int get_sesame_meowing_current_frame() const;
