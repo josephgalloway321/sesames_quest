@@ -9,7 +9,7 @@ Sesame's Quest is a simple 2D game built using C++, the Piskel website, and the 
 - I really enjoyed applying software engineering concepts I learned from class to this project
 
 # Class Interaction Diagram
-![](./class_interaction_diagram.png)
+
 
 # References
 - ["Programming With Nick" VS Code template](https://github.com/educ8s/Raylib-CPP-Starter-Template-for-VSCODE-V2)
